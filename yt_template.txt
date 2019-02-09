@@ -1,0 +1,2 @@
+This is an introductory python programming video. 
+For code and written explanation visit pykancha.blogspot.com
