@@ -4,7 +4,7 @@ Config manager file to quickly write app configurations
 import json
 import datetime
 import os
-from logger_file import Logger
+from .logger_file import Logger
 
 logger = Logger(console=False).get_logger()
 
@@ -21,9 +21,9 @@ class Config:
     '''
 
     def __init__(self, file, backup_dir='~/.cli_backup/'):
-        self.file_path = os.path.expanduser(file)
+        self.file_path = os.path.abspath(os.path.expanduser(file))
         self.file = os.path.basename(file)
-        self.backup_dir = os.path.expanduser(backup_dir)
+        self.backup_dir = os.path.abspath(os.path.expanduser(backup_dir))
 
     def __str__(self):
         return self.file_path
@@ -75,7 +75,11 @@ class Config:
             backup [boolean] : Defaults to True
         '''
         # manage name acc to current datetime
-        name = str(datetime.datetime.now()) + '.cfg'
+        date_today = str(datetime.datetime.now())
+        rep_dots = date_today.replace('.','_').replace(":", "_")
+        rep_space = rep_dots.replace('-','_').replace(" ","_")
+        name = rep_space + '.cfg'
+
         if backup:
             if not os.path.exists(self.backup_dir):
                 os.makedirs(self.backup_dir)

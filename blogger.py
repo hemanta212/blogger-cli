@@ -8,10 +8,10 @@ import os
 from pprint import pprint
 import click
 import jmespath
-from config_writer import Config as Cfg
-from logger_file import Logger
 from cli_utils.blog import Blog
 from cli_utils import converter as Converter
+from cli_utils.logger_file import Logger
+from cli_utils.config_writer import Config as Cfg
 
 cfg = Cfg('~/.blogger_cli.cfg', backup_dir='~/.blogger_cli/backup/')
 logger_cls = Logger(level='debug', console=False)
@@ -21,14 +21,14 @@ logger = logger_cls.get_logger()
 @click.group()
 def main():
     '''
-     A testing project for blogger-cli project
+     A CLI tool to maintain your blogger blog. Sync, convert and upload instantly :).
     '''
 
 
 @main.command()
 def hi():
     '''
-    A comand test if succesfully installed
+    A command to test if succesfully installed!
     '''
     message = '''
             WELCOME TO BLOGGER_CLI
@@ -43,7 +43,21 @@ use blogger-cli --help for more info!
 @click.option('--blog', '-b', help='name of the blog')
 @click.argument('command', nargs=-1, required=False)
 def config(command, blog):
+    '''
+    Set configurations for a blog
 
+    Usage:
+    set config : blogger-cli config -b myblog html-dir ~/Desktop/myblog/html
+    query config value: blogger-cli config -b myblog html-dir
+    query available config keys: blogger-cli config -b myblog keys
+
+    Tip:
+    You can omit -b blog to use default blog.
+
+    MORE COMMANDS:
+    view all config: blogger-cli config
+    delete config file: blogger-cli config delete
+    '''
     try:
         cfg.get_dict()
 
@@ -80,7 +94,7 @@ def config(command, blog):
                 print("\n".join(message))
                 return 0
 
-        else: #if blog is given 
+        else: #if blog is given
             blog_obj = Blog(cfg, blog)
 
         if blog_obj.exists():
@@ -94,7 +108,7 @@ def config(command, blog):
                     [print(k) for k,v in blog_dict.items()]
 
                 else:
-                    (key,) = command 
+                    (key,) = command
                     try:
                         value = blog_obj.get_value(key)
                         print(key+":", value)
@@ -119,6 +133,16 @@ def config(command, blog):
 def blogs(setup, add, remove, info, default):
     '''
     Manages blogs setting, adding, removing and listing all blogs.
+
+    Usage:
+    blogger-cli blogs --add/-a myblog
+    blogger-cli blogs --setup/-s myblog
+    blogger-cli blogs --default/-def myblog
+    blogger-cli blogs --remove/-rm myblog
+
+    blogger-cli blogs config
+    blogger-cli blogs config_file
+    blogger-cli blogs list
     '''
 
     if add:
@@ -155,7 +179,7 @@ def blogs(setup, add, remove, info, default):
         if blog_obj.exists():
             blog_obj.set_default(blog_name)
             print("Default blog set to",blog_name)
-    
+
     elif remove:
         blog_name = remove
         blog_obj = Blog(cfg, blog_name)
@@ -198,6 +222,18 @@ def blogs(setup, add, remove, info, default):
 @click.argument('dest_path',type=click.Path(),required=False)
 @click.option('--blog','-b', help="name of blog whose config to use when needed")
 def convert(orig_type, orig_path, dest_type, dest_path, blog):
+    '''
+    Converts files or folder with files to desired extension.
+    Usage:
+    convert file to file :
+     blogger-cli convert ipynb ~/Desktop/new.ipynb html ~/myblog/html/new.html
+    keep to a folder with same name:
+     blogger-cli convert ipynb ~/Desktop/new.ipynb html ~/myblog/html/
+
+    To use your default config:
+    blogger-cli convert ipynb html
+    '''
+
     supported_conversions = {'ipynb':'html'}
     from_ = Converter.get_from(orig_type, orig_path)
     print(from_)

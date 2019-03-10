@@ -12,6 +12,7 @@ google-api-python-client = "^1.7"
 click = "^7.0"
 wily = "^1.12"
 jmespath = "^0.9.4"
+rope = "^0.12.0"
 
 [tool.poetry.dev-dependencies]
 

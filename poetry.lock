@@ -688,6 +688,14 @@ six = ">=1.7.0"
 
 [[package]]
 category = "main"
+description = "a python refactoring library..."
+name = "rope"
+optional = false
+python-versions = "*"
+version = "0.12.0"
+
+[[package]]
+category = "main"
 description = "Pure-Python RSA implementation"
 name = "rsa"
 optional = false
@@ -836,7 +844,7 @@ python = ">=3.6,<3.7"
 version = "*"
 
 [metadata]
-content-hash = "7b60b5058c84e7c2048d5bde97b7544db91b6ca983baa8a67930d79d696d7345"
+content-hash = "17f5e6ea58a324eaa6a9d6891680b6f9faf4d587fde70ed1aed3aafcfe6263a1"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -903,6 +911,7 @@ qtconsole = ["1ac4a65e81a27b0838330a6d351c2f8435d4013d98a95373e8a41119b2968390",
 radon = ["6d8f40b02141bb94c6b87cc4fdb6ca1f8ff6ab4128f4f0b155d4bab08736ca40", "ecb54053f8c2ead7226c5c7d06134305c44af410ddcf79689c796e4f8af6d428"]
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 retrying = ["08c039560a6da2fe4f2c426d0766e284d3b736e355f8dd24b37367b0bb41973b"]
+rope = ["031eb54b3eeec89f4304ede816995ed2b93a21e6fba16bd02aff10a0d6c257b7"]
 rsa = ["14ba45700ff1ec9eeb206a2ce76b32814958a98e372006c8fb76ba820211be66", "1a836406405730121ae9823e19c6e806c62bbad73f890574fff50efa4122c487"]
 send2trash = ["60001cc07d707fe247c94f74ca6ac0d3255aabcb930529690897ca2a39db28b2", "f1691922577b6fa12821234aeb57599d887c4900b9ca537948d2dac34aea888b"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
