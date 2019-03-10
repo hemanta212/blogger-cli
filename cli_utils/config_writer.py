@@ -76,8 +76,8 @@ class Config:
         '''
         # manage name acc to current datetime
         date_today = str(datetime.datetime.now())
-        rep_dots = date_today.replace('.','_').replace(":", "_")
-        rep_space = rep_dots.replace('-','_').replace(" ","_")
+        rep_dots = date_today.replace('.', '_').replace(":", "_")
+        rep_space = rep_dots.replace('-', '_').replace(" ", "_")
         name = rep_space + '.cfg'
 
         if backup:
