@@ -9,6 +9,9 @@ license = "MIT"
 python = "^3.6"
 jupyter = "^1.0"
 google-api-python-client = "^1.7"
+click = "^7.0"
+wily = "^1.12"
+jmespath = "^0.9.4"
 
 [tool.poetry.dev-dependencies]
 
