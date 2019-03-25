@@ -1,5 +1,5 @@
 # blogger-cli
-A cli tool to manage my blogger through blogger api
+A cli tool to manage and process my blogs in github pages. 
 
 # Work In Progress : Alpha stage
 
@@ -16,5 +16,4 @@ It allows you to add multiple blogs and manage them using config files. Convert 
   2. Integrate logging and documentation
   3. Improve code quality and reduce complexity
   4. Support templates for text to html conversion
-  3. Integration with blogger api
-  4. Integration with github pages
+  5. Integration with github pages
