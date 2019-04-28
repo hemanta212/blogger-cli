@@ -12,16 +12,16 @@ class Logger:
         level = specify level for Hfilehandler (Warning is default)
         file = file to write log messages to (project.log is default)
         mode = which mode to write. Default['a']
-        debug_file = specify mode file
+        debug_file = specify debug file
         debug_mode = specify which mode to use default['w']
-        console [bool] = swictch console logging on or off.
+        console [bool] = switch console logging on or off.
     '''
 
     def __init__(self, name=None, level='warning', mode='a', debug_mode='w',
-                file='project.log', debug_file=None, console=False, **kwargs):
+                 file='project.log', debug_file=None, console=False, **kwargs):
         super().__init__(**kwargs)
         self.name = name
-        self.level = self.level_parser(level)
+        self.level = self.__level_parser(level)
         self.file = file
         self.mode = mode
         self.debug_mode = debug_mode
@@ -29,7 +29,7 @@ class Logger:
         self.debug_file = debug_file
 
     @staticmethod
-    def level_parser(key):
+    def __level_parser(key):
         '''
         logging attrs mapping to strs for easy parameter setting.
         param = 'debug', 'warning' etc in str
@@ -46,7 +46,7 @@ class Logger:
         return level_dict[key]
 
     @staticmethod
-    def handle_file(file):
+    def __handle_file(file):
         '''
         Checks if file exists else creates directory upto that file.
         Params:
@@ -56,7 +56,7 @@ class Logger:
             try:
                 if os.path.split(file)[0] != '':
                     os.makedirs(os.path.split(file)[0])
-            except FileExistsError :
+            except FileExistsError:
                 pass
 
     def get_logger(self):
@@ -84,15 +84,15 @@ class Logger:
             # add console_handler to logger
             logger.addHandler(console_handler)
 
-         # create file handler and set level
-        self.handle_file(self.file)
+        # create file handler and set level
+        self.__handle_file(self.file)
         filehandler = logging.FileHandler(self.file, mode=self.mode)
         filehandler.setLevel(self.level)
         filehandler.setFormatter(formatter)
         logger.addHandler(filehandler)
 
         if self.debug_file:
-            self.handle_file(self.debug_file)
+            self.__handle_file(self.debug_file)
             debug_filehandler = logging.FileHandler(
                 self.debug_file, mode=self.debug_mode)
             debug_filehandler.setLevel(logging.DEBUG)

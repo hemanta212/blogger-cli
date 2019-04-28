@@ -1,11 +1,12 @@
 *.pyc*
 *__pycache__*
-.ropeproject
+*.ropeproject
 *.log*
 *.personal*
 *.swo*
 *.swp*
+*.swn*
 *.orig*
 *.idea*
 *.vs*
-
+*.egg-info*
