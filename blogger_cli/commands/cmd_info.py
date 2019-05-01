@@ -2,14 +2,14 @@ import click
 from blogger_cli.cli import pass_context
 
 
-@click.command('info', short_help="Register a new blog")
+@click.command('info', short_help="Show blog's properties")
 @click.argument('blog', required=False)
 @click.option('-v', '--verbose', is_flag=True)
 @pass_context
 def cli(ctx, blog, verbose):
     """ 
-    Get property details\n
-    Usage:\n 
+    Get details about blogs and app itself\n
+    Usage:\n
     bloggger info\n
     blogger info <blogname>
     """
@@ -26,7 +26,7 @@ def cli(ctx, blog, verbose):
             default = ctx.default_blog
             ctx.log('  ', i) if i != default else ctx.log('  ', i, '[default]')
         if len(ctx.blog_list) == 0:
-            ctx.log(' ',"No blog registered yet!")
+            ctx.log(' ', "No blog registered yet!")
 
         ctx.log("\nBlog:configs [standard]")
         for i in sorted(ctx.config_keys):
