@@ -10,3 +10,4 @@
 *.idea*
 *.vs*
 *.egg-info*
+*.ipynb_checkpoints
