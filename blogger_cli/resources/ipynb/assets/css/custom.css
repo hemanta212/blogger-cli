@@ -43,11 +43,11 @@ h4 {
 }
 
 pre {
-    font-size: 15px;
+    font-size: 0.8em;
+    font-family: monospace;
     display: block;
     padding: 8.5px;
     margin: 0 0 9px;
-    font-size: 12px;
     line-height: 1.42857143;
     word-break: break-all;
     word-wrap: break-word;
