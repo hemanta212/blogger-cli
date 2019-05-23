@@ -7,8 +7,11 @@ import datetime
 import os
 from blogger_cli.cli_utils.logger import Logger
 
+file_path = __file__
+root_index = file_path.find('cli_utils')
+logs_dir = file_path[:root_index]
 FileLogger = Logger(console=False,
-                    debug_file='blogger_cli/logs/debug/json_writer.log')
+                    debug_file= logs_dir + '/logs/debug/json_writer.log')
 logger = FileLogger.get_logger()
 
 
