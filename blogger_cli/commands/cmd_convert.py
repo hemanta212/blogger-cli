@@ -1,18 +1,19 @@
 import click
 import os
-from blogger_cli.converter import ipynb_to_html 
+from blogger_cli.converter import ipynb_to_html
 from blogger_cli.cli import pass_context
 
 
 def start():
     #file_path = os.path.abspath(os.path.expanduser(input('file dir')))
-    file_path = 'ipynb_test'
-    os.chdir(file_path)
+    file_dir = 'ipynb_test'
+    os.chdir(file_dir)
     for f in os.listdir():
         try:
             file_list = f.split(".")
             if "ipynb" in file_list:
-                ipynb_to_html.convert(f)
+                print("found", f)
+                ipynb_to_html.generate_html(f)
         except:
             continue
 
