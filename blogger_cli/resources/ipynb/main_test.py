@@ -4,7 +4,6 @@ ipynb to html converter script
 import os
 import jinja2
 
-from builtins import open
 from bs4 import BeautifulSoup as BS
 from nbconvert import HTMLExporter
 import nbformat
