@@ -8,13 +8,12 @@ from nbconvert import HTMLExporter
 import nbformat
 from traitlets.config import Config as TraitletsConfig
 
-BLOG_POSTS_DIR = os.path.expanduser('~/hemanta212.github.io/blog')
 
-def convert_and_copy_to_blog(ipynb_file):
+def convert_and_copy_to_blog(ipynb_file, destination_dir):
     ipynb_file_path = os.path.abspath(os.path.expanduser(ipynb_file))
     html_body = convert(ipynb_file_path)
-    html_filename  = write_html_and_ipynb(ipynb_file_path, html_body)
-    return  html_filename
+    html_filename  = write_html_and_ipynb(ipynb_file_path, html_body,                                  destination_dir)
+    return html_filename
 
 
 def convert(ipynb_file):
@@ -28,11 +27,11 @@ def convert(ipynb_file):
     return html
 
 
-def write_html_and_ipynb(ipynb_file_path, html_body):
+def write_html_and_ipynb(ipynb_file_path, html_body, destination_dir):
     ipynb_filename = os.path.basename(ipynb_file_path)
     html_filename = ipynb_filename.replace('.ipynb', '.html')
-    html_file_path = os.path.join(BLOG_POSTS_DIR, html_filename)
-    new_ipynb_file_path = os.path.join(BLOG_POSTS_DIR, ipynb_filename)
+    html_file_path = os.path.join(destination_dir, html_filename)
+    new_ipynb_file_path = os.path.join(destination_dir, ipynb_filename)
 
     with open(html_file_path, 'w', encoding='utf8') as wf:
         wf.write(html_body)

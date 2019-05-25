@@ -5,13 +5,12 @@ from shutil import copyfile
 import jinja2
 import markdown
 
-BLOG_POSTS_DIR = os.path.expanduser('~/hemanta212.github.io/blog')
 
-
-def convert_and_copy_to_blog(md_file):
+def convert_and_copy_to_blog(md_file, destination_dir):
     md_file_path = os.path.abspath(os.path.expanduser(md_file))
     html_body = convert(md_file_path)
-    html_filename = write_html_and_md(md_file_path, html_body)
+    html_filename = write_html_and_md(md_file_path, html_body,
+                                    destination_dir)
     return html_filename
 
 
@@ -21,17 +20,17 @@ def convert(md_file_path):
 
     extensions = ['extra', 'smarty']
     html = markdown.markdown(md, extensions=extensions, output_format='html5')
-    with open('tmp.html', 'w') as wf:
+    with open('tmp.html', 'w', encoding='utf8') as wf:
         wf.write(html)
 
     return html
 
 
-def write_html_and_md(md_file_path, html_body):
+def write_html_and_md(md_file_path, html_body, destination_dir):
     md_filename = os.path.basename(md_file_path)
     html_filename = md_filename.replace('.md', '.html')
-    html_file_path = os.path.join(BLOG_POSTS_DIR, html_filename)
-    new_md_file_path = os.path.join(BLOG_POSTS_DIR, md_filename)
+    html_file_path = os.path.join(destination_dir, html_filename)
+    new_md_file_path = os.path.join(destination_dir, md_filename)
 
     with open(html_file_path, 'w', encoding='utf8') as wf:
         wf.write(html_body)
