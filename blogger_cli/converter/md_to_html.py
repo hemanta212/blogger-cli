@@ -11,7 +11,8 @@ BLOG_POSTS_DIR = os.path.expanduser('~/hemanta212.github.io/blog')
 def convert_and_copy_to_blog(md_file):
     md_file_path = os.path.abspath(os.path.expanduser(md_file))
     html_body = convert(md_file_path)
-    write_html_and_md(md_file_path, html_body)
+    html_filename = write_html_and_md(md_file_path, html_body)
+    return html_filename
 
 
 def convert(md_file_path):
