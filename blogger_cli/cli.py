@@ -14,6 +14,8 @@ class Context(object):
         self.blog_list = self.config.read(all_keys=True)
         self.config_keys = ['html-dir', 'apptoken', 'ipynb_dir',
                             'md_dir', 'txt_dir', 'default']
+        self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
+        self.current_blog = ''
 
     def log(self, msg, *args):
         """Logs a message to stderr."""
@@ -29,7 +31,7 @@ class Context(object):
 
     def exit(self, msg, *args):
         '''
-        Identical to ctx.fail but doesnot need to be called from inside 
+        Identical to ctx.fail but doesnot need to be called from inside
         a command instead from anywhere
         '''
         self.log(msg, *args)
