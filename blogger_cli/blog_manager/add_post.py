@@ -82,7 +82,6 @@ def update_posts_index(ctx, html_page, filename, destination_dir):
         print("index updated", posts_index_path)
 
 
-
 def get_page_title(ctx, page):
     soup = BS(page, 'html.parser')
     try:
@@ -98,13 +97,21 @@ def get_page_title(ctx, page):
 
 def parse_index(ctx, index, div_class='blog_list'):
     ctx.vlog("Parsing the index file in", index)
-    with open(index, 'rb') as rf:
-        content = rf.read()
+    try:
+        with open(index, 'rb') as rf:
+            content = rf.read()
+    except FileNotFoundError:
+        ctx.log("No index.html file. Is this a blog?")
+        ctx.exit("ERROR: NO INDEX PAGE")
 
-    soup = BS(content, 'html.parser')
-    list_div = soup.find('div', class_=div_class)
-    li_list = list_div.find_all('li')
-    my_dict = {}
+
+    try:
+        soup = BS(content, 'html.parser')
+        list_div = soup.find('div', class_=div_class)
+        li_list = list_div.find_all('li')
+        my_dict = {}
+    except AttributeError:
+        ctx.exit("ERROR: INVALID INDEX FILE")
 
     for link in li_list:
         file_link = link.a['href']

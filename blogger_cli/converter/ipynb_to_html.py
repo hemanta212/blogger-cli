@@ -2,7 +2,7 @@
 ipynb to html converter script
 '''
 import os
-from shutil import copyfile
+from shutil import copyfile, SameFileError
 
 from nbconvert import HTMLExporter
 import nbformat
@@ -37,7 +37,10 @@ def write_html_and_ipynb(ipynb_file_path, html_body, destination_dir):
         wf.write(html_body)
         print("File written", html_file_path)
 
-    copyfile(ipynb_file_path, new_ipynb_file_path)
+    try:
+        copyfile(ipynb_file_path, new_ipynb_file_path)
+    except SameFileError:
+        pass
     return html_filename
 
 

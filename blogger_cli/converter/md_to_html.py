@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from shutil import copyfile
+from shutil import copyfile, SameFileError
 import jinja2
 import markdown
 
@@ -36,7 +36,11 @@ def write_html_and_md(md_file_path, html_body, destination_dir):
         wf.write(html_body)
         print("File written", html_file_path)
 
-    copyfile(md_file_path, new_md_file_path)
+    try:
+        copyfile(md_file_path, new_md_file_path)
+    except  SameFileError:
+        pass
+
     return html_filename
 
 if __name__ == '__main__':
