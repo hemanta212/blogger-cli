@@ -146,7 +146,7 @@ class Config:
             Reads and return key or value from config file
                 (returns config dict if no parameter)
             Params:
-               [o] key: key of dict. Use (.) eg: key.nkey for depth
+               [o] key: key of dict. Use (:) eg: key:nkey for depth
                [o] value : value of dictionary to get key of
                [o] all_keys [bool] : True returns all keys dict object
                [o] all_values [bool]: True returns all values dict obj.

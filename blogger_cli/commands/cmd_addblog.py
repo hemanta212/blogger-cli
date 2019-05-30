@@ -18,6 +18,7 @@ def cli(ctx, blog, silent, verbose):
 
     ctx.verbose = verbose
     layout = {
+        'blog_dir': None,
         'blog_posts_dir': None,
         'html_dir': None,
         'md_dir': None,

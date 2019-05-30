@@ -12,8 +12,8 @@ class Context(object):
         self.config = Config('~/.blogger/blog_config.cfg',
                              backup_dir='~/.blogger/backup/')
         self.blog_list = self.config.read(all_keys=True)
-        self.config_keys = ['blog_posts_dir', 'html_dir', 'ipynb_dir',
-                            'md_dir', 'default']
+        self.config_keys = ['blog_dir', 'blog_posts_dir', 'ipynb_dir',
+                            'md_dir', 'html_dir',  'default']
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''
 
@@ -38,7 +38,7 @@ class Context(object):
         sys.exit(1)
 
     def blog_exists(self, blog):
-        return False if not self.config.read(blog) else True
+        return False if not self.config.read(key=blog) else True
 
     @property
     def default_blog(self):

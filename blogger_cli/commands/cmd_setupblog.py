@@ -25,13 +25,21 @@ def setup(ctx, blog):
     blog_attrs = ctx.config.read(key=blog)
     help = {
         'blogname': 'Name of your blog',
-        'blog_posts_dir':"Your blog's posts folder",
+        'blog_dir':'Path of your blog',
+        'blog_posts_dir':"blog's posts folder relative to blog_dir",
         'html_dir': 'Folder  you keep your unprocessed html file',
         'md_dir': 'Folder where you keep your md files',
-        'ipynb_dir': 'Folder of your jupyter notebooks'
+        'ipynb_dir': 'Folder of your jupyter notebooks',
     }
     for k, v in sorted(blog_attrs.items()):
-        hint = ' - {0}'.format(help[k])
-        value = click.prompt(k + hint, default=v)
-        if value != 'n':
-            ctx.config.write('{0}:{1}'.format(blog, k), value)
+        try:
+            hint = ' - {0}'.format(help[k])
+            value = click.prompt(k + hint, default=v)
+
+            if value != 'n':
+                ctx.config.write('{0}:{1}'.format(blog, k), value)
+
+        except KeyError:
+        # The option is not supposed to be setup by user like defaultblog
+            pass
+

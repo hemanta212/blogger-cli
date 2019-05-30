@@ -71,6 +71,8 @@ def get_all_files(folder):
 def check_and_ensure_dest_dir(ctx, output_dir):
     blog  = ctx.current_blog
     destination_dir = ctx.config.read(key=blog + ' : blog_posts_dir')
+    destination_dir = os.path.normpath(os.path.expanduser(destination_dir))
+
     if output_dir:
         destination_dir = output_dir
 
