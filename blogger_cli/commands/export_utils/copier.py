@@ -19,7 +19,7 @@ def copy_blog_template(ctx, export_path):
 
 def copy_blog_config(ctx, export_dir):
     blog = ctx.current_blog
-    blog_config = ctx.config.get_dict()
+    blog_config = ctx.config.read(key=blog)
     export_path = os.path.join(export_dir, blog+'.json')
     blog_config = json.dumps(blog_config, indent=2)
     with open(export_path, 'w') as wf:

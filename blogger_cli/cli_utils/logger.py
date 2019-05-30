@@ -18,7 +18,7 @@ class Logger:
     '''
 
     def __init__(self, name=None, level='warning', mode='a', debug_mode='w',
-                 file='project.log', debug_file=None, console=False, **kwargs):
+                 file=None, debug_file=None, console=False, **kwargs):
         super().__init__(**kwargs)
         self.name = name
         self.level = self.__level_parser(level)
@@ -85,11 +85,12 @@ class Logger:
             logger.addHandler(console_handler)
 
         # create file handler and set level
-        self.__handle_file(self.file)
-        filehandler = logging.FileHandler(self.file, mode=self.mode)
-        filehandler.setLevel(self.level)
-        filehandler.setFormatter(formatter)
-        logger.addHandler(filehandler)
+        if self.file:
+            self.__handle_file(self.file)
+            filehandler = logging.FileHandler(self.file, mode=self.mode)
+            filehandler.setLevel(self.level)
+            filehandler.setFormatter(formatter)
+            logger.addHandler(filehandler)
 
         if self.debug_file:
             self.__handle_file(self.debug_file)

@@ -55,6 +55,6 @@ def __validate(ctx, blog, configs):
         ctx.exit("\nBlog", blog, "doesnot exist")
 
     key = configs[0]
-    blog_dict = ctx.config.read(blog)
+    blog_dict = ctx.config.read(key=blog)
     if key not in ctx.config_keys and key not in blog_dict:
         ctx.exit("\nInvalid config key.")

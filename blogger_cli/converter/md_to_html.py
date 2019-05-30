@@ -38,5 +38,5 @@ def write_html_and_md(md_file_path, html_body, destination_dir):
     except  SameFileError:
         pass
 
-    return html_filenam
+    return html_filename
 
