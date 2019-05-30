@@ -20,9 +20,6 @@ def convert(md_file_path):
 
     extensions = ['extra', 'smarty']
     html = markdown.markdown(md, extensions=extensions, output_format='html5')
-    with open('tmp.html', 'w', encoding='utf8') as wf:
-        wf.write(html)
-
     return html
 
 
@@ -41,8 +38,5 @@ def write_html_and_md(md_file_path, html_body, destination_dir):
     except  SameFileError:
         pass
 
-    return html_filename
+    return html_filenam
 
-if __name__ == '__main__':
-    file = input('file-> ')
-    convert(file)

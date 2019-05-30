@@ -14,7 +14,7 @@ def cli(ctx, remove, blog, configs, verbose):
     Examples:\n
         blogger config -b <blogname> html_dir C:Users/foldername/\n
         blogger config -b <blogname> txt_dir ~/foldername/\n
-    Tip: You can set a defalut blog to avoid using -b option everytime! 
+    Tip: You can set a defalut blog to avoid using -b option everytime!
     """
     ctx.verbose = verbose
     blog = __get_blog(ctx, blog)
@@ -50,7 +50,7 @@ def __get_blog(ctx, blog):
 def __validate(ctx, blog, configs):
     if len(configs) > 2:
         ctx.exit("\nInvalid input arguments")
-   
+
     if not ctx.blog_exists(blog):
         ctx.exit("\nBlog", blog, "doesnot exist")
 

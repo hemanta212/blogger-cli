@@ -12,8 +12,8 @@ class Context(object):
         self.config = Config('~/.blogger/blog_config.cfg',
                              backup_dir='~/.blogger/backup/')
         self.blog_list = self.config.read(all_keys=True)
-        self.config_keys = ['html-dir', 'apptoken', 'ipynb_dir',
-                            'md_dir', 'txt_dir', 'default']
+        self.config_keys = ['blog_posts_dir', 'html_dir', 'ipynb_dir',
+                            'md_dir', 'default']
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''
 

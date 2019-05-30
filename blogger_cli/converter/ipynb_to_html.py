@@ -1,6 +1,3 @@
-'''
-ipynb to html converter script
-'''
 import os
 from shutil import copyfile, SameFileError
 
@@ -12,7 +9,7 @@ from traitlets.config import Config as TraitletsConfig
 def convert_and_copy_to_blog(ipynb_file, destination_dir):
     ipynb_file_path = os.path.abspath(os.path.expanduser(ipynb_file))
     html_body = convert(ipynb_file_path)
-    html_filename  = write_html_and_ipynb(ipynb_file_path, html_body,                                  destination_dir)
+    html_filename  = write_html_and_ipynb(ipynb_file_path, html_body, destination_dir)
     return html_filename
 
 
@@ -41,6 +38,7 @@ def write_html_and_ipynb(ipynb_file_path, html_body, destination_dir):
         copyfile(ipynb_file_path, new_ipynb_file_path)
     except SameFileError:
         pass
+
     return html_filename
 
 

@@ -7,7 +7,10 @@ from blogger_cli.cli import pass_context
 @click.option('-v', '--verbose', is_flag=True)
 @pass_context
 def cli(ctx, blog, verbose):
-    """ Load a setup procedure to a blog."""
+    """ Load a setup procedure to a blog.\n
+    Usage:\n
+        blogger setupblog blogname
+    """
     ctx.verbose = verbose
     if not ctx.blog_exists(blog):
         ctx.log("Blog doesnot exist!")
@@ -21,13 +24,12 @@ def setup(ctx, blog):
     ctx.log("Use n to skip through options!")
     blog_attrs = ctx.config.read(key=blog)
     help = {
-        'apptoken': 'Api token for blog (if any)',
-        'html_dir': 'Default folder for html files',
-        'md_dir': 'Default folder for md files',
-        'ipynb_dir': 'Default folder for ipynb files',
-        'txt_dir': 'Default folder for txt files'
+        'blogname': 'Name of your blog',
+        'blog_posts_dir':"Your blog's posts folder",
+        'html_dir': 'Folder  you keep your unprocessed html file',
+        'md_dir': 'Folder where you keep your md files',
+        'ipynb_dir': 'Folder of your jupyter notebooks'
     }
-
     for k, v in sorted(blog_attrs.items()):
         hint = ' - {0}'.format(help[k])
         value = click.prompt(k + hint, default=v)

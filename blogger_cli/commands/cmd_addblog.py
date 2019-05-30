@@ -10,12 +10,16 @@ from blogger_cli.commands.cmd_setupblog import setup
               help="Do not load the setup.")
 @pass_context
 def cli(ctx, blog, silent, verbose):
-    """ Add a new blog. """
+    """ Add a new blog.\n
+    Usage:\n
+    blogger addblog blogname\n
+    blogger addblog -s blogname
+    """
+
     ctx.verbose = verbose
     layout = {
-        'apptoken': None,
+        'blog_posts_dir': None,
         'html_dir': None,
-        'txt_dir': None,
         'md_dir': None,
         'ipynb_dir': None,
     }
