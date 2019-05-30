@@ -15,11 +15,11 @@ from blogger_cli.cli import pass_context
 @click.option('--not-code', 'iscode', is_flag=True, default=True,
         help="Do not add mathjax and code support")
 @click.option('-o', 'destination_dir', type=click.Path(exists=True),
-        help="Destination for converted files, DEFAULT  blog_config")
+        help="Destination for converted files,DEFAULT from blog_config")
 @click.option('-b', '--blog',
-        help="Name of  the blag")
+        help="Name of the blog")
 @click.option('-ex-html', '--exclude-html', 'exclude_html', is_flag=True,
-        help='ignore html files from conversion')
+        help='Ignore html files from conversion')
 @click.option('-v', '--verbose', is_flag=True,
         help="Enable verbose flag")
 @pass_context
@@ -29,13 +29,11 @@ def cli(ctx, path, iscode, blog,
 
    Usage:\n
     For files:\n
-    blogger convert -f filename.ipynb\n
-    blogger convert -f file1 file2 file3\n
-    blogger convert -f filename --not-code
+    blogger convert filename.ipynb\n
+    blogger convert file1 file2 file3 -b blog1 --exclude-html\n
+    blogger convert filename --not-code -o ~/username.github.io
 
-    For folder:\n
-    blogger convert -F folder_with_files --type html\n
-    blogger convert -F folder1 folder2 --type md --not-code
+    blogger convert ../folder1 file1 ../folder2  -v
     """
     ctx.verbose = verbose
     set_current_blog(ctx, blog)

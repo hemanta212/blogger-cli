@@ -8,13 +8,13 @@ class Logger:
     Customized logger class having get_logger method returning a logger
 
     params: [all are optional]
-        name = filename to pass generally it is __name__
-        level = specify level for Hfilehandler (Warning is default)
-        file = file to write log messages to (project.log is default)
-        mode = which mode to write. Default['a']
-        debug_file = specify debug file
-        debug_mode = specify which mode to use default['w']
-        console [bool] = switch console logging on or off.
+        name = Filename to pass generally it is __name__
+        level = Specify level for filehandler (Warning is default)
+        file = File to write log messages to (project.log is default)
+        mode = Which mode to write. Default['a']
+        debug_file = Specify debug file
+        debug_mode = Specify which mode to use default['w']
+        console [bool] = Switch console logging on or off.
     '''
 
     def __init__(self, name=None, level='warning', mode='a', debug_mode='w',
@@ -61,7 +61,7 @@ class Logger:
 
     def get_logger(self):
         '''
-        returns a logger as specified in Logger class
+        Returns a logger as specified in Logger class
         '''
         if self.name is None:
             import inspect

@@ -41,6 +41,7 @@ def write_html_and_ipynb(ipynb_file_path, html_body, destination_dir):
         copyfile(ipynb_file_path, new_ipynb_file_path)
     except SameFileError:
         pass
+
     return html_filename
 
 

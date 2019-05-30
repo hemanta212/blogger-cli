@@ -7,7 +7,7 @@ from blogger_cli.cli import pass_context
 @click.option('-v', '--verbose', is_flag=True)
 @pass_context
 def cli(ctx, blog, verbose):
-    """ 
+    """
     Get details about blogs and app itself\n
     Usage:\n
     bloggger info\n

@@ -168,7 +168,8 @@ class Config:
             cfg_dict = configs
             key_list = key.split(':')
             for i in key_list:
-                cfg_dict = cfg_dict.get(i)
+                key = i.strip()
+                cfg_dict = cfg_dict.get(key)
                 if not cfg_dict:
                     return None
             return cfg_dict

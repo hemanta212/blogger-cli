@@ -7,7 +7,11 @@ from blogger_cli.cli import pass_context
 @click.option('-v', '--verbose', is_flag=True)
 @pass_context
 def cli(ctx, blog, verbose):
-    """ Set a blog as default"""
+    """ Set a blog as default\n
+    Usage:\n
+    blogger defaultblog blogname
+    """
+
     ctx.verbose = verbose
     if not ctx.blog_exists(blog):
         ctx.vlog('Blogs', ctx.blog_list)
