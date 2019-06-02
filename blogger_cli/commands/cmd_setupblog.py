@@ -27,16 +27,21 @@ def setup(ctx, blog):
         'blogname': 'Name of your blog',
         'blog_dir':'Path of your blog',
         'blog_posts_dir':"blog's posts folder relative to blog_dir",
+        'blog_images_dir':"blog's images folder relative to blog_dir",
         'html_dir': 'Folder  you keep your unprocessed html file',
         'md_dir': 'Folder where you keep your md files',
         'ipynb_dir': 'Folder of your jupyter notebooks',
     }
+
     for k, v in sorted(blog_attrs.items()):
         try:
             hint = ' - {0}'.format(help[k])
             value = click.prompt(k + hint, default=v)
 
-            if value != 'n':
+            if value.strip() == '':
+                ctx.config.write('{0}:{1}'.format(blog, k), None)
+
+            elif value != 'n':
                 ctx.config.write('{0}:{1}'.format(blog, k), value)
 
         except KeyError:
