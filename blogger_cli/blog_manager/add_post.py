@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup as BS
 from pkg_resources import resource_string
 
 
-def add(ctx, filename, destination_dir, iscode=None):
-    post_file_path = os.path.join(destination_dir, filename)
+def add(filename, conversion):
+    post_file_path = os.path.join(conversion.destination_dir, filename)
     ctx.vlog("Adding blog post to", post_file_path)
     html_body = read_blog_body(ctx, post_file_path)
     html_page = insert_html_snippets(ctx, html_body, iscode=iscode)

@@ -6,11 +6,42 @@ import nbformat
 from traitlets.config import Config as TraitletsConfig
 
 
-def convert_and_copy_to_blog(ipynb_file, destination_dir):
+def convert_and_copy_to_blog(ipynb_file, conversion):
     ipynb_file_path = os.path.abspath(os.path.expanduser(ipynb_file))
     html_body = convert(ipynb_file_path)
-    html_filename  = write_html_and_ipynb(ipynb_file_path, html_body, destination_dir)
+    html_filename  = write_html_and_ipynb(ipynb_file_path, html_body,
+                                        conversion.destination_dir)
     return html_filename
+
+
+
+def write_html_and_ipynb(ipynb_file_path, html_body, destination_dir):
+    ipynb_filename = os.path.basename(ipynb_file_path)
+    html_filename = ipynb_filename.replace('.ipynb', '.html')
+    html_file_path = os.path.join(destination_dir, html_filename)
+    new_ipynb_file_path = os.path.join(destination_dir, ipynb_filename)
+
+    with open(html_file_path, 'w', encoding='utf8') as wf:
+        wf.write(html_body)
+    try:
+        copyfile(ipynb_file_path, new_ipynb_file_path)
+    except SameFileError:
+        pass
+
+    return html_filename
+
+
+def extract_and_write_images(ipynb_file_path, html_body, conversion):
+    destination_dir = conversion.destination_dir
+    if conversion.image_dir:
+        destination_dir = os.path.normpath(conversion.image_dir)
+
+    ipynb_filename = os.path.basename(ipynb_file_path)
+    image_dirname = os.path.splitext(ipynb_filename)[0]
+    image_dir_path = os.path.join(conversion.destination_dir, 'images',
+                                 image_dirname)
+    images = extract_images()
+
 
 
 def convert(ipynb_file):
@@ -22,25 +53,6 @@ def convert(ipynb_file):
     (body, __) = html_exporter.from_notebook_node(nb)
     html = make_html_responsive(body)
     return html
-
-
-def write_html_and_ipynb(ipynb_file_path, html_body, destination_dir):
-    ipynb_filename = os.path.basename(ipynb_file_path)
-    html_filename = ipynb_filename.replace('.ipynb', '.html')
-    html_file_path = os.path.join(destination_dir, html_filename)
-    new_ipynb_file_path = os.path.join(destination_dir, ipynb_filename)
-
-    with open(html_file_path, 'w', encoding='utf8') as wf:
-        wf.write(html_body)
-        print("File written", html_file_path)
-
-    try:
-        copyfile(ipynb_file_path, new_ipynb_file_path)
-    except SameFileError:
-        pass
-
-    return html_filename
-
 
 
 def gen_exporter():

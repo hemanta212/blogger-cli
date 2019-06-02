@@ -7,7 +7,6 @@ from blogger_cli.cli_utils.json_writer import Config
 class Context(object):
 
     def __init__(self):
-        super()
         self.verbose = False
         self.config = Config('~/.blogger/blog_config.cfg',
                              backup_dir='~/.blogger/backup/')
