@@ -5,11 +5,13 @@ from bs4 import BeautifulSoup as BS
 from pkg_resources import resource_string
 
 
-def add(ctx, filename, destination_dir, iscode=None):
+def add(ctx, filename):
+    destination_dir = ctx.conversion['destination_dir']
+    iscode = ctx.conversion['iscode']
     post_file_path = os.path.join(destination_dir, filename)
     ctx.vlog("Adding blog post to", post_file_path)
     html_body = read_blog_body(ctx, post_file_path)
-    html_page = insert_html_snippets(ctx, html_body, iscode=iscode)
+    html_page = insert_html_snippets(ctx, html_body, iscode)
     write_html(ctx, html_page, post_file_path)
     update_posts_index(ctx, html_page, filename, destination_dir)
 
@@ -27,7 +29,7 @@ def get_cli_resource(path):
     return file_content.decode('utf8')
 
 
-def insert_html_snippets(ctx, body, iscode=None):
+def insert_html_snippets(ctx, body, iscode):
     ctx.vlog("Inserting html_snippets as iscode=", iscode)
     layout = get_cli_resource('ipynb/layout.html')
     navbar_layout = get_cli_resource('common/navbar.html')

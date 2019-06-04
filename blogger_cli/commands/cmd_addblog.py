@@ -20,6 +20,7 @@ def cli(ctx, blog, silent, verbose):
     layout = {
         'blog_dir': None,
         'blog_posts_dir': None,
+        'blog_images_dir':None,
         'html_dir': None,
         'md_dir': None,
         'ipynb_dir': None,
