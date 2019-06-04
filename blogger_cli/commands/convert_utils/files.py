@@ -5,17 +5,20 @@ from blogger_cli.converter import ipynb_to_html, md_to_html
 from blogger_cli.blog_manager import add_post
 
 
-def convert_and_copyfiles(conversion):
+def convert_and_copyfiles(ctx):
+    file_ext_map = ctx.conversion['file_ext_map']
+    html_filenames = []
+
     convert_file = {
         'md': md_to_html.convert_and_copy_to_blog,
         'ipynb': ipynb_to_html.convert_and_copy_to_blog,
         'html': process_htmlfile
     }
-    html_filenames = []
-    for file, filetype in conversion.file_ext_map.items():
-        conversion.vlog("Processing the file", file, "filetype:", filetype)
+
+    for file, filetype in file_ext_map.items():
+        ctx.vlog("Processing the file", file, "filetype:", filetype)
         converter = convert_file[filetype]
-        html_filename = converter(file, conversion)
+        html_filename = converter(ctx, file)
         html_filenames.append(html_filename)
 
     return html_filenames
