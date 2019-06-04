@@ -99,7 +99,7 @@ Set configs by:
     > -b option can be omitted by setting default blog
 
 After setting blog_dir config other config such as blog_posts_dir should be relative to blog_dir as root.
-* ``` $ blogger config blog_posts_dir /posts``` 
+* ``` $ blogger config blog_posts_dir posts/``` 
       
 #### View
 ```
@@ -122,6 +122,6 @@ $ blogger export blog_template
 
 When using -o option here in export, it refers to relative path from root blog dir unless you start from root.
 ```
-$ blogger export design_assets -o /assets/
+$ blogger export design_assets -o assets/
 $ blogger export desing_assets -o ~/test/folder1/
 ```
