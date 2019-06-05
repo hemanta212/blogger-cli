@@ -40,6 +40,7 @@ def cli(ctx,  resource, blog, relative_path, verbose):
     }
 
     transfer = resource_map.get(resource)
+    ctx.vlog("Using function", transfer)
     transfer(ctx, export_path)
 
 
@@ -77,4 +78,5 @@ def resolve_export_path(ctx, relative_path):
     except FileExistsError:
         pass
 
+    ctx.vlog("Got export path", export_path)
     return export_path

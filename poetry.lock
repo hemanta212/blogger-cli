@@ -220,7 +220,7 @@ description = "Pygments is a syntax highlighting package written in Python."
 name = "pygments"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "2.4.0"
+version = "2.4.2"
 
 [[package]]
 category = "main"
@@ -285,7 +285,7 @@ python-versions = "*"
 version = "0.5.1"
 
 [metadata]
-content-hash = "dcec98b42ad5128320cef2bdce69c1f2155137e99f4d857aa7733ecbc9a43cd5"
+content-hash = "46965871ce97572040c16c806646306646cbddc0ac82f46271e49e7adf615c6b"
 python-versions = "^3.5"
 
 [metadata.hashes]
@@ -307,7 +307,7 @@ mistune = ["59a3429db53c50b5c6bcc8a07f8848cb00d7dc8bdb431a4ab41920d201d4756e", "
 nbconvert = ["138381baa41d83584459b5cfecfc38c800ccf1f37d9ddd0bd440783346a4c39c", "4a978548d8383f6b2cfca4a3b0543afb77bc7cb5a96e8b424337ab58c12da9bc"]
 nbformat = ["b9a0dbdbd45bb034f4f8893cafd6f652ea08c8c1674ba83f2dc55d3955743b0b", "f7494ef0df60766b7cabe0a3651556345a963b74dbc16bc7c18479041170d402"]
 pandocfilters = ["b3dd70e169bb5449e6bc6ff96aea89c5eea8c5f6ab5e207fc2f521a2cf4a0da9"]
-pygments = ["31cba6ffb739f099a85e243eff8cb717089fdd3c7300767d9fc34cb8e1b065f5", "5ad302949b3c98dd73f8d9fcdc7e9cb592f120e32a18e23efd7f3dc51194472b"]
+pygments = ["71e430bc85c88a430f000ac1d9b331d2407f681d6f6aec95e8bcfbc3df5b0127", "881c4c157e45f30af185c1ffe8d549d48ac9127433f2c380c24b84572ad66297"]
 pyrsistent = ["16692ee739d42cf5e39cef8d27649a8c1fdb7aa99887098f1460057c5eb75c3a"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 soupsieve = ["6898e82ecb03772a0d82bd0d0a10c0d6dcc342f77e0701d0ec4a8271be465ece", "b20eff5e564529711544066d7dc0f7661df41232ae263619dede5059799cdfca"]

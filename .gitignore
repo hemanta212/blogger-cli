@@ -11,3 +11,5 @@
 *.vs*
 *.egg-info*
 *.ipynb_checkpoints
+*dist*
+*logs*
