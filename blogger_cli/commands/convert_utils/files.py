@@ -24,11 +24,13 @@ def convert_and_copyfiles(ctx):
     return html_filenames
 
 
-def process_htmlfile(filename, destination_dir):
-    html_filename = os.path.basename(filename)
+def process_htmlfile(ctx, html_file):
+    destination_dir = ctx.conversion['destination_dir']
+    html_filename = os.path.basename(html_file)
     html_file_path = os.path.join(destination_dir, html_filename)
+    ctx.vlog("copying basic html file to", html_file_path)
     try:
-        copyfile(filename, html_file_path)
+        copyfile(html_file, html_file_path)
     except:
         pass
     return html_filename

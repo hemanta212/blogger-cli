@@ -1,8 +1,10 @@
 import os
 import jinja2
 import shutil
-from bs4 import BeautifulSoup as BS
+from collections import OrderedDict
+
 from pkg_resources import resource_string
+from bs4 import BeautifulSoup as BS
 
 
 def add(ctx, filename):
@@ -63,6 +65,7 @@ def write_html(ctx, html_page, file_path):
     with open(file_path, 'w', encoding='utf8') as wf:
         wf.write(html_page)
 
+
 def update_posts_index(ctx, html_page, filename, destination_dir):
     ctx.vlog("Updating Posts index of post", filename)
     posts_index_path = os.path.join(destination_dir, 'index.html')
@@ -111,14 +114,14 @@ def parse_index(ctx, index, div_class='blog_list'):
         soup = BS(content, 'html.parser')
         list_div = soup.find('div', class_=div_class)
         li_list = list_div.find_all('li')
-        my_dict = {}
+        link_title_map = OrderedDict()
     except AttributeError:
         ctx.exit("ERROR: INVALID INDEX FILE")
 
     for link in li_list:
         file_link = link.a['href']
         blog_title = link.a.text
-        my_dict[file_link] = blog_title
+        link_title_map[file_link] = blog_title
 
-    ctx.vlog("Got index dict::\n", my_dict)
-    return my_dict
+    ctx.vlog("Got index dict::\n", link_title_map)
+    return link_title_map

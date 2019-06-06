@@ -44,12 +44,7 @@ class Context(object):
         cfg = self.config.get_dict()
         for i in cfg:
             if 'default' in cfg[i]:
-                confirmations = ['y', 'yes', 'True', 'true']
-                default = cfg[i].get('default')
-                if default or default in confirmations:
-                    return i
-            else:
-                return None
+                return i
 
 
 pass_context = click.make_pass_decorator(Context, ensure=True)

@@ -50,6 +50,10 @@ def get_image_extracted_html(ctx, html_file_path, html_body):
         os.makedirs(image_dir_path)
 
     html_body = extract_and_write_images(ctx, html_body, image_dir_path)
+
+    if  not os.listdir(image_dir_path):
+        os.rmdir(image_dir_path)
+
     return html_body
 
 
