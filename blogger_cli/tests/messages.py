@@ -42,9 +42,8 @@ Blog:configs [standard]
    blog_images_dir
    blog_posts_dir
    default
-   html_dir
-   ipynb_dir
-   md_dir
+   templates_dir
+   working_dir
 
 Tip: Use blogger info blogname for blog details
 '''

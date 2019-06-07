@@ -16,7 +16,7 @@ class TestBasic(unittest.TestCase):
         self.blog_dir = os.path.join(self.export_dir, 'blog')
         self.index_path = os.path.join(self.blog_dir, 'index.html')
         self.runner.invoke(cli, ['addblog', 'test1'],
-                    input=self.export_dir + '\nn \nn \nn \nn \nn')
+                    input=self.export_dir + '\nn \nn \nn \nn')
         self.runner.invoke(cli, ['config', '-b', 'test1',
                                  'blog_posts_dir', 'blog'])
         self.runner.invoke(cli, ['config', '-b', 'test1',
@@ -40,7 +40,6 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(['html.html', 'index.html'],
                         os.listdir(self.blog_dir))
         self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
-        #os.system('cp '+ self.index_path + ' ' + test_index_path)
 
 
     @staticmethod

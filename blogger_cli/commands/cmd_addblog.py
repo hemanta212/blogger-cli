@@ -21,9 +21,10 @@ def cli(ctx, blog, silent, verbose):
         'blog_dir': None,
         'blog_posts_dir': None,
         'blog_images_dir':None,
-        'html_dir': None,
-        'md_dir': None,
-        'ipynb_dir': None,
+        'templates_dir':None,
+        'working_dir': None,
+        'google_analytics_id': None,
+        'disqus_username':None,
     }
 
     if not ctx.blog_exists(blog):

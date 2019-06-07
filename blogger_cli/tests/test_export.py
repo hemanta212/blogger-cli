@@ -19,7 +19,7 @@ class TestBasic(unittest.TestCase):
         self.runner = CliRunner()
         self.export_dir = os.path.expanduser('~/.blogger_tmp/')
         self.runner.invoke(cli, ['addblog', 'test1'],
-                    input=self.export_dir + '\nn \nn \nn \nn \nn')
+                    input=self.export_dir + '\nn \nn \nn \nn')
 
 
     def test_blog_config(self):

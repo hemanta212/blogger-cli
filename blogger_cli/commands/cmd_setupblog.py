@@ -25,12 +25,13 @@ def setup(ctx, blog):
     blog_attrs = ctx.config.read(key=blog)
     help = {
         'blogname': 'Name of your blog',
-        'blog_dir':'Path of your blog',
-        'blog_posts_dir':"blog's posts folder relative to blog_dir",
-        'blog_images_dir':"blog's images folder relative to blog_dir",
-        'html_dir': 'Folder  you keep your unprocessed html file',
-        'md_dir': 'Folder where you keep your md files',
-        'ipynb_dir': 'Folder of your jupyter notebooks',
+        'blog_dir': 'Path of your blog',
+        'blog_posts_dir': "blog's posts folder (relative to blog_dir)",
+        'blog_images_dir': "blog's images folder (relative to blog_dir)",
+        'templates_dir': "Path of folder of your custom templates (if any)",
+        'working_dir': "Folder where keep your md, ipynb, html files",
+        'google_analytics_id': 'It is in the snippet provided by google eg:UA-039224021-1',
+        'disqus_username': 'It is in url of your disqus account eg: https://username.disqus.com/',
     }
 
     for k, v in sorted(blog_attrs.items()):

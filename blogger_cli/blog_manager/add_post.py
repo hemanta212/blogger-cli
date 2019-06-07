@@ -1,90 +1,129 @@
 import os
 import jinja2
+import json
 import shutil
+from pathlib import Path
 from collections import OrderedDict
-
 from pkg_resources import resource_string
+
 from bs4 import BeautifulSoup as BS
 
 
-def add(ctx, filename):
-    destination_dir = ctx.conversion['destination_dir']
-    iscode = ctx.conversion['iscode']
-    post_file_path = os.path.join(destination_dir, filename)
-    ctx.vlog("Adding blog post to", post_file_path)
-    html_body = read_blog_body(ctx, post_file_path)
-    html_page = insert_html_snippets(ctx, html_body, iscode)
-    write_html(ctx, html_page, post_file_path)
-    update_posts_index(ctx, html_page, filename, destination_dir)
+def add(ctx, filename_meta):
+    filename, meta =  Path(filename_meta[0]), filename_meta[1]
+    ctx.log(":: Resolving", filename)
+    destination_dir = Path(ctx.conversion['destination_dir'])
+    file_path = destination_dir / filename
+    topic = os.path.dirname(str(filename))
+
+    snippet = get_snippet_content_map(ctx, topic)
+    snippet['link'] = str(filename)
+    html_page = insert_html_snippets(ctx, file_path, meta, snippet)
+    ctx.log(":: Writing finished html to", filename)
+    file_path.write_text(html_page, encoding='utf-8')
+    update_posts_index(ctx, snippet, meta, topic)
+    ctx.log(":: Index successfully updated\n\n")
 
 
-def read_blog_body(ctx, file_path):
-    ctx.vlog("Reading html body", file_path)
-    with open(file_path, 'r', encoding='utf8') as rf:
+def get_snippet_content_map(ctx, topic):
+    templates_dir = ctx.conversion.get('templates_dir')
+    snippet_names = ['layout','disqus', 'css', 'li_tag', 'google_analytics',
+                    'navbar_data', 'navbar', 'bootstrap_js', 'mathjax']
+    snippet_content_map = {}
+
+    if templates_dir:
+        for snippet in snippet_names:
+            file_name = snippet + '.html'
+            custom_template_path = os.path.join(templates_dir, file_name)
+
+            if os.path.exists(custom_template_path):
+                file_content = read_file(custom_template_path)
+            else:
+                file_content = get_internal_resource(file_name)
+
+            snippet_content_map[snippet] = file_content
+    else:
+        for snippet in snippet_names:
+            file_name = snippet + '.html'
+            file_content = get_internal_resource(file_name)
+            snippet_content_map[snippet] = file_content
+
+    resolve_templates(ctx, snippet_content_map, topic)
+    return snippet_content_map
+
+
+def read_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as rf:
         content = rf.read()
     return content
 
 
-def get_cli_resource(path):
-    file_path = 'resources/' + path
-    file_content = resource_string('blogger_cli', file_path)
-    return file_content.decode('utf8')
+def get_internal_resource(file_name):
+    internal_resource_path = 'resources/' + file_name
+    file_content = resource_string('blogger_cli', internal_resource_path)
+    return file_content.decode('utf-8')
 
 
-def insert_html_snippets(ctx, body, iscode):
-    ctx.vlog("Inserting html_snippets as iscode=", iscode)
-    layout = get_cli_resource('ipynb/layout.html')
-    navbar_layout = get_cli_resource('common/navbar.html')
-    bootstrap_js = get_cli_resource('ipynb/bootstrap_js.html')
-    google_analytics = get_cli_resource('common/google_analytics.html')
-    disqus = get_cli_resource('common/disqus.html')
+def insert_html_snippets(ctx, file_path, meta,  snippet_content_map):
+    iscode = ctx.conversion['iscode']
+    ctx.log(":: Inserting html_snippets to file")
+    html_body =  file_path.read_text(encoding='utf-8')
 
-    if iscode:
-        css = get_cli_resource('ipynb/css.html')
-        mathjax = get_cli_resource('ipynb/mathjax.html')
-    else:
-        css = ''
-        mathjax=''
+    ctx.vlog(":: iscode =", iscode)
+    if not iscode:
+        snippet_content_map['css'] = ''
+        snippet_content_map['mathjax'] = ''
 
-    navbar_dict = {
-        'Home': '../index.html',
-        'Blog': 'index.html',
-        'Teaching': '../pykancha.html',
-        'Projects': '../projects.html/',
-    }
-    navbar = jinja2.Template(navbar_layout).render(navbar_dict=navbar_dict)
+    snippet_content_map['body'] = html_body
+    snippet_content_map['title'] = get_page_title(ctx, html_body)
+
+    layout = snippet_content_map['layout']
     template = jinja2.Template(layout)
-    final_page = template.render(css=css, google_analytics=google_analytics,
-                             bootstrap_js=bootstrap_js, disqus_script=disqus,
-                             mathjax_script=mathjax, body=body, navbar=navbar)
+
+    snippet_content_map.pop('layout')
+    final_page = template.render(snippet=snippet_content_map, meta=meta)
     return final_page
 
 
-def write_html(ctx, html_page, file_path):
-    ctx.vlog("Writing html to blog posts in", file_path)
-    with open(file_path, 'w', encoding='utf8') as wf:
-        wf.write(html_page)
+def resolve_templates(ctx, snippet_content_map, topic):
+    config = {}
+    blog = ctx.current_blog
+    css_meta = {
+            'topic': topic
+    }
+    navbar_dict = get_navbar_dict(ctx, snippet_content_map, topic)
+    layout_renderer_map = {
+        'disqus': config,
+        'google_analytics': config,
+        'css': css_meta,
+        'navbar': navbar_dict,
+    }
+
+    config_names = ['disqus_username', 'google_analytics_id']
+    for config_name in config_names:
+        config_key = blog + ":" + config_name
+        config[config_name] = ctx.config.read(key=config_key)
+
+    for layout, renderer in layout_renderer_map.items():
+        layout_data = snippet_content_map[layout]
+        rendered_content = jinja2.Template(layout_data).render(config=renderer)
+        snippet_content_map[layout] = rendered_content
 
 
-def update_posts_index(ctx, html_page, filename, destination_dir):
-    ctx.vlog("Updating Posts index of post", filename)
-    posts_index_path = os.path.join(destination_dir, 'index.html')
-    index_dict = parse_index(ctx, posts_index_path)
-    blog_title = get_page_title(ctx, html_page)
+def get_navbar_dict(ctx, snippet_content_map, topic):
+    try:
+        navbar_dict = json.loads(snippet_content_map['navbar_data'],
+                                object_pairs_hook=OrderedDict)
+    except Exception as E:
+        ctx.log("Couldnot parse your custom navbar", E)
+        ctx.exit("ERROR: INVALID NAVBAR TEMPLATE")
 
-    if blog_title in index_dict.values():
-        print("WARNING:Duplicate title.",
-            "Two blogs with same title!")
+    if topic:
+        for nav_topic, nav_link in navbar_dict.items():
+           nav_link = '../' + nav_link
+           navbar_dict[nav_topic] = nav_link
 
-    ctx.vlog("Appending to index dict", filename,
-             ': ', blog_title)
-    index_dict[filename] = blog_title
-    index_layout = get_cli_resource('common/index.html')
-    index_page = jinja2.Template(index_layout).render(blog_info=index_dict)
-
-    with open(posts_index_path, 'w', encoding='utf8') as wf:
-        wf.write(index_page)
-        print("index updated", posts_index_path)
+    return navbar_dict
 
 
 def get_page_title(ctx, page):
@@ -96,32 +135,94 @@ def get_page_title(ctx, page):
     except IndexError:
         title = "Hemanta Sharma"
 
-    ctx.vlog("Got page title as::", title)
+    title = title.strip()
+    ctx.log(":: Got page title as", title)
     return title
 
 
-def parse_index(ctx, index, div_class='blog_list'):
-    ctx.vlog("Parsing the index file in", index)
-    try:
-        with open(index, 'rb') as rf:
-            content = rf.read()
-    except FileNotFoundError:
-        ctx.log("No index.html file. Is this a blog?")
-        ctx.exit("ERROR: NO INDEX PAGE")
+def update_posts_index(ctx, snippet_content_map, meta, topic):
+    post_li_tag_div = prepare_post_list(meta, snippet_content_map)
+    destination_dir = ctx.conversion['destination_dir']
+    index_path = os.path.join(destination_dir, 'index.html')
+    if not os.path.exists(index_path):
+        ctx.log("Cannot find index file in", index_path)
+        ctx.log("WARNING: NO INDEX FILE. \nSEE blogger export --help")
+        return None
+
+    soup = BS(read_file(index_path), features='html.parser')
+    posts_list_div = soup.find('div', class_='posts_list')
 
 
-    try:
-        soup = BS(content, 'html.parser')
-        list_div = soup.find('div', class_=div_class)
-        li_list = list_div.find_all('li')
-        link_title_map = OrderedDict()
-    except AttributeError:
-        ctx.exit("ERROR: INVALID INDEX FILE")
+    if not posts_list_div:
+        ctx.log("Cannot rupdate blog index. No div with posts_list  class")
+        ctx.log("WARNING: INVALID INDEX.", index_path)
+        return None
 
-    for link in li_list:
-        file_link = link.a['href']
-        blog_title = link.a.text
-        link_title_map[file_link] = blog_title
+    ctx.log(":: Updating index file at", index_path)
+    if topic:
+        html = update_under_topic(soup, post_li_tag_div, topic)
+        ctx.log(":: Linking under topic", topic)
+    else:
+        html = update_without_topic(soup, post_li_tag_div)
 
-    ctx.vlog("Got index dict::\n", link_title_map)
-    return link_title_map
+    snippet = snippet_content_map
+    ctx.log("File link and title", snippet['link'], '->', snippet['title'])
+    with open(index_path, 'w', encoding='utf8') as wf:
+        wf.write(html)
+
+
+def update_under_topic(soup, post_li_tag_div, topic):
+    div_topic = 'meta-' + topic
+    topic_tag = soup.find('div', class_=div_topic)
+    if topic_tag:
+        file_link = post_li_tag_div.ul.li.a['href']
+        topic_tag = check_and_remove_duplicate_tag(topic_tag, file_link)
+        ul_tag = post_li_tag_div.ul.extract()
+        topic_tag.append(ul_tag)
+
+    else:
+        posts_list_tag = soup.find('div', class_='posts_list')
+        post_li_tag_div['class'] = div_topic
+        h3_soup = BS('<h3> '+topic+'</h3>\n', features='html.parser')
+        h3_tag = h3_soup.find('h3')
+        post_li_tag_div.insert(0, h3_tag)
+        posts_list_tag.insert(0, post_li_tag_div)
+
+    return soup.prettify(formatter='html')
+
+
+def update_without_topic(soup, post_li_tag):
+    posts_list_tag = soup.find('div', class_='posts_list')
+    file_link = post_li_tag.ul.li.a['href']
+    posts_list_tag = check_and_remove_duplicate_tag(posts_list_tag, file_link)
+    li_tag_ul = post_li_tag.ul.extract()
+    posts_list_tag.append(li_tag_ul)
+    return soup.prettify(formatter='html')
+
+
+def prepare_post_list(meta, snippet):
+    li_tag_layout = snippet['li_tag']
+    li_tag_template = jinja2.Template(li_tag_layout)
+    li_tag_html = li_tag_template.render(meta=meta,
+                                        snippet=snippet)
+
+    li_tag = BS(li_tag_html, features='html.parser').find('li')
+    new_div = '''\
+<div>
+    <ul>
+
+    </ul>
+</div>'''
+
+    new_div_tag = BS(new_div, features='html.parser').find('div')
+    new_div_tag.ul.append(li_tag)
+    return new_div_tag
+
+
+def check_and_remove_duplicate_tag(div_tag, file_link):
+    for ul_tag in div_tag.find_all('ul'):
+        li_tag_link = ul_tag.li.a['href']
+        if li_tag_link == file_link:
+            ul_tag.decompose()
+
+    return div_tag

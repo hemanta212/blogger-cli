@@ -11,8 +11,12 @@ class Context(object):
         self.config = Config('~/.blogger/blog_config.cfg',
                              backup_dir='~/.blogger/backup/')
         self.blog_list = self.config.read(all_keys=True)
-        self.config_keys = ['blog_dir', 'blog_posts_dir', 'blog_images_dir',
-                            'md_dir', 'html_dir',  'default', 'ipynb_dir']
+        self.config_keys = [
+            'google_analytics_id', 'disqus_username', 'blog_images_dir',
+            'templates_dir', 'blog_dir', 'blog_posts_dir', 'default',
+            'working_dir'
+        ]
+
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''
 
