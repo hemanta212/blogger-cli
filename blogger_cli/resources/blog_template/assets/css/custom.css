@@ -89,3 +89,7 @@ img {
     font-weight: 300;
 }
 
+pre.prettyprint {
+    white-space: pre;
+    border-radius: 0;
+}

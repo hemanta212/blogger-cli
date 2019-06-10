@@ -1,0 +1,6 @@
+pre.prettyprint {
+    white-space: pre !important;
+    border-radius: 4px !important;
+    border: 1px solid #cccccc !important;
+    padding: 10px !important;
+}

@@ -40,6 +40,10 @@ def cli(ctx,  resource, blog, relative_path, verbose):
     }
 
     transfer = resource_map.get(resource)
+    if not transfer:
+        ctx.log("No such resource. See blogger export --help")
+        ctx.exit("ERROR: INVALID RESOURCE NAME")
+
     ctx.vlog("Using function", transfer)
     transfer(ctx, export_path)
 

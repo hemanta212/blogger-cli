@@ -22,31 +22,27 @@ def add(ctx, filename_meta):
     ctx.log(":: Writing finished html to", filename)
     file_path.write_text(html_page, encoding='utf-8')
     update_posts_index(ctx, snippet, meta, topic)
-    ctx.log(":: Index successfully updated\n\n")
 
 
 def get_snippet_content_map(ctx, topic):
     templates_dir = ctx.conversion.get('templates_dir')
     snippet_names = ['layout','disqus', 'css', 'li_tag', 'google_analytics',
-                    'navbar_data', 'navbar', 'bootstrap_js', 'mathjax']
+                    'navbar_data', 'navbar', 'js', 'mathjax']
     snippet_content_map = {}
 
+    for snippet in snippet_names:
+        file_name = snippet + '.html'
+        file_content = get_internal_resource(file_name)
+        snippet_content_map[snippet] = file_content
+
     if templates_dir:
-        for snippet in snippet_names:
-            file_name = snippet + '.html'
-            custom_template_path = os.path.join(templates_dir, file_name)
+        template_files = Path(templates_dir).glob('*')
+        all_filenames = [i.resolve() for i in template_files if i.is_file()]
+        html_filenames = [i for i in all_filenames if i.suffix == '.html']
 
-            if os.path.exists(custom_template_path):
-                file_content = read_file(custom_template_path)
-            else:
-                file_content = get_internal_resource(file_name)
-
-            snippet_content_map[snippet] = file_content
-    else:
-        for snippet in snippet_names:
-            file_name = snippet + '.html'
-            file_content = get_internal_resource(file_name)
-            snippet_content_map[snippet] = file_content
+        for file in html_filenames:
+            custom_snippet = os.path.splitext(str(file.name))[0]
+            snippet_content_map[custom_snippet] = file.read_text(encoding='utf-8')
 
     resolve_templates(ctx, snippet_content_map, topic)
     return snippet_content_map
@@ -82,7 +78,23 @@ def insert_html_snippets(ctx, file_path, meta,  snippet_content_map):
 
     snippet_content_map.pop('layout')
     final_page = template.render(snippet=snippet_content_map, meta=meta)
-    return final_page
+    if iscode:
+        html_page = insert_prettyprint_class(ctx, final_page)
+
+    return html_page
+
+
+def insert_prettyprint_class(ctx, html_page):
+    soup = BS(html_page, features='html.parser')
+    pre_tags = soup.find_all('pre')
+    if not pre_tags:
+        ctx.log(":: WARNING: No pre tags found in code")
+        return html_page
+
+    for pre_tag in pre_tags:
+        pre_tag['class'] = 'prettyprint'
+
+    return soup.prettify(formatter='html')
 
 
 def resolve_templates(ctx, snippet_content_map, topic):
@@ -169,6 +181,8 @@ def update_posts_index(ctx, snippet_content_map, meta, topic):
     ctx.log("File link and title", snippet['link'], '->', snippet['title'])
     with open(index_path, 'w', encoding='utf8') as wf:
         wf.write(html)
+
+    ctx.log(":: Index successfully updated\n\n")
 
 
 def update_under_topic(soup, post_li_tag_div, topic):
