@@ -93,3 +93,8 @@ pre.prettyprint {
     white-space: pre;
     border-radius: 0;
 }
+
+.output_html.rendered_html.output_subarea.output_execute_result {
+    overflow-x: auto;
+    padding: 0.4em;
+}
