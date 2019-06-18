@@ -19,7 +19,7 @@ class TestBasic(unittest.TestCase):
         self.runner = CliRunner()
         self.export_dir = os.path.expanduser('~/.blogger_tmp/')
         self.runner.invoke(cli, ['addblog', 'test1'],
-                    input=self.export_dir + '\nn \nn \nn \nn')
+                    input=self.export_dir + '\nn \nn \nn \nn \nn \nn')
 
 
     def test_blog_config(self):
@@ -77,7 +77,7 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['export', 'blog_template',
                                     '-o', 'assets'])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['assets', 'blog', 'images', 'index.html'],
+        self.assertEqual(['assets', 'blog', 'index.html', '_blogger_templates', 'images'],
                         os.listdir(assets_dir))
 
         self.runner.invoke(cli, ['config', '-rm', 'default'])

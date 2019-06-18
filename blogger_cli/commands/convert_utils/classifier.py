@@ -28,6 +28,13 @@ def convert_and_copyfiles(ctx):
 def process_htmlfile(ctx, html_file):
     destination_dir = ctx.conversion['destination_dir']
     html_filename = os.path.basename(html_file)
+
+    given_topic = ctx.conversion.get('topic')
+    topic = given_topic if given_topic else ''
+    if topic:
+        ctx.log(":: Got topic, ", topic)
+
+    html_filename = os.path.join(topic, html_filename)
     html_file_path = os.path.join(destination_dir, html_filename)
     meta = ''
     ctx.vlog("copying basic html file to", html_file_path)
@@ -35,5 +42,5 @@ def process_htmlfile(ctx, html_file):
         copyfile(html_file, html_file_path)
     except:
         pass
-    return {html_filename: meta}
+    return (html_filename, meta)
 

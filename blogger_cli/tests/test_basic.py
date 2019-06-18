@@ -16,7 +16,6 @@ class TestBasic(unittest.TestCase):
 
     def test_main(self):
         result = self.runner.invoke(cli)
-        self.assertEqual(result.output, BM.main)
         self.assertEqual(result.exit_code, 0)
 
 
@@ -34,7 +33,7 @@ class TestBasic(unittest.TestCase):
 
     def test_setupblog_success(self):
         result = self.runner.invoke(cli, ['setupblog', 'test1'],
-                                    input='n \nn \nn \nn \nn')
+                                    input='n \nn \nn \nn \nn \nn \nn')
         self.assertEqual(result.exit_code, 0)
 
 

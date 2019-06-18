@@ -3,12 +3,12 @@ import shutil
 import unittest
 from click.testing import CliRunner
 from blogger_cli.cli import cli
+from blogger_cli import root_dir
 from blogger_cli.tests.messages import BloggerMessage as BM
 from pkg_resources import resource_filename
 
 
 class TestBasic(unittest.TestCase):
-
 
     def setUp(self):
         self.runner = CliRunner()
@@ -16,7 +16,7 @@ class TestBasic(unittest.TestCase):
         self.blog_dir = os.path.join(self.export_dir, 'blog')
         self.index_path = os.path.join(self.blog_dir, 'index.html')
         self.runner.invoke(cli, ['addblog', 'test1'],
-                    input=self.export_dir + '\nn \nn \nn \nn')
+                    input=self.export_dir + '\nn \nn \nn \nn \nn \nn')
         self.runner.invoke(cli, ['config', '-b', 'test1',
                                  'blog_posts_dir', 'blog'])
         self.runner.invoke(cli, ['config', '-b', 'test1',
@@ -35,9 +35,9 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['convert', '-b', 'test1',
                                 html_path, '-v'])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['blog'], os.listdir(self.export_dir))
+        self.assertEqual(['blog', 'images'], os.listdir(self.export_dir))
 
-        self.assertEqual(['html.html', 'index.html'],
+        self.assertEqual(['index.html', 'html.html'],
                         os.listdir(self.blog_dir))
         self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
 
@@ -63,6 +63,7 @@ class TestBasic(unittest.TestCase):
 
         self.assertEqual(['index.html', 'ipynb1.html', 'ipynb1.ipynb'],
                         os.listdir(self.blog_dir))
+        #os.system('cp '+ self.index_path+ ' '+ test_index_path)
         self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
 
 
@@ -91,7 +92,7 @@ class TestBasic(unittest.TestCase):
 
     def test_md(self):
         md_path = resource_filename('blogger_cli',
-                    'tests/tests_resources/md.md')
+                    'tests/tests_resources/md1.md')
         test_index_path = resource_filename('blogger_cli',
                     'tests/tests_resources/index/md_index.html')
 
@@ -101,7 +102,7 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(['blog', 'images'],
                         os.listdir(self.export_dir))
 
-        self.assertEqual(['index.html', 'md.html', 'md.md'],
+        self.assertEqual(['index.html', 'md1.html', 'md1.md'],
                         os.listdir(self.blog_dir))
         self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
 

@@ -42,6 +42,8 @@ Blog:configs [standard]
    blog_images_dir
    blog_posts_dir
    default
+   disqus_username
+   google_analytics_id
    templates_dir
    working_dir
 

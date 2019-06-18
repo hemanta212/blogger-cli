@@ -41,7 +41,7 @@ def extract_meta_and_main(md_data):
     try:
         for key_value in meta_lines:
             key, value = key_value.split(':')
-            meta[key] = value
+            meta[key.strip()] = value.strip()
     except:
         main_data = md_data
 
