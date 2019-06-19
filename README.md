@@ -1,5 +1,5 @@
 # Blogger-cli 
-A custom cli tool that can process programming blogs including jupyter notebooks, markdown files, and even any custom template. Write your blog in simple text, md or jupyter notebooks and then transform into blog post with mathjax, code support, google analytics, navigation, disqus support.
+A custom cli tool to process jupyter notebooks, markdown files and html files. Write your blog in markdown or jupyter notebooks and then transform into blog post with mathjax, code support, google analytics, navigation, disqus support.
 
 
 ## Why?
@@ -8,12 +8,13 @@ Blogger-cli has simple conversion system that is fast as well extremely customiz
 
 
 ## Features
-* Out of the box support for github pages 
-* Custom conversion of ipynb notebook with great support for mobile devices as well.
-* Manage your blog entirely from command line. 
+* Robust conversion of ipynb notebooks with great support for mobile devices as well.
+* Built in support for disqus, google analytics, navigation bar, mathjax and code highlighting.
+* Blog management: updating index, parsing out images, managing topics and metadata. 
 * Write and post blogs from android or any micro device. All that is required is command line with python and pip.
-* Built in design, blog_templates for rapidly setting your blog from scratch
-* Support for custom themes and templates
+* Built in design, blog_templates for rapidly setting up your blog from scratch.
+* Fully customizable with support for custom themes and templates
+* Also support conversion of other file formats like markdown. You can also implement your own.
 
 
 ## Installation
