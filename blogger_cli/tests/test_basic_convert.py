@@ -12,7 +12,9 @@ class TestBasic(unittest.TestCase):
 
     def setUp(self):
         self.runner = CliRunner()
-        self.export_dir = os.path.expanduser('~/.blogger_tmp/')
+        HOME_DIR = os.path.expanduser('~')
+        self.export_dir = os.path.join(HOME_DIR, '.blogger_tmp')
+        os.mkdir(self.export_dir)
         self.blog_dir = os.path.join(self.export_dir, 'blog')
         self.index_path = os.path.join(self.blog_dir, 'index.html')
         self.runner.invoke(cli, ['addblog', 'test1'],
@@ -37,14 +39,14 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(['blog', 'images'], os.listdir(self.export_dir))
 
-        self.assertEqual(['index.html', 'html.html'],
+        self.assertEqual(['html.html', 'index.html'],
                         os.listdir(self.blog_dir))
         self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
 
 
     @staticmethod
     def read_file(file_path):
-        with open(file_path, 'r') as rf:
+        with open(file_path, 'r', encoding='utf-8') as rf:
             data = rf.read()
             return data
 
