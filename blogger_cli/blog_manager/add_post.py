@@ -15,16 +15,17 @@ def add(ctx, filename_meta):
     destination_dir = Path(ctx.conversion['destination_dir'])
     file_path = destination_dir / filename
     topic = os.path.dirname(str(filename))
+    meta['topic'] = topic
 
-    snippet = get_snippet_content_map(ctx, topic)
+    snippet = get_snippet_content_map(ctx, meta)
     snippet['link'] = str(filename)
     html_page = insert_html_snippets(ctx, file_path, meta, snippet)
     ctx.log(":: Writing finished html to", filename)
     file_path.write_text(html_page, encoding='utf-8')
-    update_posts_index(ctx, snippet, meta, topic)
+    update_posts_index(ctx, snippet, meta)
 
 
-def get_snippet_content_map(ctx, topic):
+def get_snippet_content_map(ctx, meta):
     templates_dir = ctx.conversion.get('templates_dir')
     snippet_names = ['layout','disqus', 'css', 'li_tag', 'google_analytics',
                     'navbar_data', 'navbar', 'js', 'mathjax']
@@ -44,7 +45,7 @@ def get_snippet_content_map(ctx, topic):
             custom_snippet = os.path.splitext(str(file.name))[0]
             snippet_content_map[custom_snippet] = file.read_text(encoding='utf-8')
 
-    resolve_templates(ctx, snippet_content_map, topic)
+    resolve_templates(ctx, snippet_content_map, meta)
     return snippet_content_map
 
 
@@ -97,18 +98,15 @@ def insert_prettyprint_class(ctx, html_page):
     return soup.prettify(formatter='html')
 
 
-def resolve_templates(ctx, snippet_content_map, topic):
+def resolve_templates(ctx, snippet_content_map, meta):
     config = {}
     blog = ctx.current_blog
-    css_meta = {
-            'topic': topic
-    }
+    topic = meta['topic']
     navbar_dict = get_navbar_dict(ctx, snippet_content_map, topic)
     layout_renderer_map = {
         'disqus': config,
         'google_analytics': config,
-        'css': css_meta,
-        'navbar': navbar_dict,
+        'navbar': navbar_dict
     }
 
     config_names = ['disqus_username', 'google_analytics_id']
@@ -116,10 +114,13 @@ def resolve_templates(ctx, snippet_content_map, topic):
         config_key = blog + ":" + config_name
         config[config_name] = ctx.config.read(key=config_key)
 
-    for layout, renderer in layout_renderer_map.items():
-        layout_data = snippet_content_map[layout]
-        rendered_content = jinja2.Template(layout_data).render(config=renderer)
-        snippet_content_map[layout] = rendered_content
+    exclude_snippet = ['layout', 'li_tag']
+    for snippet, content in snippet_content_map.items():
+        if snippet not in exclude_snippet:
+            renderer = layout_renderer_map.get(snippet)
+            content_template = jinja2.Template(content)
+            html_snippet = content_template.render(config=renderer, meta=meta)
+            snippet_content_map[snippet] = html_snippet
 
 
 def get_navbar_dict(ctx, snippet_content_map, topic):
@@ -152,10 +153,12 @@ def get_page_title(ctx, page):
     return title
 
 
-def update_posts_index(ctx, snippet_content_map, meta, topic):
+def update_posts_index(ctx, snippet_content_map, meta):
     post_li_tag_div = prepare_post_list(meta, snippet_content_map)
     destination_dir = ctx.conversion['destination_dir']
     index_path = os.path.join(destination_dir, 'index.html')
+    topic = meta['topic']
+
     if not os.path.exists(index_path):
         ctx.log("Cannot find index file in", index_path)
         ctx.log("WARNING: NO INDEX FILE. \nSEE blogger export --help")
@@ -210,7 +213,7 @@ def update_without_topic(soup, post_li_tag):
     file_link = post_li_tag.ul.li.a['href']
     posts_list_tag = check_and_remove_duplicate_tag(posts_list_tag, file_link)
     li_tag_ul = post_li_tag.ul.extract()
-    posts_list_tag.append(li_tag_ul)
+    posts_list_tag.insert(0, li_tag_ul)
     return soup.prettify(formatter='html')
 
 

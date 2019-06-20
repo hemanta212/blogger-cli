@@ -36,7 +36,7 @@ def extract_meta_and_main(md_data):
 
     main_data = md_data[second_mark+4:]
     meta_lines = metadata.strip().split('\n')
-    meta = {}
+    meta = dict()
 
     try:
         for key_value in meta_lines:

@@ -61,7 +61,7 @@ def convert(ipynb_file_path):
         ipynb_content = rf.read()
 
     html_exporter = gen_exporter()
-    meta = None
+    meta = dict()
     nb = nbformat.reads(ipynb_content, as_version=4)
     (body, __) = html_exporter.from_notebook_node(nb)
     return meta, body
