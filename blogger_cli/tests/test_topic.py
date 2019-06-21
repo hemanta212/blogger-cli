@@ -35,6 +35,7 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['convert', '-b', 'test1',
                                 files_path, '--topic', 'test1'])
 
+        print(result.output)
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(['blog', 'images'], os.listdir(self.export_dir))
 

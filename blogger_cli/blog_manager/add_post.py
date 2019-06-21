@@ -101,7 +101,7 @@ def insert_prettyprint_class(ctx, html_page):
 def resolve_templates(ctx, snippet_content_map, meta):
     config = {}
     blog = ctx.current_blog
-    topic = meta['topic']
+    topic = meta.get('topic')
     navbar_dict = get_navbar_dict(ctx, snippet_content_map, topic)
     layout_renderer_map = {
         'disqus': config,

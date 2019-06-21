@@ -14,6 +14,7 @@ def copy_design_assets(ctx, export_path):
     ctx.vlog("Copying design assets from", design_asset_path,
             os.listdir(design_asset_path))
     copy_tree(design_asset_path, export_path)
+    return design_asset_path
 
 
 def copy_blog_template(ctx, export_path):
@@ -25,6 +26,7 @@ def copy_blog_template(ctx, export_path):
     images_folder = os.path.join(export_path, 'images')
     if not os.path.exists(images_folder):
         os.mkdir(images_folder)
+    return blog_template_dir
 
 
 def build_indexes(ctx):
@@ -36,8 +38,8 @@ def build_indexes(ctx):
     ctx.conversion = {
             'templates_dir' : templates_dir
     }
-    topic = None
-    snippet = get_snippet_content_map(ctx, topic)
+    meta = dict()
+    snippet = get_snippet_content_map(ctx, meta)
     indexes = ['main_index.html', 'blog_index.html']
     index_template_paths = ['resources/' + index for index in indexes]
     dest_index_paths = {
@@ -63,6 +65,7 @@ def copy_blog_config(ctx, export_dir):
     ctx.vlog("Copying blog config for", blog, "to", export_path)
     with open(export_path, 'w') as wf:
         json.dump(blog_config, wf, indent=2)
+    return blog_config
 
 
 def copy_blog_index(ctx, export_path):
@@ -71,4 +74,5 @@ def copy_blog_index(ctx, export_path):
             'resources/blog_template/blog/index.html')
     ctx.vlog("Copying blog index from", blog_index_path)
     copy_file(blog_index_path, export_path)
+    return blog_index_path
 

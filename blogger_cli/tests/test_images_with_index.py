@@ -41,7 +41,6 @@ class TestConversion(unittest.TestCase):
                     'tests/tests_resources/md1.md')
         test_index_path = resource_filename('blogger_cli',
                     'tests/tests_resources/index/md_index.html')
-        os.rename(self.index_path, 'index.html')
         result = self.runner.invoke(cli, ['convert', '-b', 'test1',
                                 md_path, '-v'])
         self.assertEqual(result.exit_code, 0)
@@ -50,7 +49,7 @@ class TestConversion(unittest.TestCase):
 
         self.assertEqual(['index.html', 'md1.html', 'md1.md'],
                         os.listdir(self.blog_dir))
-        self.assertEqual(read_file('index.html'), read_file(test_index_path))
+        self.assertEqual(read_file(self.index_path), read_file(test_index_path))
 
 
     def tearDown(self):
