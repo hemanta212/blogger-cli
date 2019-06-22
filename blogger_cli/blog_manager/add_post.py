@@ -129,7 +129,7 @@ def get_navbar_dict(ctx, snippet_content_map, topic):
                                 object_pairs_hook=OrderedDict)
     except Exception as E:
         ctx.log("Couldnot parse your custom navbar", E)
-        ctx.exit("ERROR: INVALID NAVBAR TEMPLATE")
+        raise SystemExit("ERROR: INVALID NAVBAR TEMPLATE")
 
     if topic:
         for nav_topic, nav_link in navbar_dict.items():

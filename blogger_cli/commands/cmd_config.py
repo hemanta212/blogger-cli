@@ -38,8 +38,9 @@ def __get_blog(ctx, blog):
     if blog is None:
         default = ctx.default_blog
         if default is None:
-            ctx.exit("Try 'blogger config --help' for help.",
-                     "\nError: Missing option -b <blogname>")
+            ctx.log("Try 'blogger config --help' for help.")
+            raise SystemExit("\nError: Missing option -b <blogname>")
+
         else:
             ctx.vlog("\nUsing default blog ->", default)
             blog = default
@@ -49,12 +50,12 @@ def __get_blog(ctx, blog):
 
 def __validate(ctx, blog, configs):
     if len(configs) > 2:
-        ctx.exit("\nInvalid input arguments")
+        raise SystemExit("\nInvalid input arguments")
 
     if not ctx.blog_exists(blog):
-        ctx.exit("\nBlog", blog, "doesnot exist")
+        raise SystemExit("\nBlog " + str(blog) + " doesnot exist")
 
     key = configs[0]
     blog_dict = ctx.config.read(key=blog)
     if key not in ctx.config_keys and key not in blog_dict:
-        ctx.exit("\nInvalid config key.")
+        raise SystemExit("\nInvalid config key.")

@@ -32,13 +32,6 @@ class Context(object):
         if self.verbose:
             self.log(msg, *args)
 
-    def exit(self, msg, *args):
-        '''
-        Identical to ctx.fail but doesnot need to be called from inside
-        a command instead from anywhere
-        '''
-        self.log(msg, *args)
-        sys.exit(1)
 
     def blog_exists(self, blog):
         return False if not self.config.read(key=blog) else True
@@ -73,7 +66,7 @@ class ComplexCLI(click.MultiCommand):
             mod = __import__('blogger_cli.commands.cmd_' + name,
                              None, None, ['cli'])
         except ImportError as e:
-            print(e)
+            ctx.log(str(e))
             return
         return mod.cli
 

@@ -1,5 +1,4 @@
 import os
-import sys
 import shutil
 import click
 from pathlib import Path
@@ -114,11 +113,10 @@ def check_and_ensure_destination_dir(ctx, output_dir):
     blog  = ctx.current_blog
     blog_dir = ctx.config.read(key=blog+': blog_dir')
     posts_dir = ctx.config.read(key=blog + ' : blog_posts_dir')
-
     if not posts_dir and not output_dir:
         ctx.log("No destination folder given. Specify one with -o option or",
             "setup in your", blog, "blog's config")
-        ctx.exit("ERROR: NO OUTPUT FOLDER")
+        raise SystemExit("ERROR: NO OUTPUT FOLDER")
 
     if posts_dir:
         destination_dir = os.path.join(blog_dir, posts_dir)
@@ -145,7 +143,7 @@ def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
             img_dir = os.path.join(destination_dir, 'images')
             return img_dir
         else:
-            ctx.exit("ERROR: NO OUTPUT FOLDER")
+            raise SystemExit("ERROR: NO OUTPUT FOLDER")
 
     if blog_img_dir:
         img_dir = os.path.join(blog_dir, blog_img_dir)
@@ -181,7 +179,7 @@ def set_current_blog(ctx, blog):
 
     if not ctx.blog_exists(current_blog):
         ctx.log("Blog name not given. Use --blog option or set default blog")
-        ctx.exit("ERROR: Blogname unavailable. SEE blogger convert --help")
+        raise SystemExit("ERROR: Blogname unavailable. SEE blogger convert --help")
 
     ctx.current_blog = current_blog
 
