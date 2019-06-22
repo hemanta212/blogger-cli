@@ -9,6 +9,7 @@ from click.testing import CliRunner
 from blogger_cli import root_dir
 from blogger_cli.cli import Context
 from blogger_cli.cli import cli
+from blogger_cli.tests import test_utils
 from blogger_cli.commands.cmd_convert import (get_files_being_converted,
     check_and_ensure_destination_dir)
 
@@ -18,6 +19,7 @@ class TestBasic(unittest.TestCase):
     def setUp(self):
         self.runner = CliRunner()
         self.ctx = Context()
+        self.root_dir = root_dir.capitalize()
         self.export_dir = mkdtemp()
         self.blog_dir = os.path.join(self.export_dir, 'blog')
         self.index_path = os.path.join(self.blog_dir, 'index.html')
@@ -30,7 +32,7 @@ class TestBasic(unittest.TestCase):
 
 
     def test_get_files_being_converted(self):
-        resource_path = os.path.join(root_dir, 'tests', 'tests_resources')
+        resource_path = os.path.join(self.root_dir, 'tests', 'tests_resources')
         files = get_files_being_converted( (resource_path, ) )
         expected_files = {'html.html', 'ipynb1.ipynb', 'ipynb2.ipynb',
                         'md1.md', 'md2.md'}
@@ -47,6 +49,29 @@ class TestBasic(unittest.TestCase):
         files = get_files_being_converted((file1, file2, resource_path),
                                         recursive=True)
         self.assertEqual(expected, files)
+
+
+    def test_check_and_ensure_destination_dir(self):
+        ctx = self.ctx
+        ctx.log = test_utils.nulllog
+        ctx.current_blog = 'test1'
+        output_dir = None
+        destination_dir = check_and_ensure_destination_dir(ctx, output_dir)
+        self.assertEqual(self.blog_dir, destination_dir)
+
+        self.runner.invoke(cli, ['config', '-b', 'test1',
+                                 'blog_posts_dir', 'blog/test'])
+        destination_dir = check_and_ensure_destination_dir(ctx, output_dir)
+        expected_destination_dir = os.path.join(self.blog_dir, 'test')
+        self.assertEqual(expected_destination_dir, destination_dir)
+
+        self.runner.invoke(cli, ['config', '-b', 'test1',
+                                 '-rm', 'blog_dir'])
+        self.runner.invoke(cli, ['config', '-b', 'test1',
+                                 '-rm', 'blog_posts_dir'])
+        with self.assertRaises(SystemExit) as se:
+            destination_dir = check_and_ensure_destination_dir(ctx, output_dir)
+
 
 
     def tearDown(self):

@@ -26,6 +26,9 @@ def read_file(file_path):
         return data
         rf.close()
 
+def nulllog(msg, *args, **kwargs):
+    pass
+
 def tearDown(self):
     self.runner.invoke(cli, ['rmblog', 'test1'])
     shutil.rmtree(self.export_dir)
