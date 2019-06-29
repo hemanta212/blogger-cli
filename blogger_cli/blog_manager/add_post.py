@@ -99,7 +99,7 @@ def insert_prettyprint_class(ctx, html_page):
 
 
 def resolve_templates(ctx, snippet_content_map, meta):
-    config = {}
+    config = dict()
     blog = ctx.current_blog
     topic = meta.get('topic')
     navbar_dict = get_navbar_dict(ctx, snippet_content_map, topic)
@@ -108,7 +108,6 @@ def resolve_templates(ctx, snippet_content_map, meta):
         'google_analytics': config,
         'navbar': navbar_dict
     }
-
     config_names = ['disqus_username', 'google_analytics_id']
     for config_name in config_names:
         config_key = blog + ":" + config_name

@@ -1,8 +1,20 @@
 # Exporting resources to your blog
-Use ``blogger export --help``` to view items that can be exported.
+This command export resources that you can use to quickly setup your blog.
+When you export resources existing folder of same name will be replaced permanently, there is no going back. So always do this in empty folder or use -o option to place them in test/ folder.
+
+Following files/folder can be replaced: 
+1. index.html
+2. css/
+3. js/
+4. fonts/
+5. images/ 
+6. \_blogger_templates/
+
+Use ```blogger export --help``` to view items that can be exported.
+
 # Contents
-1. Exporting blog templates
-2. Exporting blog indexes
+1. Exporting blog template
+2. Exporting blog index
 3. Exporting blog assets
 4. Exporting blog configurations
 
@@ -29,17 +41,19 @@ blogger export -b <blogname> blog_index -o ~/my_website/test
 ```
 
 # Exporting blog assets
-If you just want blog assets (css and js),
+If you just want blog assets (css, js, fonts). For default support export them inside assets/ folder
 ```
-blogger export -b <blogname> blog_assets
+blogger export -b <blogname> blog_assets -o assets/
 ```
+> If you export css, js in different folder you have to override the default templates with new path. More info [here](#todo)
+
 The -o option rule is same as exporting blog_template mentioned above.
 ```
 blogger export -b <blogname> blog_assets -o assets/ 
-blogger export -b <blogname> blog_assets -o ~/my_website/test
+blogger export -b <blogname> blog_assets -o ~/my_website/assets/
 ```
 
-# Exporting blog config
+# Exporting blog configurations
 If you just want blog config,
 ```
 blogger export -b <blogname> blog_config
