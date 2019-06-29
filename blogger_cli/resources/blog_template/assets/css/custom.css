@@ -55,11 +55,6 @@ pre code {
   overflow-y: scroll;
 }
 
-.inner_cell {
-    font-family: consolas;
-    font-size: 1em;
-}
-
 div.input_prompt {
     color: firebrick;
 }
