@@ -27,8 +27,12 @@ def add(ctx, filename_meta):
 
 def get_snippet_content_map(ctx, meta):
     templates_dir = ctx.conversion.get('templates_dir')
-    snippet_names = ['layout','disqus', 'css', 'li_tag', 'google_analytics',
-                    'navbar_data', 'navbar', 'js', 'mathjax']
+    snippet_names = [
+        'layout','disqus', 'css', 'li_tag', 'google_analytics',
+        'navbar_data', 'navbar', 'js', 'mathjax', 'light_theme',
+        'dark_theme',
+    ]
+
     snippet_content_map = {}
 
     for snippet in snippet_names:

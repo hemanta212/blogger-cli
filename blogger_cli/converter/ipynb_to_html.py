@@ -6,7 +6,7 @@ from nbconvert import HTMLExporter
 import nbformat
 from traitlets.config import Config as TraitletsConfig
 
-from blogger_cli.converter.extractors import extract_and_write_images
+from blogger_cli.converter.extractors import extract_and_write_static
 
 
 def convert_and_copy_to_blog(ctx, ipynb_file):
@@ -38,8 +38,9 @@ def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
         os.mkdir(new_blog_post_dir)
 
     if extract_img:
-        html_body = extract_and_write_images(ctx, html_body,
+        html_body = extract_and_write_static(ctx, html_body,
                                             ipynb_filename, new_blog_post_dir)
+
 
     with open(html_file_path, 'w', encoding='utf8') as wf:
         wf.write(html_body)

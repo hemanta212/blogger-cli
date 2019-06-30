@@ -5,7 +5,7 @@ from urllib.request import urlopen, Request
 import markdown
 from bs4 import BeautifulSoup as BS
 
-from blogger_cli.converter.extractors import extract_and_write_images
+from blogger_cli.converter.extractors import extract_and_write_static
 
 
 def convert_and_copy_to_blog(ctx, md_file):
@@ -78,7 +78,7 @@ def write_html_and_md(ctx, html_body, md_file_path, meta):
 
     extract_img = ctx.conversion['extract_img']
     if extract_img:
-        html_body = extract_and_write_images(ctx, html_body,
+        html_body = extract_and_write_static(ctx, html_body,
                                             md_filename, new_blog_post_dir)
 
     with open(html_file_path, 'w', encoding='utf8') as wf:

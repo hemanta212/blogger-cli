@@ -66,7 +66,6 @@ class ComplexCLI(click.MultiCommand):
             mod = __import__('blogger_cli.commands.cmd_' + name,
                              None, None, ['cli'])
         except ImportError as e:
-            ctx.log(str(e))
             return
         return mod.cli
 
