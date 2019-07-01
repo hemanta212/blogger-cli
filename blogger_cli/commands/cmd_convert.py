@@ -9,7 +9,7 @@ from blogger_cli.cli import pass_context
 
 
 @click.command('convert', short_help='Convert files to html')
-@click.argument('path', nargs=-1, required=True,
+@click.argument('path', nargs=-1, required=False,
                 type=click.Path(exists=True))
 @click.option('--recursive', '-r', 'recursive', is_flag=True,
         help="Recusively search folder for files to convert. USE WITH CAUTION")
@@ -52,6 +52,8 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_img,
     """
     ctx.verbose = verbose
     set_current_blog(ctx, blog)
+#    if not path:
+#        path = get_files_from_working_dir(ctx)
 
     resolved_files = get_files_being_converted(path, recursive=recursive)
     file_ext_map = get_file_ext_map(ctx, exclude_html, resolved_files)

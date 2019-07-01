@@ -70,7 +70,7 @@ class Config:
         returns : nothing
         '''
         with open(self.file_path, 'w')as rf:
-            json.dump(new_dict, rf)
+            json.dump(new_dict, rf, indent=2)
             logger.debug("succesfully added config dict")
 
     def __dict_accesor(self, dict_name, key_list):

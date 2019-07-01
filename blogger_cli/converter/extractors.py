@@ -1,6 +1,8 @@
 import os
+import shutil
 from base64 import b64decode
 from pathlib import Path
+
 from bs4 import BeautifulSoup as BS
 from urllib.request import Request, urlopen
 
@@ -147,6 +149,5 @@ def extract_static_files(data, file_path, dest_dir):
     if static_path.exists():
         static_path = static_path.resolve()
         dest_path = os.path.join(dest_dir, data)
-        print("::COPYING FROM", str(static_path), "TO", dest_path)
-        #shutil.copyfile(static_path, dest_path)
+        shutil.copyfile(str(static_path), dest_path)
         return dest_path

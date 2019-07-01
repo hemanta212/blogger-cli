@@ -1,5 +1,8 @@
 import os
 
-version = '1.0.0'
-root_dir = os.path.join(os.path.split(__file__)[0])
-resource_dir = os.path.join(os.path.split(__file__)[0], 'resources')
+__version__ = '1.0.0'
+ROOT_DIR = os.path.join(os.path.split(__file__)[0])
+RESOURCE_DIR = os.path.join(os.path.split(__file__)[0], 'resources')
+
+HOME = os.path.expanduser('~')
+CONFIG_DIR = os.path.join(HOME, '.blogger')

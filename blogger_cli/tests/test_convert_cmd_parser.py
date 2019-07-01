@@ -6,7 +6,7 @@ from tempfile import mkdtemp
 from pkg_resources import resource_filename
 
 from click.testing import CliRunner
-from blogger_cli import root_dir
+from blogger_cli import ROOT_DIR
 from blogger_cli.cli import Context
 from blogger_cli.cli import cli
 from blogger_cli.tests import test_utils
@@ -19,7 +19,7 @@ class TestBasic(unittest.TestCase):
     def setUp(self):
         self.runner = CliRunner()
         self.ctx = Context()
-        self.root_dir = root_dir.capitalize()
+        self.root_dir = ROOT_DIR.capitalize()
         self.export_dir = mkdtemp()
         self.blog_dir = os.path.join(self.export_dir, 'blog')
         self.index_path = os.path.join(self.blog_dir, 'index.html')

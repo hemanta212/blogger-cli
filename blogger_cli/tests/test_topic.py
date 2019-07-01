@@ -3,7 +3,7 @@ import shutil
 import unittest
 from click.testing import CliRunner
 from blogger_cli.cli import cli
-from blogger_cli import root_dir
+from blogger_cli import ROOT_DIR
 from blogger_cli.tests.messages import BloggerMessage as BM
 from pkg_resources import resource_filename
 
@@ -28,7 +28,7 @@ class TestBasic(unittest.TestCase):
     def test_topic(self):
         self.maxDiff = None
 
-        files_path = os.path.join(root_dir, 'tests', 'tests_resources')
+        files_path = os.path.join(ROOT_DIR, 'tests', 'tests_resources')
         test_index_path = resource_filename('blogger_cli',
                     'tests/tests_resources/index/topic_index.html')
 

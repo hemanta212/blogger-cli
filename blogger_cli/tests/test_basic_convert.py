@@ -3,7 +3,6 @@ import shutil
 import unittest
 from click.testing import CliRunner
 from blogger_cli.cli import cli
-from blogger_cli import root_dir
 from blogger_cli.tests.messages import BloggerMessage as BM
 from pkg_resources import resource_filename
 

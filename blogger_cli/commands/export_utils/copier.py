@@ -5,12 +5,12 @@ from distutils.file_util import copy_file
 from pkg_resources import resource_filename, resource_string
 
 import jinja2
-from blogger_cli import resource_dir
+from blogger_cli import RESOURCE_DIR
 from blogger_cli.blog_manager.add_post import get_snippet_content_map
 
 
 def copy_design_assets(ctx, export_path):
-    design_asset_path = os.path.join(resource_dir, 'blog_template', 'assets')
+    design_asset_path = os.path.join(RESOURCE_DIR, 'blog_template', 'assets')
     ctx.vlog("Copying design assets from", design_asset_path,
             os.listdir(design_asset_path))
     copy_tree(design_asset_path, export_path)
@@ -18,7 +18,7 @@ def copy_design_assets(ctx, export_path):
 
 
 def copy_blog_template(ctx, export_path):
-    blog_template_dir = os.path.join(resource_dir, 'blog_template')
+    blog_template_dir = os.path.join(RESOURCE_DIR, 'blog_template')
     build_indexes(ctx)
     ctx.vlog("Copying blog template from", blog_template_dir,
             os.listdir(blog_template_dir))

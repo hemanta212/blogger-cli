@@ -2,13 +2,15 @@ import os
 import sys
 import click
 from blogger_cli.cli_utils.json_writer import Config
+from blogger_cli import CONFIG_DIR
 
 
 class Context(object):
 
     def __init__(self):
         self.verbose = False
-        self.config = Config('~/.blogger/blog_config.cfg',
+        config_path = os.path.join(CONFIG_DIR, 'blog_config.cfg')
+        self.config = Config(config_path,
                              backup_dir='~/.blogger/backup/')
         self.blog_list = self.config.read(all_keys=True)
         self.config_keys = [
