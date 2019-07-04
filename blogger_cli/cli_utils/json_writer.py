@@ -132,8 +132,7 @@ class Config:
 
         with open(self.file_path, 'r')as rf:
             data_dict = json.load(rf)
-
-            key_list = key.split(":")
+            key_list = [ i.strip() for i in key.split(":") ]
             first_half = self.__dict_accesor('data_dict', key_list)
             second_half = '= value'
             ensure_path(key_list, data_dict)

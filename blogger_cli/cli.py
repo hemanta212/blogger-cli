@@ -18,6 +18,11 @@ class Context(object):
             'templates_dir', 'blog_dir', 'blog_posts_dir', 'default',
             'working_dir'
         ]
+        self.optional_config = [
+            'working_dir_timestamp', 'post_extract_list', 'index_div_name',
+            'filter_post_without_title'
+        ]
+
 
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''

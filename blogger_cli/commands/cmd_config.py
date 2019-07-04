@@ -57,5 +57,6 @@ def __validate(ctx, blog, configs):
 
     key = configs[0]
     blog_dict = ctx.config.read(key=blog)
-    if key not in ctx.config_keys and key not in blog_dict:
+    allowed_keys = ctx.config_keys + ctx.optional_config
+    if key not in allowed_keys and key not in blog_dict:
         raise SystemExit("\nInvalid config key.")

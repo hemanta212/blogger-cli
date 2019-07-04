@@ -1,3 +1,5 @@
+from itertools import zip_longest
+
 import click
 from blogger_cli.cli import pass_context
 
@@ -28,9 +30,10 @@ def cli(ctx, blog, verbose):
         if len(ctx.blog_list) == 0:
             ctx.log(' ', "No blog registered yet!")
 
-        ctx.log("\nBlog:configs [standard]")
-        for i in sorted(ctx.config_keys):
-            ctx.log('  ', i)
+        ctx.log("\nBlog:configs [standard] \tOptional:configs [Advanced]")
+        for i, j in zip_longest(ctx.config_keys, ctx.optional_config):
+            j = j if j else " "
+            ctx.log('  ', i, '\t\t', j)
 
         ctx.log("\nTip: Use blogger info blogname for blog details")
 

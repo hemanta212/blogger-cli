@@ -2,6 +2,7 @@ import os
 import shutil
 import click
 from pathlib import Path
+from datetime import datetime
 
 from blogger_cli.commands.convert_utils.classifier import convert_and_copyfiles
 from blogger_cli.blog_manager import add_post
@@ -52,8 +53,10 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_img,
     """
     ctx.verbose = verbose
     set_current_blog(ctx, blog)
-#    if not path:
-#        path = get_files_from_working_dir(ctx)
+    path = path if path else get_files_from_working_dir(ctx, recursive)
+    if not path:
+        ctx.log(":: All files synced.")
+        raise SystemExit(0)
 
     resolved_files = get_files_being_converted(path, recursive=recursive)
     file_ext_map = get_file_ext_map(ctx, exclude_html, resolved_files)
@@ -79,6 +82,61 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_img,
     ctx.log("Converted files successfully\n\n. :: Adding files to blog\n\n")
     for filename_meta in filenames_meta:
         add_post.add(ctx, filename_meta)
+
+
+def get_files_from_working_dir(ctx, recursive):
+    ctx.log("\n:: No input files given. Scanning working folder for changes..")
+    blog = ctx.current_blog
+    last_checked = ctx.config.read(key=blog + ': working_dir_timestamp')
+    working_dir = ctx.config.read(key=blog + ': working_dir')
+    working_dir = Path(str(working_dir))
+    if not working_dir or not working_dir.exists():
+        ctx.log(":: Working folder doesnot exist")
+        raise SystemExit(":: ERROR: No input files")
+
+    current_timestamp = datetime.today().timestamp()
+    ctx.config.write(blog + ':working_dir_timestamp', current_timestamp)
+
+    if not last_checked:
+        return str(working_dir)
+
+    try:
+        last_checked = float(last_checked)
+    except:
+        ctx.log("Parse error for last sync. Please convert",
+                "files manually or convert all files in your working_dir")
+        raise SystemExit("ERROR: Last sync date invalid")
+
+
+    def is_modified_file(path):
+        if not path.is_file():
+            return False
+        if path.lstat().st_mtime >= last_checked:
+            return True
+
+        return False
+
+
+    all_files = []
+
+    for item in working_dir.iterdir():
+        if item.is_file():
+            if is_modified_file(item):
+                all_files.append( str(item.resolve()) )
+            else:
+                continue
+
+        elif recursive:
+            items = item.rglob('*')
+            files = [str(i.resolve()) for i in items if is_modified_file(i)]
+            all_files += files
+
+        elif not recursive:
+            items = [i.resolve() for i in item.iterdir()]
+            items = [str(i) for i in items if is_modified_file(i)]
+            all_files += items
+
+    return all_files
 
 
 def get_files_being_converted(path, recursive=False):
