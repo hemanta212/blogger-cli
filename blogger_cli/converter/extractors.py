@@ -81,7 +81,7 @@ def extract_images(ctx, images, img_path, filename, blog_post_dir):
             ctx.log(":: Detected DATA URI img. Writing to", image_path)
             img_tag = extract_and_write_uri(img_data, img_tag, image_path,
                                         blog_post_dir)
-        elif img_data.startswith('http'):
+        elif img_data.startswith('http') or img_data.startswith('https'):
             img_tag = extract_and_write_url_img(ctx, img_data, img_tag,
                                                 image_path, blog_post_dir)
         else:
@@ -121,9 +121,9 @@ def extract_and_write_url_img(ctx, img_data, img_tag,
 
         image_src = get_static_src(blog_post_dir, image_path)
         img_tag['src'] = image_src
-        ctx.vlog("Replacing source tag with:", image_src)
+        ctx.vlog(":: Replacing source tag with:", image_src)
     except Exception as E:
-        ctx.vlog("skipping  the image.", E)
+        ctx.vlog(":: skipping  the image.", E)
         pass
 
     return img_tag

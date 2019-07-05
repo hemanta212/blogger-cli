@@ -64,7 +64,7 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_img,
     img_dir = check_and_ensure_img_dir(ctx, destination_dir, img_dir)
     templates_dir = resolve_templates_dir(ctx, templates_dir)
 
-    ctx.log("\nConverting", len(file_ext_map), 'files:: \n\n')
+    ctx.log("\nCONVERTING", len(file_ext_map), 'FILES')
     ctx.vlog("Got files and ext:", file_ext_map, 'img_dir:', img_dir,
             "templates_dir:", templates_dir)
 
@@ -79,7 +79,7 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_img,
             'topic': topic
     }
     filenames_meta = convert_and_copyfiles(ctx)
-    ctx.log("Converted files successfully\n\n. :: Adding files to blog\n\n")
+    ctx.log("Converted files successfully.\n\nADDING FILES TO BLOG")
     for filename_meta in filenames_meta:
         add_post.add(ctx, filename_meta)
 
@@ -130,11 +130,6 @@ def get_files_from_working_dir(ctx, recursive):
             items = item.rglob('*')
             files = [str(i.resolve()) for i in items if is_modified_file(i)]
             all_files += files
-
-        elif not recursive:
-            items = [i.resolve() for i in item.iterdir()]
-            items = [str(i) for i in items if is_modified_file(i)]
-            all_files += items
 
     return all_files
 

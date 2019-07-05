@@ -20,7 +20,7 @@ class Context(object):
         ]
         self.optional_config = [
             'working_dir_timestamp', 'post_extract_list', 'index_div_name',
-            'filter_post_without_title'
+            'filter_post_without_title', 'meta_format'
         ]
 
 

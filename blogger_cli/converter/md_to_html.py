@@ -16,25 +16,33 @@ def convert_and_copy_to_blog(ctx, md_file):
     return html_filename_meta
 
 
-def convert(md_file_path):
+def convert(ctx, md_file_path):
     with open(md_file_path, 'r', encoding='utf8') as rf:
         md_data = rf.read()
 
-    meta, main_md = extract_meta_and_main(md_data)
+    ctx.vlog(":: Extracting meta info")
+    meta, main_md = extract_meta_and_main(ctx, md_data)
     extensions = ['extra', 'smarty']
     html = markdown.markdown(main_md, extensions=extensions,
                             output_format='html5')
     return meta, html
 
 
-def extract_meta_and_main(md_data):
+def extract_meta_and_main(ctx, md_data):
     metadata = ''
-    first_mark = md_data.find('<!--') + 4
-    second_mark = md_data.find('-->')
+    meta_separator = ctx.config.read(key=ctx.current_blog + ':meta_format')
+    if meta_separator:
+        meta_signs = [i.strip() for i in meta_separator.strip().split(" ")]
+        meta_start, meta_end = meta_signs
+    else:
+        meta_start, meta_end = '<!--', '-->'
+
+    first_mark = md_data.find(meta_start) + len(meta_start)
+    second_mark = md_data.find(meta_end)
     if not -1 in (first_mark, second_mark):
         metadata = md_data[first_mark: second_mark]
 
-    main_data = md_data[second_mark+4:]
+    main_data = md_data[second_mark + len(meta_end): ]
     meta_lines = metadata.strip().split('\n')
     meta = dict()
 
@@ -71,7 +79,7 @@ def write_html_and_md(ctx, html_body, md_file_path, meta):
     html_file_path = os.path.join(destination_dir, html_filename)
     new_md_file_path = os.path.join(destination_dir, md_filename)
     new_blog_post_dir = os.path.dirname(html_file_path)
-    ctx.vlog("New blog_posts_dir finalized::", new_blog_post_dir)
+    ctx.vlog(":: New blog_posts_dir finalized", new_blog_post_dir)
 
     if not os.path.exists(new_blog_post_dir):
         os.mkdir(new_blog_post_dir)
@@ -87,11 +95,11 @@ def write_html_and_md(ctx, html_body, md_file_path, meta):
 
     try:
         copyfile(md_file_path, new_md_file_path)
-        ctx.log(":: Copied md file to", new_md_file_path, '\n')
+        ctx.log(":: Copied md file to", new_md_file_path)
     except  SameFileError:
         os.remove(new_md_file_path)
         copyfile(md_file_path, new_md_file_path)
-        ctx.log(":: Overwriting md file", new_md_file_path, '\n')
+        ctx.log(":: Overwriting md file", new_md_file_path)
 
     return (html_filename, meta)
 

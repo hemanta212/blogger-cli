@@ -48,11 +48,11 @@ def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
 
     try:
         copyfile(ipynb_file_path, new_ipynb_file_path)
-        ctx.log(":: Copied ipynb file to", new_ipynb_file_path, '\n')
+        ctx.log(":: Copied ipynb file to", new_ipynb_file_path)
     except SameFileError:
         os.remove(new_ipynb_file_path)
         copyfile(ipynb_file_path, new_ipynb_file_path)
-        ctx.log(":: Overwriting ipynb file", new_ipynb_file_path, '\n')
+        ctx.log(":: Overwriting ipynb file", new_ipynb_file_path)
 
     return (html_filename, meta)
 

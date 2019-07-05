@@ -74,6 +74,8 @@ def insert_html_snippets(ctx, file_path, meta,  snippet_content_map):
     if not iscode:
         snippet_content_map['css'] = ''
         snippet_content_map['mathjax'] = ''
+        snippet_content_map['dark_theme'] = ''
+        snippet_content_map['light_theme'] = ''
 
     snippet_content_map['body'] = html_body
     snippet_content_map['title'] = get_page_title(ctx, html_body)
@@ -143,13 +145,19 @@ def get_navbar_dict(ctx, snippet_content_map, topic):
 
 
 def get_page_title(ctx, page):
+    current_blog = ctx.current_blog
+    filter_ = ctx.config.read(key=current_blog +':filter_post_without_title')
+    if filter_ in ['true', 'True']:
+        ctx.log(":: Filtering this post as it doesnot have title")
+        current_blog = ''
+
     soup = BS(page, 'html.parser')
     try:
         title = soup.find_all('h1')[0].contents[0]
         if title is None:
-            title = "Hemanta Sharma"
+            title = current_blog
     except IndexError:
-        title = "Hemanta Sharma"
+        title = current_blog
 
     title = title.strip()
     ctx.log(":: Got page title as", title)
@@ -160,6 +168,11 @@ def update_posts_index(ctx, snippet_content_map, meta):
     post_li_tag_div = prepare_post_list(meta, snippet_content_map)
     destination_dir = ctx.conversion['destination_dir']
     index_path = os.path.join(destination_dir, 'index.html')
+    index_div_class = 'posts_list'
+    index_class = ctx.config.read(key=ctx.current_blog + ': index_div_name')
+    if index_class:
+        index_div_class = index_class
+
     topic = meta['topic']
 
     if not os.path.exists(index_path):
@@ -168,32 +181,32 @@ def update_posts_index(ctx, snippet_content_map, meta):
         return None
 
     soup = BS(read_file(index_path), features='html.parser')
-    posts_list_div = soup.find('div', class_='posts_list')
+    posts_list_div = soup.find('div', class_=index_div_class)
 
 
     if not posts_list_div:
-        ctx.log("Cannot rupdate blog index. No div with posts_list  class")
+        ctx.log("Cannot update blog index. No div with", index_div_class, "class")
         ctx.log("WARNING: INVALID INDEX.", index_path)
         return None
 
     ctx.log(":: Updating index file at", index_path)
-    if topic:
-        html = update_under_topic(soup, post_li_tag_div, topic)
+    if topic and post_li_tag_div:
+        update_under_topic(posts_list_div, post_li_tag_div, topic)
         ctx.log(":: Linking under topic", topic)
-    else:
-        html = update_without_topic(soup, post_li_tag_div)
+    elif post_li_tag_div:
+        update_without_topic(posts_list_div, post_li_tag_div)
 
     snippet = snippet_content_map
-    ctx.log("File link and title", snippet['link'], '->', snippet['title'])
+    ctx.log(":: File link and title", snippet['link'], '->', snippet['title'])
     with open(index_path, 'w', encoding='utf8') as wf:
-        wf.write(html)
+        wf.write(soup.prettify(formatter='html'))
 
-    ctx.log(":: Index successfully updated\n\n")
+    ctx.log("Index successfully updated\n")
 
 
-def update_under_topic(soup, post_li_tag_div, topic):
+def update_under_topic(posts_list_div, post_li_tag_div, topic):
     div_topic = 'meta-' + topic
-    topic_tag = soup.find('div', class_=div_topic)
+    topic_tag = posts_list_div.find('div', class_=div_topic)
     if topic_tag:
         file_link = post_li_tag_div.ul.li.a['href']
         topic_tag = check_and_remove_duplicate_tag(topic_tag, file_link)
@@ -201,26 +214,24 @@ def update_under_topic(soup, post_li_tag_div, topic):
         topic_tag.append(ul_tag)
 
     else:
-        posts_list_tag = soup.find('div', class_='posts_list')
         post_li_tag_div['class'] = div_topic
         h3_soup = BS('<h3> '+topic+'</h3>\n', features='html.parser')
         h3_tag = h3_soup.find('h3')
         post_li_tag_div.insert(0, h3_tag)
-        posts_list_tag.insert(0, post_li_tag_div)
-
-    return soup.prettify(formatter='html')
+        posts_list_div.insert(0, post_li_tag_div)
 
 
-def update_without_topic(soup, post_li_tag):
-    posts_list_tag = soup.find('div', class_='posts_list')
+def update_without_topic(posts_list_div, post_li_tag):
     file_link = post_li_tag.ul.li.a['href']
-    posts_list_tag = check_and_remove_duplicate_tag(posts_list_tag, file_link)
+    posts_list_div = check_and_remove_duplicate_tag(posts_list_div, file_link)
     li_tag_ul = post_li_tag.ul.extract()
-    posts_list_tag.insert(0, li_tag_ul)
-    return soup.prettify(formatter='html')
+    posts_list_div.insert(0, li_tag_ul)
 
 
 def prepare_post_list(meta, snippet):
+    if not snippet['title']:
+        return None
+
     li_tag_layout = snippet['li_tag']
     li_tag_template = jinja2.Template(li_tag_layout)
     li_tag_html = li_tag_template.render(meta=meta,
@@ -240,7 +251,12 @@ def prepare_post_list(meta, snippet):
 
 
 def check_and_remove_duplicate_tag(div_tag, file_link):
-    for ul_tag in div_tag.find_all('ul'):
+    try:
+        ul_tags = div_tag.find_all('ul')
+    except AttributeError:
+        return div_tag
+
+    for ul_tag in ul_tags:
         li_tag_link = ul_tag.li.a['href']
         if li_tag_link == file_link:
             ul_tag.decompose()

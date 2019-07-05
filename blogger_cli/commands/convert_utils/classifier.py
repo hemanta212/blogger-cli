@@ -37,7 +37,7 @@ def process_htmlfile(ctx, html_file):
     html_filename = os.path.join(topic, html_filename)
     html_file_path = os.path.join(destination_dir, html_filename)
     meta = dict()
-    ctx.vlog("copying basic html file to", html_file_path)
+    ctx.vlog(":: Copying basic html file to", html_file_path)
     try:
         copyfile(html_file, html_file_path)
     except:
