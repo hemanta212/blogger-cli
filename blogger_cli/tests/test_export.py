@@ -57,7 +57,7 @@ class TestBasic(unittest.TestCase):
     def test_design_assets(self):
         result = self.runner.invoke(cli, ['export','-b', 'test1', 'design_assets'])
         self.assertEqual(result.exit_code, 0)
-        expected_files = {'css', 'fonts', 'js'}
+        expected_files = {'css'}
         self.assertEqual(expected_files,
                          set(os.listdir(self.export_dir)))
 

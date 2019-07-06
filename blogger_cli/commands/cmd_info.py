@@ -35,7 +35,7 @@ def cli(ctx, blog, verbose):
             j = j if j else " "
             ctx.log('  ', i, '\t\t', j)
 
-        ctx.log("\nTip: Use blogger info blogname for blog details")
+        ctx.log("\nTip: Use blogger info blogname for blog details\n")
 
     else:
         if blog == ctx.default_blog:

@@ -10,7 +10,7 @@ from blogger_cli.converter.extractors import extract_and_write_static
 
 def convert_and_copy_to_blog(ctx, md_file):
     md_file_path = os.path.abspath(os.path.expanduser(md_file))
-    meta, html_body = convert(md_file_path)
+    meta, html_body = convert(ctx, md_file_path)
     html_filename_meta = write_html_and_md(ctx, html_body,
                                             md_file_path, meta)
     return html_filename_meta

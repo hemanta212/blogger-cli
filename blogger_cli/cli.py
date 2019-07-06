@@ -15,12 +15,12 @@ class Context(object):
         self.blog_list = self.config.read(all_keys=True)
         self.config_keys = [
             'google_analytics_id', 'disqus_username', 'blog_images_dir',
-            'templates_dir', 'blog_dir', 'blog_posts_dir', 'default',
-            'working_dir'
+            'templates_dir',  'blog_posts_dir', 'default',
+            'working_dir', 'blog_dir'
         ]
         self.optional_config = [
-            'working_dir_timestamp', 'post_extract_list', 'index_div_name',
-            'filter_post_without_title', 'meta_format'
+            'meta_format', 'post_extract_list', 'index_div_name',
+            'filter_post_without_title', 'working_dir_timestamp'
         ]
 
 
