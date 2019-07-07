@@ -9,7 +9,6 @@ from click.testing import CliRunner
 from blogger_cli import ROOT_DIR
 from blogger_cli.cli import Context
 from blogger_cli.cli import cli
-from blogger_cli.tests import test_utils
 from blogger_cli.commands.cmd_convert import (get_files_being_converted,
     check_and_ensure_destination_dir)
 
@@ -40,7 +39,9 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(expected, files)
 
         index_files = {'html_index.html', 'ipynb1_index.html',
-                'ipynb2_index.html','md_index.html', 'topic_index.html'}
+                'ipynb2_index.html','md_index.html', 'topic_index.html',
+                'meta_and_templates_index.html'}
+
         path_join = lambda x: os.path.join(resource_path, 'index', x)
         expected_files = {path_join(i) for i in index_files}
         expected.update(expected_files)
@@ -51,9 +52,13 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(expected, files)
 
 
+    def nulllog(self, msg, *args, **kwargs):
+        pass
+
+
     def test_check_and_ensure_destination_dir(self):
         ctx = self.ctx
-        ctx.log = test_utils.nulllog
+        ctx.log = self.nulllog
         ctx.current_blog = 'test1'
         output_dir = None
         destination_dir = check_and_ensure_destination_dir(ctx, output_dir)

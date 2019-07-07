@@ -22,6 +22,15 @@
         {{ snippet.navbar }}
 
         <div id='content'>
+            <span>
+                {% if meta.tags %}
+                    tags: {{ meta.tags }},
+                {% endif %}
+                {% if meta.date %}
+                    Date:{{meta.date}}
+                {% endif %}
+            </span>
+
             {{ snippet.body }}
 
             {{ snippet.disqus }}

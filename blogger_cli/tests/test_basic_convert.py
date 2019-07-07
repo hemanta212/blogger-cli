@@ -2,6 +2,7 @@ import os
 import shutil
 import unittest
 from click.testing import CliRunner
+from blogger_cli import ROOT_DIR
 from blogger_cli.cli import cli
 from blogger_cli.tests.messages import BloggerMessage as BM
 from pkg_resources import resource_filename
@@ -27,7 +28,6 @@ class TestBasic(unittest.TestCase):
 
 
     def test_html(self):
-        self.maxDiff = None
         html_path = resource_filename('blogger_cli',
                     'tests/tests_resources/html.html')
         test_index_path = resource_filename('blogger_cli',
@@ -64,7 +64,6 @@ class TestBasic(unittest.TestCase):
 
         self.assertEqual(['index.html', 'ipynb1.html', 'ipynb1.ipynb'],
                         os.listdir(self.blog_dir))
-        #os.system('cp '+ self.index_path+ ' '+ test_index_path)
         self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
 
 
@@ -106,6 +105,34 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(['index.html', 'md1.html', 'md1.md'],
                         os.listdir(self.blog_dir))
         self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
+
+
+    def test_meta_and_custom_templates(self):
+        self.maxDiff = None
+        md_path = resource_filename('blogger_cli',
+                    'tests/tests_resources/md2.md')
+        test_results_path = resource_filename('blogger_cli',
+                    'tests/tests_resources/results/md2.html')
+
+        test_index_path = resource_filename('blogger_cli',
+                'tests/tests_resources/index/meta_and_templates_index.html')
+
+
+        templates_path = os.path.join(ROOT_DIR, 'tests', 'tests_resources',
+                                      '_blogger_templates')
+
+        result = self.runner.invoke(cli, ['convert', '-b', 'test1',
+                                md_path, '-v', '-temp',templates_path])
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(['blog', 'images'],
+                        os.listdir(self.export_dir))
+        topic_dir = os.path.join(self.blog_dir, 'meta')
+        self.assertEqual(['md2.html', 'md2.md'],
+                        os.listdir(topic_dir))
+        converted_html = os.path.join(topic_dir, 'md2.html')
+
+        self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
+        self.assertEqual(self.read_file(converted_html), self.read_file(test_results_path))
 
 
     def tearDown(self):
