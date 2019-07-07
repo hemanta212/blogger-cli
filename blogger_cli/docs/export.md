@@ -7,21 +7,21 @@ Following files/folder can be replaced:
 2. css/
 3. js/
 4. fonts/
-5. images/ 
-6. \_blogger_templates/
+5. images/
+6. \_blogger\_templates/
 
 Use ```blogger export --help``` to view items that can be exported.
 
 # Contents
-1. Exporting blog template
-2. Exporting blog index
-3. Exporting blog assets
-4. Exporting blog configurations
+1. [Exporting blog template](#Exporting-blog-template)
+2. [Exporting blog index](#Exporting-blog-index)
+3. [Exporting blog assets](#Exporting-blog-assets)
+4. [Exporting blog configurations](#Exporting-blog-configurations)
 
 # Exporting blog template
 Blog template consists of assets(css and js), blog index, website index, images dir, _blogger_templates, blog directory to quickly set you up with a up and running site. You can customize this css as you like and indexes considering some procedure described [here](todo).
 ```
-blogger export -b <blogname> blog_template 
+blogger export -b <blogname> blog_template
 ```
 You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
 ```

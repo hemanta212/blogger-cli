@@ -7,14 +7,14 @@ Various options are available to you in convert command. See all [here](#Convers
 As of now, you cannot place original and converted files in same folder. So do not run convert command from your blog's folder.
 
 ## Contents
-1. Conversion of files
-    - html files
-    - code support
-2. Conversion of folders
-3. Conversion options
+1. [Conversion of files](#Conversion-of-files)
+    - [html files](#html-files)
+    - [code support](#code-support)
+2. [Conversion of folders](#Conversion-of-folders)
+3. [Conversion options](#Conversion-option)
 
 ## Conversion of files
-Converting a file is simple as: 
+Converting a file is simple as:
 ```
 $ blogger convert filename
 ```
@@ -42,7 +42,7 @@ $ blogger convert filename --not-code
 
 ## Conversion of folders
 If folder are specified all supported extensions(html, md, ipynb) will be picked and converted. To avoid html files just pass --no-html option. Similarly you can recursively search within any folder to get files!
-``` 
+```
 $ blogger convert file folder/ -b <blogname>
 $ blogger convert folder1/ folder2/ --exclude-html
 $ blogger convert . -r --exclude-html
@@ -54,19 +54,19 @@ This will search any given folder recursively to deepest file. Without this opti
 
 --not-code:
 Do not add mathjax and code support.
-  
+
 -o, --to:
 Destination for converted files, DEFAULT from blog_config.
-  
+
 -b, --blog:
 Name of the blog.
 
 -ex-html, --exclude-html:
 Ignore html files from conversion.
-  
+
 --img-dir:
 Folder for post images. Default: blog's config
-  
+
 -no-imgex, --no-img-extract:
 Disable image extraction from URI and urls.
 
@@ -78,7 +78,7 @@ Folder path of custom template. Default 'blog_templates_dir' value in config.
 
 --override-meta:
 Ignore meta topic in favour of --topic option. More info [here](#todo).
-  
+
 -v, --verbose:
 Enable verbose flag for detail reporting of what's going on.
 

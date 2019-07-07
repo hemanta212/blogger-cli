@@ -5,4 +5,4 @@ The serve command serves your blog locally. You blog is visible for every device
 --dir : Folder path to serve. By default, it is the blog_dir value in blog's config
 -p : Port to host on. Default is 8000
 --blog, -b : blog name
---verbose, -v : enabel verbosity for more information
+--verbose, -v : enable verbosity for more information
