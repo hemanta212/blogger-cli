@@ -84,8 +84,8 @@ def write_html_and_md(ctx, html_body, md_file_path, meta):
     if not os.path.exists(new_blog_post_dir):
         os.mkdir(new_blog_post_dir)
 
-    extract_img = ctx.conversion['extract_img']
-    if extract_img:
+    extract_static = ctx.conversion['extract_static']
+    if extract_static:
         html_body = extract_and_write_static(ctx, html_body,
                                             md_filename, new_blog_post_dir)
 

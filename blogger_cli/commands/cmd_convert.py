@@ -24,7 +24,7 @@ from blogger_cli.cli import pass_context
         help='Ignore html files from conversion')
 @click.option('--img-dir', 'img_dir', type=click.Path(exists=True),
         help="Folder for post images. Default: blog's config, Destination dir")
-@click.option('-no-imgex', '--no-img-extract', 'extract_img', is_flag=True, default=True,
+@click.option('-no-ex', '--no-extract', 'extract_static', is_flag=True, default=True,
         help="Disable resource extraction from files like images from ipynbs")
 @click.option('--topic', 'topic', type=str,
         help="Topic in which this post should be placed in index")
@@ -35,7 +35,7 @@ from blogger_cli.cli import pass_context
 @click.option('-v', '--verbose', is_flag=True,
         help="Enable verbose flag")
 @pass_context
-def cli(ctx, path, iscode, blog, exclude_html, extract_img,
+def cli(ctx, path, iscode, blog, exclude_html, extract_static,
         destination_dir, img_dir, topic, templates_dir,
         recursive, override_meta, verbose):
     """
@@ -73,7 +73,7 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_img,
             'destination_dir': destination_dir,
             'iscode': iscode,
             'img_dir': img_dir,
-            'extract_img': extract_img,
+            'extract_static': extract_static,
             'templates_dir':templates_dir,
             'override_meta': override_meta,
             'topic': topic
