@@ -19,14 +19,13 @@ class TestBasic(unittest.TestCase):
         self.runner = CliRunner()
         self.export_dir = os.path.expanduser('~/.blogger_tmp/')
         self.runner.invoke(cli, ['addblog', 'test1'],
-                    input=self.export_dir + '\nn \nn \nn \nn \nn')
+                    input=self.export_dir + '\nn \nn \nn \nn \nn \nn')
 
 
     def test_blog_config(self):
         result = self.runner.invoke(cli, ['export','-b', 'test1', 'blog_config'])
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(['test1.json'], os.listdir(self.export_dir))
-
 
         result = self.runner.invoke(cli, ['setdefault', 'test1'])
         result = self.runner.invoke(cli, ['export', 'blog_config',
@@ -57,17 +56,33 @@ class TestBasic(unittest.TestCase):
     def test_design_assets(self):
         result = self.runner.invoke(cli, ['export','-b', 'test1', 'design_assets'])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['css', 'fonts', 'js'], os.listdir(self.export_dir))
-
+        expected_files = {'css'}
+        self.assertEqual(expected_files,
+                         set(os.listdir(self.export_dir)))
 
         result = self.runner.invoke(cli, ['setdefault', 'test1'])
         result = self.runner.invoke(cli, ['export', 'design_assets',
                                     '-o', 'assets'])
         self.assertEqual(result.exit_code, 0)
         assets_dir = os.path.join(self.export_dir, 'assets')
-        self.assertEqual(['css', 'fonts', 'js'], os.listdir(assets_dir))
+        self.assertEqual(expected_files, set(os.listdir(assets_dir)))
 
         self.runner.invoke(cli, ['config', '-rm', 'default'])
+
+
+    def test_export_blog_layout(self):
+        assets_dir = os.path.join(self.export_dir, 'assets')
+
+        result = self.runner.invoke(cli, ['setdefault', 'test1'])
+        result = self.runner.invoke(cli, ['export', 'blog_layout',
+                                    '-o', 'assets'])
+        self.assertEqual(result.exit_code, 0)
+        expected_files = {'assets', 'blog', 'index.html',
+                        '_blogger_templates', 'images'}
+        self.assertEqual(expected_files, set(os.listdir(assets_dir)))
+
+        self.runner.invoke(cli, ['config', '-rm', 'default'])
+        shutil.rmtree(self.export_dir)
 
 
     def test_export_blog_template(self):
@@ -77,9 +92,11 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['export', 'blog_template',
                                     '-o', 'assets'])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['assets', 'blog', 'images', 'index.html'],
-                        os.listdir(assets_dir))
-
+        expected_files = {'css.html', 'dark_theme.html','navbar_data.html',
+                        'disqus.html', 'google_analytics.html', 'js.html',
+                        'layout.html', 'li_tag.html', 'light_theme.html',
+                        'mathjax.html', 'navbar.html'}
+        self.assertEqual(expected_files, set(os.listdir(assets_dir)))
         self.runner.invoke(cli, ['config', '-rm', 'default'])
         shutil.rmtree(self.export_dir)
 

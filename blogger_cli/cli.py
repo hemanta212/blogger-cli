@@ -2,17 +2,28 @@ import os
 import sys
 import click
 from blogger_cli.cli_utils.json_writer import Config
+from blogger_cli import CONFIG_DIR
 
 
 class Context(object):
 
     def __init__(self):
         self.verbose = False
-        self.config = Config('~/.blogger/blog_config.cfg',
+        config_path = os.path.join(CONFIG_DIR, 'blog_config.cfg')
+        self.config = Config(config_path,
                              backup_dir='~/.blogger/backup/')
         self.blog_list = self.config.read(all_keys=True)
-        self.config_keys = ['blog_dir', 'blog_posts_dir', 'blog_images_dir',
-                            'md_dir', 'html_dir',  'default', 'ipynb_dir']
+        self.config_keys = [
+            'google_analytics_id', 'disqus_username', 'blog_images_dir',
+            'templates_dir',  'blog_posts_dir', 'default',
+            'working_dir', 'blog_dir'
+        ]
+        self.optional_config = [
+            'meta_format', 'post_extract_list', 'index_div_name',
+            'filter_post_without_title', 'working_dir_timestamp'
+        ]
+
+
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''
 
@@ -28,13 +39,6 @@ class Context(object):
         if self.verbose:
             self.log(msg, *args)
 
-    def exit(self, msg, *args):
-        '''
-        Identical to ctx.fail but doesnot need to be called from inside
-        a command instead from anywhere
-        '''
-        self.log(msg, *args)
-        sys.exit(1)
 
     def blog_exists(self, blog):
         return False if not self.config.read(key=blog) else True
@@ -69,7 +73,6 @@ class ComplexCLI(click.MultiCommand):
             mod = __import__('blogger_cli.commands.cmd_' + name,
                              None, None, ['cli'])
         except ImportError as e:
-            print(e)
             return
         return mod.cli
 

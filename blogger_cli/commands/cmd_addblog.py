@@ -17,13 +17,23 @@ def cli(ctx, blog, silent, verbose):
     """
 
     ctx.verbose = verbose
+    add_blog_if_valid(ctx, blog)
+
+    if not silent:
+        ctx.log("Running setup for", blog)
+        setup(ctx, blog)
+        ctx.log("Setup completed succesfully")
+
+
+def add_blog_if_valid(ctx, blog, blog_dir=None):
     layout = {
-        'blog_dir': None,
+        'blog_dir': blog_dir,
         'blog_posts_dir': None,
         'blog_images_dir':None,
-        'html_dir': None,
-        'md_dir': None,
-        'ipynb_dir': None,
+        'templates_dir':None,
+        'working_dir': None,
+        'google_analytics_id': None,
+        'disqus_username':None,
     }
 
     if not ctx.blog_exists(blog):
@@ -33,9 +43,4 @@ def cli(ctx, blog, silent, verbose):
     else:
         ctx.log("Blog already exists!")
         ctx.vlog('Blogs', ctx.config.read(all_keys=True))
-        return None
-
-    if not silent:
-        ctx.log("Running setup for", blog)
-        setup(ctx, blog)
-        ctx.log("Setup completed succesfully")
+        raise SystemExit(0)

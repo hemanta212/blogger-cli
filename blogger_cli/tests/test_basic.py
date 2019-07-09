@@ -16,11 +16,11 @@ class TestBasic(unittest.TestCase):
 
     def test_main(self):
         result = self.runner.invoke(cli)
-        self.assertEqual(result.output, BM.main)
         self.assertEqual(result.exit_code, 0)
 
 
     def test_addblog_existing(self):
+        self.maxDiff = None
         result = self.runner.invoke(cli, ['addblog', 'test1'])
         self.assertEqual(result.output, BM.addblog_existing)
         self.assertEqual(result.exit_code, 0)
@@ -28,13 +28,15 @@ class TestBasic(unittest.TestCase):
 
     def test_info_success(self):
         result = self.runner.invoke(cli, ['info'])
+        with open('tt.txt', 'w') as wf:
+            wf.write(result.output)
         self.assertEqual(result.output, BM.info_success)
         self.assertEqual(result.exit_code, 0)
 
 
     def test_setupblog_success(self):
         result = self.runner.invoke(cli, ['setupblog', 'test1'],
-                                    input='n \nn \nn \nn \nn \nn')
+                                    input='\nn \nn \nn \nn \nn \nn \nn')
         self.assertEqual(result.exit_code, 0)
 
 
@@ -45,10 +47,10 @@ class TestBasic(unittest.TestCase):
 
     def test_config_success(self):
         result = self.runner.invoke(cli, ['config', '-b', 'test1',
-                                    'html_dir', 'html/'])
+                                    'working_dir', 'html/'])
         self.assertEqual(result.exit_code, 0)
 
-        result = self.runner.invoke(cli, ['config', '-b', 'test1', 'html_dir'])
+        result = self.runner.invoke(cli, ['config', '-b', 'test1', 'working_dir'])
         self.assertEqual(result.output, 'html/\n')
 
         result = self.runner.invoke(cli, ['setdefault', 'test1'])

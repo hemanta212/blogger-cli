@@ -2,7 +2,8 @@ import os
 import click
 from blogger_cli.cli import pass_context
 from blogger_cli.commands.export_utils.copier import (copy_design_assets,
-                    copy_blog_index, copy_blog_config, copy_blog_template)
+                    copy_blog_index, copy_blog_config, copy_blog_template,
+                    copy_blog_layout)
 
 @click.command('export', short_help="Export default design to your blog")
 @click.argument('resource', type=str)
@@ -27,6 +28,7 @@ def cli(ctx,  resource, blog, relative_path, verbose):
         blog_template,
         blog_index,
         blog_config
+        blog_layout
     """
     ctx.verbose = verbose
     validate_blog_and_settings(ctx, blog)
@@ -37,9 +39,14 @@ def cli(ctx,  resource, blog, relative_path, verbose):
         'blog_template': copy_blog_template,
         'blog_index': copy_blog_index,
         'blog_config': copy_blog_config,
+        'blog_layout':copy_blog_layout,
     }
 
     transfer = resource_map.get(resource)
+    if not transfer:
+        ctx.log("No such resource. See blogger export --help")
+        raise SystemExit("ERROR: INVALID RESOURCE NAME")
+
     ctx.vlog("Using function", transfer)
     transfer(ctx, export_path)
 
@@ -54,12 +61,12 @@ def validate_blog_and_settings(ctx, input_blog):
             settings = ctx.config.read(key=blog + ': blog_dir')
             if not settings:
                 ctx.log("Set config value for blog_dir in", blog, "blog")
-                ctx.exit("ERROR: MISSING CONFIG: blog_dir")
+                raise SystemExit("ERROR: MISSING CONFIG: blog_dir")
 
     elif not blog or not blog_exists:
         ctx.log("Pass a correct blog  with -b option",
                 "or set a default blog")
-        ctx.exit("ERROR: INVALID_BLOG_NAME: ", blog)
+        raise SystemExit("ERROR: INVALID_BLOG_NAME: " + str(blog))
 
     ctx.current_blog = blog
 

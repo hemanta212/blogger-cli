@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import os
 from shutil import copyfile, SameFileError
 from urllib.request import urlopen, Request
@@ -6,97 +5,101 @@ from urllib.request import urlopen, Request
 import markdown
 from bs4 import BeautifulSoup as BS
 
+from blogger_cli.converter.extractors import extract_and_write_static
+
 
 def convert_and_copy_to_blog(ctx, md_file):
     md_file_path = os.path.abspath(os.path.expanduser(md_file))
-    html_body = convert(md_file_path)
-    html_filename = write_html_and_md(ctx, html_body,
-                                    md_file_path)
-    return html_filename
+    meta, html_body = convert(ctx, md_file_path)
+    html_filename_meta = write_html_and_md(ctx, html_body,
+                                            md_file_path, meta)
+    return html_filename_meta
 
 
-def convert(md_file_path):
+def convert(ctx, md_file_path):
     with open(md_file_path, 'r', encoding='utf8') as rf:
-        md = rf.read()
+        md_data = rf.read()
 
+    ctx.vlog(":: Extracting meta info")
+    meta, main_md = extract_meta_and_main(ctx, md_data)
     extensions = ['extra', 'smarty']
-    html = markdown.markdown(md, extensions=extensions, output_format='html5')
-    return html
+    html = markdown.markdown(main_md, extensions=extensions,
+                            output_format='html5')
+    return meta, html
 
 
-def write_html_and_md(ctx, html_body, md_file_path):
-    destination_dir = ctx.conversion['destination_dir']
-    extract_img = ctx.conversion['extract_img']
+def extract_meta_and_main(ctx, md_data):
+    metadata = ''
+    meta_separator = ctx.config.read(key=ctx.current_blog + ':meta_format')
+    if meta_separator:
+        meta_signs = [i.strip() for i in meta_separator.strip().split(" ")]
+        meta_start, meta_end = meta_signs
+    else:
+        meta_start, meta_end = '<!--', '-->'
+
+    first_mark = md_data.find(meta_start) + len(meta_start)
+    second_mark = md_data.find(meta_end)
+    if not -1 in (first_mark, second_mark):
+        metadata = md_data[first_mark: second_mark]
+
+    main_data = md_data[second_mark + len(meta_end): ]
+    meta_lines = metadata.strip().split('\n')
+    meta = dict()
+
+    try:
+        for key_value in meta_lines:
+            key, value = key_value.split(':')
+            meta[key.strip()] = value.strip()
+    except:
+        main_data = md_data
+
+    return meta, main_data
+
+
+def write_html_and_md(ctx, html_body, md_file_path, meta):
     md_filename = os.path.basename(md_file_path)
+    destination_dir = ctx.conversion['destination_dir']
+    override_meta = ctx.conversion['override_meta']
+
+    given_topic = ctx.conversion.get('topic')
+    meta_topic = meta.get('topic') if meta else None
+    topics = (meta_topic, given_topic)
+    available_topic = [topic for topic in topics if topic]
+
+    if len(available_topic) == 2:
+        topic = given_topic if override_meta else meta_topic
+    elif available_topic:
+        topic = available_topic[0]
+    else:
+        topic = ''
+
+    ctx.log(":: Got topic,", topic)
+    md_filename = os.path.join(topic, md_filename)
     html_filename = md_filename.replace('.md', '.html')
     html_file_path = os.path.join(destination_dir, html_filename)
     new_md_file_path = os.path.join(destination_dir, md_filename)
+    new_blog_post_dir = os.path.dirname(html_file_path)
+    ctx.vlog(":: New blog_posts_dir finalized", new_blog_post_dir)
+
+    if not os.path.exists(new_blog_post_dir):
+        os.mkdir(new_blog_post_dir)
+
+    extract_img = ctx.conversion['extract_img']
     if extract_img:
-        html_body = get_image_extracted_html(ctx, html_file_path, html_body)
+        html_body = extract_and_write_static(ctx, html_body,
+                                            md_filename, new_blog_post_dir)
 
     with open(html_file_path, 'w', encoding='utf8') as wf:
         wf.write(html_body)
-        print("File written", html_file_path)
+        ctx.log(":: Converted basic html to", html_file_path)
 
     try:
         copyfile(md_file_path, new_md_file_path)
+        ctx.log(":: Copied md file to", new_md_file_path)
     except  SameFileError:
-        pass
+        os.remove(new_md_file_path)
+        copyfile(md_file_path, new_md_file_path)
+        ctx.log(":: Overwriting md file", new_md_file_path)
 
-    return html_filename
-
-
-def get_image_extracted_html(ctx, html_file_path, html_body):
-    img_dir = ctx.conversion['img_dir']
-    html_filename = os.path.basename(html_file_path)
-    image_dirname = os.path.splitext(html_filename)[0]
-    image_dir_path = os.path.join(img_dir, image_dirname)
-
-    ctx.vlog("Extracting images: img folder", image_dir_path)
-    if not os.path.exists(image_dir_path):
-        os.makedirs(image_dir_path)
-
-    html_body = extract_and_write_images(ctx, html_body, image_dir_path)
-    return html_body
-
-
-def extract_and_write_images(ctx, html_body, image_dir_path):
-    soup = BS(html_body, 'html.parser')
-    images = soup.find_all('img')
-    destination_dir = ctx.conversion['destination_dir']
-    ctx.vlog("Found", len(images), "images")
-
-    for index, img_tag in enumerate(images):
-        img_data = img_tag['src']
-        image_name = 'image_' + str(index+1) + '.png'
-        image_path = os.path.join(image_dir_path, image_name)
-
-        if img_data.startswith('http'):
-            ctx.vlog("Image from url detected. Trying to download", img_data)
-            headers = {'User-Agent': 'Mozilla/5.0 (Macintosh;Intel ' +
-                    'Mac OS X 10_10_1) AppleWebKit/537.36(KHTML, like Gecko)'+
-                    ' Chrome/39.0.2171.95 Safari/537.36'}
-
-            try:
-                req = Request(img_data, headers=headers)
-                with urlopen(req) as response:
-                    raw_image = response.read()
-
-                with open(image_path, 'wb') as wf:
-                    wf.write(raw_image)
-
-                image_src = get_image_src(destination_dir, image_path)
-                img_tag['src'] = image_src
-                ctx.vlog("Replacing source tag with:", image_src)
-
-            except Exception as E:
-                ctx.vlog(E, "skipping  the image.")
-                pass
-
-    return soup.decode('utf8')
-
-def get_image_src(destination_dir, image_path):
-    os.chdir(destination_dir)
-    src_path = os.path.relpath(image_path)
-    return src_path
+    return (html_filename, meta)
 

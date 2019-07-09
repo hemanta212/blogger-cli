@@ -1,7 +1,7 @@
 class BloggerMessage(object):
 
     main = '''\
-Usage: cli [OPTIONS] COMMAND [ARGS]...
+Usage: blogger [OPTIONS] COMMAND [ARGS]...
 
   A CLI tool to maintain your blogger blog. Sync, convert and upload :).
 
@@ -16,6 +16,7 @@ Commands:
   export      Export default design to your blog
   info        Show blog's properties
   rmblog      Remove a blog
+  serve       Serve your blog locally
   setdefault  Set a blog as default
   setupblog   Register a new blog
 '''
@@ -37,14 +38,16 @@ Blog removed succesfully
 Registered Blogs:
    test1
 
-Blog:configs [standard]
-   blog_dir
-   blog_images_dir
-   blog_posts_dir
+Blog:configs [standard] 	Optional:configs [Advanced]
+   google_analytics_id 		 meta_format
+   disqus_username 		 post_extract_list
+   blog_images_dir 		 index_div_name
+   templates_dir 		 filter_post_without_title
+   blog_posts_dir 		 working_dir_timestamp
    default
-   html_dir
-   ipynb_dir
-   md_dir
+   working_dir
+   blog_dir
 
 Tip: Use blogger info blogname for blog details
+
 '''
