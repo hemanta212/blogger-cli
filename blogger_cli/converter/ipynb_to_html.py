@@ -18,7 +18,7 @@ def convert_and_copy_to_blog(ctx, ipynb_file):
 
 
 def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
-    extract_img = ctx.conversion['extract_img']
+    extract_static = ctx.conversion['extract_static']
     destination_dir = ctx.conversion['destination_dir']
 
     ipynb_filename = os.path.basename(ipynb_file_path)
@@ -37,7 +37,7 @@ def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
     if not os.path.exists(new_blog_post_dir):
         os.mkdir(new_blog_post_dir)
 
-    if extract_img:
+    if extract_static:
         html_body = extract_and_write_static(ctx, html_body,
                                             ipynb_filename, new_blog_post_dir)
 

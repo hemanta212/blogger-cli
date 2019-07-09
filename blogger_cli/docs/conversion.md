@@ -7,10 +7,11 @@ Various options are available to you in convert command. See all [here](#Convers
 As of now, you cannot place original and converted files in same folder. So do not run convert command from your blog's folder.
 
 ## Contents
-1. [Conversion of files](#Conversion-of-files)\n
-    - [html files](#html-files)\n
-    - [code support](#code-support)\n
+1. [Conversion of files](#Conversion-of-files)
+    - [html files](#html-files)
+    - [code support](#code-support)
 2. [Conversion of folders](#Conversion-of-folders)
+3. [Static files transfer](#Static-files-transfer)
 3. [Conversion options](#Conversion-option)
 
 ## Conversion of files
@@ -56,6 +57,21 @@ $ blogger convert file folder/ -b <blogname>
 $ blogger convert folder1/ folder2/ --exclude-html
 $ blogger convert . -r --exclude-html
 ```
+
+## Static files transfer
+By default blogger searches for img and video tag in html then for:
+- URI: It decodes the base64 URI to mp4 and png video and img resp.
+- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
+- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
+
+You can switch all of them off by passing -no-ex or --no-extract option during conversion.
+Similarly you can set the post_extract_list config.
+```
+blogger config -b <blogname> post_extract_list ['URI', 'URL']
+blogger config -b <blogname> post_extract_list ['URL']
+blogger config -b <blogname> post_extract_list ['URI']
+```
+1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
 
 ## Conversion options
 -r, --recursive :

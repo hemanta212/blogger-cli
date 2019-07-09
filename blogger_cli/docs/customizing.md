@@ -3,9 +3,9 @@
 ## Contents
 1. [Customizing css](#Customizing-css)
 2. [Customizing templates](#Customizing-templates)\n
-    i. [Adding new snippets / templates](#Adding-new-snippets--templates)\n
-    ii. [Overriding existing templates](#Overriding-existing-templates)\n
-    iii. [indexes](#indexes)\n
+    - [Adding new snippets / templates](#Adding-new-snippets--templates)\n
+    - [Overriding existing templates](#Overriding-existing-templates)\n
+    - [indexes](#indexes)\n
 3. [Dynamic templating](#Dynamic-templating)
 
 ## Customizing css
