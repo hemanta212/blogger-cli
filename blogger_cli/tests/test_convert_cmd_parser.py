@@ -41,10 +41,18 @@ class TestBasic(unittest.TestCase):
         index_files = {'html_index.html', 'ipynb1_index.html',
                 'ipynb2_index.html','md_index.html', 'topic_index.html',
                 'meta_and_templates_index.html'}
+        template_files = {'layout.html', 'li_tag.html', 'navbar_data.html'}
+        results_files = {'md2.html'}
 
-        path_join = lambda x: os.path.join(resource_path, 'index', x)
-        expected_files = {path_join(i) for i in index_files}
-        expected.update(expected_files)
+        path1_join = lambda x: os.path.join(resource_path, 'index', x)
+        path2_join = lambda x: os.path.join(resource_path, '_blogger_templates', x)
+        path3_join = lambda x: os.path.join(resource_path, 'results', x)
+
+        expected_files1 = {path1_join(i) for i in index_files}
+        expected_files2 = {path2_join(i) for i in template_files}
+        expected_files3 = {path3_join(i) for i in results_files}
+
+        expected.update(expected_files1, expected_files2, expected_files3)
         file1 = os.path.join(resource_path, 'html.html')
         file2 = os.path.join(resource_path, 'md1.md')
         files = get_files_being_converted((file1, file2, resource_path),

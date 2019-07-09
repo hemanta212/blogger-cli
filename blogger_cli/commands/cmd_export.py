@@ -2,7 +2,8 @@ import os
 import click
 from blogger_cli.cli import pass_context
 from blogger_cli.commands.export_utils.copier import (copy_design_assets,
-                    copy_blog_index, copy_blog_config, copy_blog_template)
+                    copy_blog_index, copy_blog_config, copy_blog_template,
+                    copy_blog_layout)
 
 @click.command('export', short_help="Export default design to your blog")
 @click.argument('resource', type=str)
@@ -27,6 +28,7 @@ def cli(ctx,  resource, blog, relative_path, verbose):
         blog_template,
         blog_index,
         blog_config
+        blog_layout
     """
     ctx.verbose = verbose
     validate_blog_and_settings(ctx, blog)
@@ -37,6 +39,7 @@ def cli(ctx,  resource, blog, relative_path, verbose):
         'blog_template': copy_blog_template,
         'blog_index': copy_blog_index,
         'blog_config': copy_blog_config,
+        'blog_layout':copy_blog_layout,
     }
 
     transfer = resource_map.get(resource)

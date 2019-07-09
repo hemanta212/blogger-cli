@@ -108,7 +108,6 @@ class TestBasic(unittest.TestCase):
 
 
     def test_meta_and_custom_templates(self):
-        self.maxDiff = None
         md_path = resource_filename('blogger_cli',
                     'tests/tests_resources/md2.md')
         test_results_path = resource_filename('blogger_cli',

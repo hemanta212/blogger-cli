@@ -27,7 +27,6 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(['test1.json'], os.listdir(self.export_dir))
 
-
         result = self.runner.invoke(cli, ['setdefault', 'test1'])
         result = self.runner.invoke(cli, ['export', 'blog_config',
                                     '-o', self.export_dir])
@@ -71,6 +70,21 @@ class TestBasic(unittest.TestCase):
         self.runner.invoke(cli, ['config', '-rm', 'default'])
 
 
+    def test_export_blog_layout(self):
+        assets_dir = os.path.join(self.export_dir, 'assets')
+
+        result = self.runner.invoke(cli, ['setdefault', 'test1'])
+        result = self.runner.invoke(cli, ['export', 'blog_layout',
+                                    '-o', 'assets'])
+        self.assertEqual(result.exit_code, 0)
+        expected_files = {'assets', 'blog', 'index.html',
+                        '_blogger_templates', 'images'}
+        self.assertEqual(expected_files, set(os.listdir(assets_dir)))
+
+        self.runner.invoke(cli, ['config', '-rm', 'default'])
+        shutil.rmtree(self.export_dir)
+
+
     def test_export_blog_template(self):
         assets_dir = os.path.join(self.export_dir, 'assets')
 
@@ -78,10 +92,11 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['export', 'blog_template',
                                     '-o', 'assets'])
         self.assertEqual(result.exit_code, 0)
-        expected_files = {'assets', 'blog', 'index.html',
-                        '_blogger_templates', 'images'}
+        expected_files = {'css.html', 'dark_theme.html','navbar_data.html',
+                        'disqus.html', 'google_analytics.html', 'js.html',
+                        'layout.html', 'li_tag.html', 'light_theme.html',
+                        'mathjax.html', 'navbar.html'}
         self.assertEqual(expected_files, set(os.listdir(assets_dir)))
-
         self.runner.invoke(cli, ['config', '-rm', 'default'])
         shutil.rmtree(self.export_dir)
 

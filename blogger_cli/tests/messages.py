@@ -36,7 +36,7 @@ Blog removed succesfully
     info_success = '''\
 
 Registered Blogs:
-  No blog registered yet!
+   test1
 
 Blog:configs [standard] 	Optional:configs [Advanced]
    google_analytics_id 		 meta_format

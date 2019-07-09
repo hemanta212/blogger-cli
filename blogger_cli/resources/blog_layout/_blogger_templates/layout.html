@@ -10,7 +10,6 @@
         <meta name="description" content="">
         <meta name="author" content="Hemanta Sharma">
         <title>{{ snippet.title }}</title>
-        {{ snippet.light_theme }}
 
         {{ snippet.css }}
         {{ snippet.mathjax }}
@@ -18,15 +17,13 @@
     </head>
 
     <body>
-
         {{ snippet.navbar }}
-
         <div id='content'>
             {{ snippet.body }}
 
             {{ snippet.disqus }}
             {{ snippet.js }}
-
+            {{ snippet.light_theme }}
         </div>
 
     </body>

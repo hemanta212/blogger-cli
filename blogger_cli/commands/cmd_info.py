@@ -27,13 +27,17 @@ def cli(ctx, blog, verbose):
         for i in ctx.blog_list:
             default = ctx.default_blog
             ctx.log('  ', i) if i != default else ctx.log('  ', i, '[default]')
+
         if len(ctx.blog_list) == 0:
             ctx.log(' ', "No blog registered yet!")
 
         ctx.log("\nBlog:configs [standard] \tOptional:configs [Advanced]")
         for i, j in zip_longest(ctx.config_keys, ctx.optional_config):
-            j = j if j else " "
-            ctx.log('  ', i, '\t\t', j)
+            if j:
+                ctx.log('  ', i, '\t\t', j)
+            else:
+                ctx.log('  ', i)
+
 
         ctx.log("\nTip: Use blogger info blogname for blog details\n")
 

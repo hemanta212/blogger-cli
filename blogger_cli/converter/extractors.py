@@ -9,6 +9,12 @@ from urllib.request import Request, urlopen
 
 
 def extract_and_write_static(ctx, html_body, topic_filename, blog_post_dir):
+    global EXTRACT_LIST
+    blog = ctx.current_blog
+    EXTRACT_LIST = ctx.config.read(key=blog+':post_extract_list')
+    if not EXTRACT_LIST:
+        EXTRACT_LIST = ['URI', 'URL']
+
     static_dir = ctx.conversion['img_dir']
     topic = os.path.dirname(topic_filename)
     filename = os.path.basename(topic_filename)
@@ -50,8 +56,10 @@ def extract_videos(ctx, videos, video_path, filename, blog_post_dir):
         video_name = video_name.replace(' ', '_').replace('.','_') + '.mp4'
         video_path = os.path.join(video_path, video_name)
 
-        if video_data.startswith('data:video/mp4;base64,'):
-            ctx.log(":: Detected DATA URI img. Writing to", video_path)
+        if (video_data.startswith('data:video/mp4;base64,')
+            and 'URI' in EXTRACT_LIST):
+
+            ctx.log(":: Detected DATA URI video. Writing to", video_path)
             video_tag = extract_and_write_uri(video_data, video_tag, video_path,
                                         blog_post_dir)
         else:
@@ -77,11 +85,14 @@ def extract_images(ctx, images, img_path, filename, blog_post_dir):
         image_name = image_name.replace(' ','_').replace('.','_') + '.png'
         image_path = os.path.join(img_path, image_name)
 
-        if img_data.startswith('data:image/png;base64,'):
+        if (img_data.startswith('data:image/png;base64,')
+            and 'URI' in EXTRACT_LIST):
+
             ctx.log(":: Detected DATA URI img. Writing to", image_path)
             img_tag = extract_and_write_uri(img_data, img_tag, image_path,
                                         blog_post_dir)
-        elif img_data.startswith('http') or img_data.startswith('https'):
+        elif ( (img_data.startswith('http') or img_data.startswith('https'))
+                and 'URL' in EXTRACT_LIST):
             img_tag = extract_and_write_url_img(ctx, img_data, img_tag,
                                                 image_path, blog_post_dir)
         else:
