@@ -2,12 +2,12 @@
 Blogger-cli is primarily a conversion tool. So the blog management is more like config holder for your website's folder.
 
 # Contents
-1. [Registering a blog](#Registering-a-blog)
-2. [Editing blog's configs ](#Editing-blog's-configs)
-        i. [Editing in bulk](#Editing-in-bulk)
-        ii. [Editing individually](#Editing-individually)
-3. [setting default blog](#Setting-default-blog)
-4. [removing a blog](#Removing-a-blog)
+1. [Registering a blog](#Registering-a-blog)\n
+2. [Editing blog's configs ](#Editing-blog's-configs)\n
+    i. [Editing in bulk](#Editing-in-bulk)\n
+    ii. [Editing individually](#Editing-individually)\n
+3. [setting default blog](#Setting-default-blog)\n
+4. [removing a blog](#Removing-a-blog)\n
 
 # Registering a blog
 'blogs' need to be registered first. You can do so by:

@@ -13,20 +13,21 @@ Following files/folder can be replaced:
 Use ```blogger export --help``` to view items that can be exported.
 
 # Contents
-1. [Exporting blog template](#Exporting-blog-template)
+1. [Exporting blog layout](#Exporting-blog-layout)
 2. [Exporting blog index](#Exporting-blog-index)
 3. [Exporting blog assets](#Exporting-blog-assets)
 4. [Exporting blog configurations](#Exporting-blog-configurations)
+1. [Exporting blog template](#Exporting-blog-template)
 
-# Exporting blog template
-Blog template consists of assets(css and js), blog index, website index, images dir, _blogger_templates, blog directory to quickly set you up with a up and running site. You can customize this css as you like and indexes considering some procedure described [here](todo).
+# Exporting blog layout
+Blog layout consists of assets(css), blog index, website index, images dir, _blogger_templates, blog directory to quickly set you up with a up and running site. You can customize this css as you like and indexes considering some procedure described [here](todo).
 ```
-blogger export -b <blogname> blog_template
+blogger export -b <blogname> blog_layout
 ```
 You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
 ```
-blogger export -b <blogname> blog_template -o test/
-blogger export -b <blogname> blog_template -o ~/my_website_folder/test/
+blogger export -b <blogname> blog_layout -o test/
+blogger export -b <blogname> blog_layout -o ~/my_website_folder/test/
 ```
 
 # Exporting blog index
@@ -64,3 +65,17 @@ blogger export -b <blogname> blog_config -o config/
 blogger export -b <blogname> blog_config -o ~/my_website/test
 ```
 If you want config of all blogs. copy ~/.blogger/blog_config.cfg to your folder.
+
+# Exporting blog template
+Blog template consists of all the snippets that gets added to your blog posts during conversion. You can customize default and add other templates. For info to customize look [here](#)
+
+```
+blogger export -b <blogname> blog_template
+```
+A _blogger_templates folder will appear in your blog's root directory.
+You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
+
+```
+blogger export -b <blogname> blog_template -o test/
+blogger export -b <blogname> blog_template -o ~/my_website_folder/test/
+```

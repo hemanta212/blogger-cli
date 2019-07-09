@@ -9,7 +9,7 @@ from blogger_cli.cli import pass_context
 @click.command('serve', short_help="Serve your blog locally")
 @click.argument('blog', required=False )
 @click.option('--port', '-p', 'port', type=int, default=8000)
-@click.option('-dir', 'dir', type=int, default=8000)
+@click.option('-dir', 'dir')
 @click.option('-v', '--verbose', is_flag=True)
 @pass_context
 def cli(ctx, blog, port, dir,  verbose):

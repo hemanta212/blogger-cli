@@ -7,9 +7,9 @@ Various options are available to you in convert command. See all [here](#Convers
 As of now, you cannot place original and converted files in same folder. So do not run convert command from your blog's folder.
 
 ## Contents
-1. [Conversion of files](#Conversion-of-files)
-    - [html files](#html-files)
-    - [code support](#code-support)
+1. [Conversion of files](#Conversion-of-files)\n
+    - [html files](#html-files)\n
+    - [code support](#code-support)\n
 2. [Conversion of folders](#Conversion-of-folders)
 3. [Conversion options](#Conversion-option)
 
@@ -19,16 +19,25 @@ Converting a file is simple as:
 $ blogger convert filename
 ```
 However blogger fills various gaps like where converted files are placed and which blogs to use from your config.
-for example the above command assumes you have set a [default blog](#todo) and [blog_dir and blog_posts_dir](#todo) in config,
-also the file to be converted should be in current directory.
+for example the above command assumes:
+1. You have set a [default blog](#todo) and [blog_dir and blog_posts_dir](#todo) in config,
+2. File to be converted should be in current directory.
 
 A more flexible or independent command is (although it is recommended to setup you config)
 ```
 $ blogger convert file1 file2 -b <blogname> -o ~/myblog.github.io/blog/
 ```
-    > The options will override the configs everytime.
+> The options will override the configs everytime.
 
-### Html files
+RECOMMENDED WORKFLOW
+You can set a working dir in your config providing a folder you use to store your md, ipynb, html files. Blogger will automatically convert the modified changes for you.
+```
+blogger config -b <blogname> working_dir /path/to/dir
+```
+Now you can just call ```blogger convert``` and then blogger will scan the dir and remember when the file wes last scanned to detect and process modified files automatically.
+You have all the options like -r, -ex-html, --topic etc available as well.
+
+### HTML files
 When a html file is passed for conversion. It is converted to html with all (navbar, analytics, disqus etc...) inserted inside it.
 So there is nothing extra for you to do
 ```
@@ -37,7 +46,7 @@ $ blogger convert htmlfile
 ### Code support
 Every file converted to html will have mathjax and code support injected to it. You can pass --not-code option to avoid injecting them incase you don't need those.
 ```
-$ blogger convert filename --not-code 
+$ blogger convert filename --not-code
 ```
 
 ## Conversion of folders

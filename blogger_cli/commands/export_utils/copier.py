@@ -71,7 +71,6 @@ def copy_blog_config(ctx, export_dir):
     blog = ctx.current_blog
     blog_config = ctx.config.read(key=blog)
     export_path = os.path.join(export_dir, blog+'.json')
-    blog_config = json.dumps(blog_config, indent=2)
     ctx.vlog("Copying blog config for", blog, "to", export_path)
     with open(export_path, 'w') as wf:
         json.dump(blog_config, wf, indent=2)

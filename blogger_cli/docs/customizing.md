@@ -2,62 +2,50 @@
 
 ## Contents
 1. [Customizing css](#Customizing-css)
-2. [Customizing templates](#Customizing-templates)
-    i. [Adding new snippets / templates](#Adding-new-snippets-/-templates)
-    ii. [Overriding existing templates](#Overriding-existing-templates)
-    iii. [indexes](#indexes)
+2. [Customizing templates](#Customizing-templates)\n
+    i. [Adding new snippets / templates](#Adding-new-snippets--templates)\n
+    ii. [Overriding existing templates](#Overriding-existing-templates)\n
+    iii. [indexes](#indexes)\n
 3. [Dynamic templating](#Dynamic-templating)
 
 ## Customizing css
 You can customize the default css by simply going to css folder in your blog folder and changing it. Yeah that's it. For adding new css, fonts, js files see below in adding snippets.
 
 ## Customizing templates
-templates are code snippets that are inserted to the html while converting your files.. eg disqus.html and google_analytics.html are template files that store respective snippets.
-For Customizing templates you need a dedicated folder. You can name it whatever and store it wherever you want. Although it is recommended to make a folder inside your blog folder. Anyway just run ```blogger setupblog <blogname>``` and add the path of this folder in templates_dir 's value
+Templates are code snippets that are inserted to the html while converting your files.. eg disqus.html and google_analytics.html are template files that store respective snippets.
 
-> If you have exported blog_templates previously you may have noticed a \_blogger\_templates folder with some inbuilt templates which is for this purpose.
-
-BUILTIN/ AVAILABLE/ RESERVED snippets
-- layout.html [meta & snippets]
-- light_theme.html [meta]
-- dark_theme.html [meta]
-- disqus.html [meta]
-- google_analytics.html [meta]
-- js.html [meta]
-- css.html [meta]
-- navbar.html [meta]
-- navbar-data.html [meta]
-- mathjax.html [meta]
-- li_tag.html [meta]
-- main_index.html
-- blog_index.html
-
-
-
-### Adding new snippets / templates
-First export the blog_template in a test folder
+First export all templates to your blog's root dir
 ```
-blogger export blog_template -o ~/test/
+blogger export blog_template
 ```
-Then cd to that folder and go into \_blogger\_templates folder and copy everything to your custom folder.
-> This is only required for first time. Once you get layout.html you're done.
+or specify other folder using -o option. A \_blogger\_templates folder should appear.
 
-Now just create any files with .html extension in your custom templates folder. Then update the 'layout.html' file. Suppose you create footer.html snippet then you open the layout.html and place {{ snippet.footer }} before closing body tag or wherever you want to add this snippet.
+Now add this folder's full path to your blog's config
+```
+blogger config -b <blogname> templates_dir /path/to/dir
+```
 
-NOTE: YOU CANNOT NAME YOUR HTML FILE WITH THE BUILT-IN NAMES LISTED ABOVE.
+Every templates except layout.html are small building blocks(snippets) and layout.html is the collector that arrange this snippets. #
+
+## Adding new snippets / templates
+To add a new snippet, just create any files with .html extension in the templates folder. Then update the 'layout.html' file.
+
+Suppose you create footer.html snippet then you open the layout.html and place {{ snippet.footer }} before closing body tag or wherever you want to add this snippet.
 
 ### Overriding existing templates
-You can name your file once of the BUILT_IN names to override it. The most obvious is namvbar_data.html. Here is what the default looks like:
+You are free to edit the default templates and changes will be reflected. However if you mess up you can always again export blog_template from above process.
+
+You may want to eddit navbar_data.html. Here is what the default looks like:
 ```{
     "Home": "../index.html",
     "Blog": "index.html",
     "Projects": "../projects.html/"
 }
 ```
-You can add more navlinks or remove existing BUT make sure everything is inside DOUBLE QUOTES (\") and not single quotes.
-Another sensible option is to override layout.html as you have read this in [here](#Adding-new-snippets-/-templates). You can add snippets you want by using {{ snippet_name }} at anywhre you want!
+You can add more navlinks or remove existing BUT make sure everything is inside DOUBLE QUOTES (\") and not single quotes and do not put comma in the end of last item.
 
-Another one you may want to replace is light\_theme.html you can adjust it according to your preferences.
+It is also a googd idea to override layout.html as you have read this in [here](#Adding-new-snippets--templates). You can add snippets you want by using {{ snippet_name }} at anywhre you want!
+
 
 ### indexes
 To make your indexes compatible. You just need to wrap your blog's post lists in a div with class 'posts_list'. Blogger reads this div by default. However you can control hat div class should blogger lookup by setting 'index\_div\_name' to your div class name.
@@ -72,9 +60,46 @@ You have meta variable access so you can set date in your post meta and referenc
 ```
 
 ## Dynamic templating
-You can access meta class from any custom templates and inbuilt templates. Just add something in your meta and reference it with    {{ meta.var }}
-eg I write a md file
+You can have logics and variables in the blog_templates for dynamic template generation.
 
+### Syntax
+1. Variables
+The variables are referenced using {{ var }} syntax.
+
+2. Logic code
+Logic code are written inside {% %} brackets. Well basic logic like if statements, for loop, while loop etc are available.
+eg: if else
+```
+{% if var %}
+    something
+{% elif %}
+    sth
+{% else %}
+    sth
+{% endif %}
+```
+for loop
+```
+{% for i in var %}
+    something
+{% endfor %}
+
+{% for i,j in zip(var.a,var.b) %}
+{% endfor %}
+```
+
+#### Usage
+You can execute any python codes and use logic anyway you like inside {% %} in any templates.
+You have 2 variable access.
+* snippet : This is only available in layout.html through this you can access any other snippet file's content along with title and file link.
+
+* meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is [here](#)
+
+* config: You may see config variable used in some templates eg disqus.html it just make disqus_username and google analytics id accessible for templating and IT IS NOT AVAILABLE in other templates except disqus.html and google_analytics.html
+
+> You can access meta class from any custom templates and inbuilt templates. Just add something in your meta and reference it with {{ meta.var }}
+
+eg I write a md file
 test.md
 ```
 <!--
@@ -83,12 +108,12 @@ date: 3 may
 -->
 ```
 
-Now I can refer it in my template.
+Now I can refer it in templates.
 ```
-Date: {{ date }}, topic: {{ python }}
+Date: {{ meta.date }}, topic: {{ meta.python }}
 ```
 
-Registering new css or js files. Just open css.html file or js.html file in the editor and edit the source. 
+Registering new css or js files. Just open css.html file or js.html file in the editor and edit the source.
 
 Default css.html
 ```

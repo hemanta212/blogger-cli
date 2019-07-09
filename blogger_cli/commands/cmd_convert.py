@@ -169,7 +169,7 @@ def check_and_ensure_destination_dir(ctx, output_dir):
     blog_dir = ctx.config.read(key=blog+': blog_dir')
     posts_dir = ctx.config.read(key=blog + ' : blog_posts_dir')
     if not posts_dir and not output_dir:
-        ctx.log("No destination folder given. Specify one with -o option or",
+        ctx.log("No target folder set. Specify one with -o option or",
             "setup in your", blog, "blog's config")
         raise SystemExit("ERROR: NO OUTPUT FOLDER")
 
@@ -192,7 +192,7 @@ def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
     blog_img_dir = ctx.config.read(key=blog+': blog_images_dir')
 
     if not blog_img_dir and not output_img_dir:
-        ctx.log("No destination folder given. Specify one with -o option or",
+        ctx.log("No images folder given. Specify one with -o option or",
             "setup in your", blog, "blog's config")
         if click.confirm("Put images dir in same folder as blog posts?"):
             img_dir = os.path.join(destination_dir, 'images')
