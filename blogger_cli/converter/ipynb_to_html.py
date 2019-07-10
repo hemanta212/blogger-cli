@@ -1,4 +1,5 @@
 import os
+import json
 from shutil import copyfile, SameFileError
 
 from bs4 import BeautifulSoup as BS
@@ -57,9 +58,50 @@ def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
     return (html_filename, meta)
 
 
-def convert(ipynb_file_path):
-    with open(ipynb_file_path, 'r', encoding='utf8') as rf:
-        ipynb_content = rf.read()
+def extract_meta_and_main(ctx, ipynb_data):
+    metadata = ''
+    meta_separator = ctx.config.read(key=ctx.current_blog + ':meta_format')
+    if meta_separator:
+        meta_signs = [i.strip() for i in meta_separator.strip().split(" ")]
+        try:
+            meta_start, meta_end = meta_signs
+        except:
+            raise SystemExit("Invalid custom meta format", meta_signs)
+
+    else:
+        meta_start, meta_end = '<!--', '-->'
+
+    ipynb_dict = json.loads(ipynb_data)
+
+    try:
+        raw_meta = ipynb_dict['cells'][0].get('source')
+        if not raw_meta:
+            ctx.log(':: Metadata, The first cell is empty!')
+
+        meta_list = [str(i).strip() for i in raw_meta]
+
+        try:
+            first_mark = meta_list.index(meta_start)
+            second_mark = meta_list.index(meta_end)
+        except ValueError:
+            ctx.log(':: Meta tags:', meta_start, meta_end, "Not found")
+            return ipynb_data, metadata
+
+        meta = [i for i in meta_list[first_mark+1:second_mark]]
+        metadata = dict()
+        for key_value in meta:
+            key, value = key_value.split(':')
+            if value:
+                metadata[key.strip()] = value.strip()
+
+        del ipynb_dict['cells'][0]
+        main_data = json.dumps(ipynb_dict)
+        return main_data, metadata
+
+    except Exception as E:
+        ctx.log("Ipynb file is empty")
+        return ipynb_data, metadata
+
 
     html_exporter = gen_exporter()
     meta = dict()
@@ -76,4 +118,3 @@ def gen_exporter():
     html_exporter = HTMLExporter(config=c)
     html_exporter.template_file = 'basic'
     return html_exporter
-
