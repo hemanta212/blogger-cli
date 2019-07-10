@@ -31,7 +31,7 @@ def cli(ctx,  resource, blog, relative_path, verbose):
         blog_layout
     """
     ctx.verbose = verbose
-    validate_blog_and_settings(ctx, blog)
+    validate_blog_and_settings(ctx, blog, relative_path)
     export_path = resolve_export_path(ctx, relative_path)
 
     resource_map = {
@@ -51,7 +51,7 @@ def cli(ctx,  resource, blog, relative_path, verbose):
     transfer(ctx, export_path)
 
 
-def validate_blog_and_settings(ctx, input_blog):
+def validate_blog_and_settings(ctx, input_blog, input_path):
     blog = ctx.default_blog
     if input_blog:
         blog = input_blog
@@ -59,7 +59,7 @@ def validate_blog_and_settings(ctx, input_blog):
     blog_exists = ctx.blog_exists(blog)
     if blog_exists:
             settings = ctx.config.read(key=blog + ': blog_dir')
-            if not settings:
+            if not settings and not input_path:
                 ctx.log("Set config value for blog_dir in", blog, "blog")
                 raise SystemExit("ERROR: MISSING CONFIG: blog_dir")
 
@@ -74,6 +74,14 @@ def validate_blog_and_settings(ctx, input_blog):
 def resolve_export_path(ctx, relative_path):
     blog = ctx.current_blog
     blog_dir = ctx.config.read(key=blog+': blog_dir')
+    if not blog_dir:
+        if not os.path.exists(os.path.dirname(relative_path)):
+            ctx.log("You have used relative path", relative_path,
+                    'without setting blog_dir value in config!')
+            raise SystemExit("Use full path to export in this folder")
+        else:
+            blog_dir = ''
+
     blog_dir = os.path.normpath(os.path.expanduser((blog_dir)))
 
     export_path = blog_dir

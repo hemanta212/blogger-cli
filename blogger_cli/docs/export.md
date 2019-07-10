@@ -1,6 +1,7 @@
 # Exporting resources to your blog
 This command export resources that you can use to quickly setup your blog.
 When you export resources existing folder of same name will be replaced permanently, there is no going back. So always do this in empty folder or use -o option to place them in test/ folder.
+Note that while exporting files like blog_config and blog_index you cannot rename the file with -o option. You can rename after conversion.
 
 Following files/folder can be replaced: 
 1. index.html
@@ -64,10 +65,13 @@ The -o option rule is same as exporting blog_template mentioned above.
 blogger export -b <blogname> blog_config -o config/ 
 blogger export -b <blogname> blog_config -o ~/my_website/test
 ```
+> You cannot specify filename with -o option. blogger export ... -o ~/my_blog.cfg will
+create a folder named my_blog.cfg instead. So just user -o ~/ and rename later.
+
 If you want config of all blogs. copy ~/.blogger/blog_config.cfg to your folder.
 
 # Exporting blog template
-Blog template consists of all the snippets that gets added to your blog posts during conversion. You can customize default and add other templates. For info to customize look [here](#)
+Blog template consists of all the snippets that gets added to your blog posts during conversion. You can customize default and add other templates. For info to customize look [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md)
 
 ```
 blogger export -b <blogname> blog_template

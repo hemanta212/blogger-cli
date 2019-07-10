@@ -38,9 +38,12 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(['blog', 'images'], os.listdir(self.export_dir))
 
-        self.assertEqual(['html.html', 'index.html'],
-                        os.listdir(self.blog_dir))
-        self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
+        self.assertEqual(
+                {'html.html', 'index.html'},
+                set(os.listdir(self.blog_dir))
+                )
+        self.assertEqual(self.read_file(self.index_path),
+                        self.read_file(test_index_path))
 
 
     @staticmethod
@@ -59,12 +62,17 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['convert', '-b', 'test1',
                                 ipynb1_path, '-v'])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['blog', 'images'],
-                        os.listdir(self.export_dir))
+        self.assertEqual(
+                {'blog', 'images'},
+                set(os.listdir(self.export_dir))
+                )
 
-        self.assertEqual(['index.html', 'ipynb1.html', 'ipynb1.ipynb'],
-                        os.listdir(self.blog_dir))
-        self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
+        self.assertEqual(
+                {'index.html', 'ipynb1.html', 'ipynb1.ipynb'},
+                set(os.listdir(self.blog_dir))
+                )
+        self.assertEqual(self.read_file(self.index_path),
+                        self.read_file(test_index_path))
 
 
     def test_ipynb_images_and_index(self):
@@ -77,12 +85,18 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['setdefault', 'test1'])
         result = self.runner.invoke(cli, ['convert', ipynb2_path, '-v'])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['blog', 'images'],
-                        os.listdir(self.export_dir))
+        self.assertEqual(
+                {'blog', 'images'},
+                set(os.listdir(self.export_dir))
+                )
 
-        self.assertEqual(['index.html', 'ipynb1.html', 'ipynb1.ipynb', 'ipynb2.html', 'ipynb2.ipynb'],
-                        os.listdir(self.blog_dir))
-        self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
+        self.assertEqual(
+                {'index.html', 'ipynb1.html', 'ipynb1.ipynb', 'ipynb2.html',
+                'ipynb2.ipynb'},
+                set(os.listdir(self.blog_dir))
+                )
+        self.assertEqual(self.read_file(self.index_path),
+                        self.read_file(test_index_path))
 
         images_dir = os.path.join(self.export_dir, 'images')
         post_image_dir = os.path.join(images_dir, 'ipynb2')
@@ -99,12 +113,17 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['convert', '-b', 'test1',
                                 md_path, '-v'])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['blog', 'images'],
-                        os.listdir(self.export_dir))
+        self.assertEqual(
+                {'blog', 'images'},
+                set(os.listdir(self.export_dir))
+                )
 
-        self.assertEqual(['index.html', 'md1.html', 'md1.md'],
-                        os.listdir(self.blog_dir))
-        self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
+        self.assertEqual(
+                {'index.html', 'md1.html', 'md1.md'},
+                set(os.listdir(self.blog_dir))
+                )
+        self.assertEqual(self.read_file(self.index_path),
+                        self.read_file(test_index_path))
 
 
     def test_meta_and_custom_templates(self):
@@ -123,15 +142,21 @@ class TestBasic(unittest.TestCase):
         result = self.runner.invoke(cli, ['convert', '-b', 'test1',
                                 md_path, '-v', '-temp',templates_path])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(['blog', 'images'],
-                        os.listdir(self.export_dir))
+        self.assertEqual(
+                {'blog', 'images'},
+                set(os.listdir(self.export_dir))
+                )
         topic_dir = os.path.join(self.blog_dir, 'meta')
-        self.assertEqual(['md2.html', 'md2.md'],
-                        os.listdir(topic_dir))
+        self.assertEqual(
+                {'md2.html', 'md2.md'},
+                set(os.listdir(topic_dir))
+                )
         converted_html = os.path.join(topic_dir, 'md2.html')
 
-        self.assertEqual(self.read_file(self.index_path), self.read_file(test_index_path))
-        self.assertEqual(self.read_file(converted_html), self.read_file(test_results_path))
+        self.assertEqual(self.read_file(self.index_path),
+                        self.read_file(test_index_path))
+        self.assertEqual(self.read_file(converted_html),
+                        self.read_file(test_results_path))
 
 
     def tearDown(self):

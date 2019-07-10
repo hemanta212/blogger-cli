@@ -28,8 +28,6 @@ class TestBasic(unittest.TestCase):
 
     def test_info_success(self):
         result = self.runner.invoke(cli, ['info'])
-        with open('tt.txt', 'w') as wf:
-            wf.write(result.output)
         self.assertEqual(result.output, BM.info_success)
         self.assertEqual(result.exit_code, 0)
 

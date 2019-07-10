@@ -2,10 +2,10 @@
 
 ## Contents
 1. [Customizing css](#Customizing-css)
-2. [Customizing templates](#Customizing-templates)\n
-    - [Adding new snippets / templates](#Adding-new-snippets--templates)\n
-    - [Overriding existing templates](#Overriding-existing-templates)\n
-    - [indexes](#indexes)\n
+2. [Customizing templates](#Customizing-templates)
+    - [Adding new snippets / templates](#Adding-new-snippets--templates)
+    - [Overriding existing templates](#Overriding-existing-templates)
+    - [indexes](#indexes)
 3. [Dynamic templating](#Dynamic-templating)
 
 ## Customizing css
@@ -49,12 +49,16 @@ It is also a googd idea to override layout.html as you have read this in [here](
 
 ### indexes
 To make your indexes compatible. You just need to wrap your blog's post lists in a div with class 'posts_list'. Blogger reads this div by default. However you can control hat div class should blogger lookup by setting 'index\_div\_name' to your div class name.
+```
+blogger config -b <blogname> index_div_name posts
+```
+Now blogger will look for div with class 'posts' instead!
 
-To modify what happens when each file is added to index you have to modify li\_tag.html Here is the default contents.
+To modify what happens when each file is added to index you have to modify li\_tag.html template. Here is the default content.
 ```
 <li><a href="{{ snippet.link }}">{{ snippet.title }}</a> </li>
 ```
-You have meta variable access so you can set date in your post meta and reference it by meta.date here. 
+You have meta variable access so you can set date in your post meta and reference it by meta.date here.
 ```
 <li><a href="{{ snippet.link }}">{{ snippet.title }}</a> ({{ meta.date }}) </li>
 ```
@@ -93,7 +97,7 @@ You can execute any python codes and use logic anyway you like inside {% %} in a
 You have 2 variable access.
 * snippet : This is only available in layout.html through this you can access any other snippet file's content along with title and file link.
 
-* meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is [here](#)
+* meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/meta.md)
 
 * config: You may see config variable used in some templates eg disqus.html it just make disqus_username and google analytics id accessible for templating and IT IS NOT AVAILABLE in other templates except disqus.html and google_analytics.html
 

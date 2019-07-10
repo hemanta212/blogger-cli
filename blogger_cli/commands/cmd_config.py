@@ -49,8 +49,8 @@ def cli(ctx, remove, blog, configs, restore, verbose):
             ctx.config.delete_key(blog + ':' + key)
             ctx.log(key, "->", "deleted")
         else:
-            raise SystemExit(0)
             ctx.log(blog_dict.get(key))
+            raise SystemExit(0)
 
 
 def __get_blog(ctx, blog):
