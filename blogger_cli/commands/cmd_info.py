@@ -6,9 +6,10 @@ from blogger_cli.cli import pass_context
 
 @click.command('info', short_help="Show blog's properties")
 @click.argument('blog', required=False)
+@click.option('--all', 'show_all', is_flag=True)
 @click.option('-v', '--verbose', is_flag=True)
 @pass_context
-def cli(ctx, blog, verbose):
+def cli(ctx, blog, show_all, verbose):
     """
     Get details about blogs and app itself\n
     Usage:\n
@@ -31,13 +32,14 @@ def cli(ctx, blog, verbose):
         if len(ctx.blog_list) == 0:
             ctx.log(' ', "No blog registered yet!")
 
-        ctx.log("\nBlog:configs [standard] \tOptional:configs [Advanced]")
-        for i, j in zip_longest(ctx.config_keys, ctx.optional_config):
-            if j:
-                ctx.log('  ', i, '\t\t', j)
-            else:
-                ctx.log('  ', i)
+        ctx.log("\nBlog:configs [standard]")
+        for key in ctx.config_keys:
+            ctx.log('  ', key)
 
+        if show_all:
+            ctx.log("\nOptional:configs [Advanced]")
+            for key in ctx.optional_config:
+                ctx.log('  ', key)
 
         ctx.log("\nTip: Use blogger info blogname for blog details\n")
 
