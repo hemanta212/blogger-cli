@@ -19,7 +19,7 @@ Converting a file is simple as:
 ```
 $ blogger convert filename
 ```
-However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/blog_management.md) for how to set up configs.
+However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](docs/blog_management.md) for how to set up configs.
 for example the above command assumes:
 1. You have set a default blog and blog_dir and blog_posts_dir's value in config,
 2. File to be converted should be in current directory.
@@ -138,7 +138,7 @@ Topic in which this post should be placed in index. Applied to all files current
 Folder path of custom template. Default 'blog_templates_dir' value in config.
 
 --override-meta:
-Ignore meta topic in favour of --topic option. More info [here](#todo).
+Ignore meta topic in favour of --topic option. More info [here](docs/meta.md).
 
 -v, --verbose:
 Enable verbose flag for detail reporting of what's going on.

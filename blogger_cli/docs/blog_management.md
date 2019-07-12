@@ -3,7 +3,7 @@ Blogger-cli is primarily a conversion tool. So the blog management is more like 
 
 # Contents
 1. [Registering a blog](#Registering-a-blog)
-2. [Editing blog's configs ](#Editing-blog's-configs)
+2. [Editing blog's configs ](#Editing-blogs-configs)
     - [Editing in bulk](#Editing-in-bulk)
     - [Editing individually](#Editing-individually)
 3. [setting default blog](#Setting-default-blog)
@@ -51,7 +51,7 @@ If you have a disqus account you can enter it here and commenting system will wo
 It is a snippet provided by google to analyze your website's traffic. Sign in and get a snippet and you can get id from there. eg: 'UA-879837f'
 
 'templates_dir':
-It is the directory where you can override default html templates to suit your needs. More info [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md).
+It is the directory where you can override default html templates to suit your needs. More info [here](docs/customizing.md).
 
 ## Editing in bulk
 To edit all configs in bulk. You can run

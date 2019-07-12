@@ -16,37 +16,14 @@ What this means is that one blogger-cli installation can serve for multiple
 Python versions.
 """
 import argparse
-import json
 import os
 import platform
-import re
 import shutil
 import stat
 import subprocess
 import sys
-import tarfile
-import tempfile
 
-from contextlib import closing
-from contextlib import contextmanager
-from functools import cmp_to_key
-from gzip import GzipFile
 from io import UnsupportedOperation
-
-try:
-    from urllib.error import HTTPError
-    from urllib.request import Request
-    from urllib.request import urlopen
-except ImportError:
-    from urllib2 import HTTPError
-    from urllib2 import Request
-    from urllib2 import urlopen
-
-try:
-    input = raw_input
-except NameError:
-    pass
-
 
 try:
     try:

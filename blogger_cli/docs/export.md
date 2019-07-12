@@ -47,7 +47,7 @@ If you just want blog assets (css, js, fonts). For default support export them i
 ```
 blogger export -b <blogname> blog_assets -o assets/
 ```
-> If you export css, js in different folder you have to override the default templates with new path. More info [here](#todo)
+> If you export css, js in different folder you have to override the default templates with new path. More info [here](docs/customizing.md)
 
 The -o option rule is same as exporting blog_template mentioned above.
 ```
@@ -68,11 +68,13 @@ blogger export -b <blogname> blog_config -o ~/my_website/test
 > You cannot specify filename with -o option. blogger export ... -o ~/my_blog.cfg will
 create a folder named my_blog.cfg instead. So just user -o ~/ and rename later.
 
+You can import these blog's configuration using config command. see [here](docs/blog_management.md#importing-blog-config)
+
 If you want config of all blogs. copy ~/.blogger/blog_config.cfg to your folder.
 
 # Exporting blog template
-Blog template consists of all the snippets that gets added to your blog posts during conversion. You can customize default and add other templates. For info to customize look [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md)
-
+Blog template consists of all the snippets that gets added to your blog posts during conversion. You can customize default and add other templates. For info to customize look [here](docs/customizing.md)
+https://github.com/hemanta212/blogger-cli/blob/add_templating/blogger_cli/docs/blog_management.md#editing-blogs-config
 ```
 blogger export -b <blogname> blog_template
 ```

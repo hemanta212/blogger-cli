@@ -20,8 +20,8 @@ def cli(ctx, blog, port, dir,  verbose):
         blog = ctx.default_blog
         ctx.vlog(":: No blog name given using default blog:", str(blog))
     if not blog:
-        ctx.log("Pass blog with -b option or set a default blog in configs")
-        raise SystemExit("ERROR: BLOG NAME NOT GIVEN")
+        ctx.log("Use blogger serve <blogname> or set a default blog in configs")
+        raise SystemExit("ERROR: Missing required argument 'BLOG' ")
 
     blog_dir = ctx.config.read(key=blog + ':blog_dir')
     if dir:

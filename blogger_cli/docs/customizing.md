@@ -2,17 +2,10 @@
 
 ## Contents
 1. [Customizing css](#Customizing-css)
-<<<<<<< HEAD
-2. [Customizing templates](#Customizing-templates)\n
-    - [Adding new snippets / templates](#Adding-new-snippets--templates)\n
-    - [Overriding existing templates](#Overriding-existing-templates)\n
-    - [indexes](#indexes)\n
-=======
 2. [Customizing templates](#Customizing-templates)
     - [Adding new snippets / templates](#Adding-new-snippets--templates)
     - [Overriding existing templates](#Overriding-existing-templates)
     - [indexes](#indexes)
->>>>>>> add_custom_installer
 3. [Dynamic templating](#Dynamic-templating)
 
 ## Customizing css
@@ -104,7 +97,7 @@ You can execute any python codes and use logic anyway you like inside {% %} in a
 You have 2 variable access.
 * snippet : This is only available in layout.html through this you can access any other snippet file's content along with title and file link.
 
-* meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/meta.md)
+* meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is [here](docs/meta.md)
 
 * config: You may see config variable used in some templates eg disqus.html it just make disqus_username and google analytics id accessible for templating and IT IS NOT AVAILABLE in other templates except disqus.html and google_analytics.html
 
