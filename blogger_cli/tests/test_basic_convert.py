@@ -126,7 +126,7 @@ class TestBasic(unittest.TestCase):
                         self.read_file(test_index_path))
 
 
-    def test_meta_and_custom_templates(self):
+    def test_md_meta_and_custom_templates(self):
         md_path = resource_filename('blogger_cli',
                     'tests/tests_resources/md2.md')
         test_results_path = resource_filename('blogger_cli',
@@ -157,6 +157,41 @@ class TestBasic(unittest.TestCase):
                         self.read_file(test_index_path))
         self.assertEqual(self.read_file(converted_html),
                         self.read_file(test_results_path))
+
+
+    def test_ipynb_meta(self):
+        ipynb_path = resource_filename('blogger_cli',
+                    'tests/tests_resources/ipynb3.ipynb')
+        test_result_html = resource_filename('blogger_cli',
+                    'tests/tests_resources/results/ipynb3.html')
+        test_nbdata_file = resource_filename('blogger_cli',
+                    'tests/tests_resources/results/ipynb3.nbdata')
+        test_meta_ipynb_file = resource_filename('blogger_cli',
+                    'tests/tests_resources/results/ipynb3_1.ipynb')
+        test_nometa_ipynb_file = resource_filename('blogger_cli',
+                    'tests/tests_resources/results/ipynb3_0.ipynb')
+        test_index_path = resource_filename('blogger_cli',
+                'tests/tests_resources/index/ipynb_meta_index.html')
+
+        result = self.runner.invoke(cli, ['convert', '-b','test1', ipynb_path])
+        self.assertEqual(result.exit_code, 0)
+        topic_dir = os.path.join(self.blog_dir, 'test')
+        ipynb_file_path = os.path.join(topic_dir, 'ipynb3.ipynb')
+        nbdata_file_path = os.path.join(topic_dir, 'ipynb3.nbdata')
+        self.assertEqual(
+                {'ipynb3.html', 'ipynb3.ipynb'},
+                set(os.listdir(topic_dir))
+                )
+
+        converted_html = os.path.join(topic_dir, 'ipynb3.html')
+        #self.assertEqual(self.read_file(self.index_path),
+        #                self.read_file(test_index_path))
+        #self.assertEqual(self.read_file(converted_html),
+        #                self.read_file(test_results_path))
+        os.system('cp ' + ipynb_file_path + ' ' + test_nometa_ipynb_file)
+        os.system('cp ' + nbdata_file_path + ' ' + test_nbdata_file)
+        os.system('cp ' + self.index_path + ' ' + test_index_path)
+
 
 
     def tearDown(self):

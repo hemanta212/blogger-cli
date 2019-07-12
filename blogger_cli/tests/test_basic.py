@@ -28,8 +28,11 @@ class TestBasic(unittest.TestCase):
 
     def test_info_success(self):
         result = self.runner.invoke(cli, ['info'])
-        self.assertEqual(result.output, BM.info_success)
         self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.output, BM.info_success)
+        result = self.runner.invoke(cli, ['info', '--all'])
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.output, BM.all_info_success)
 
 
     def test_setupblog_success(self):

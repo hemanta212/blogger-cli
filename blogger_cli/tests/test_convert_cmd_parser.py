@@ -34,13 +34,13 @@ class TestBasic(unittest.TestCase):
         resource_path = os.path.join(self.root_dir, 'tests', 'tests_resources')
         files = get_files_being_converted( (resource_path, ) )
         expected_files = {'html.html', 'ipynb1.ipynb', 'ipynb2.ipynb',
-                        'md1.md', 'md2.md'}
+                        'md1.md', 'md2.md', 'ipynb3.ipynb'}
         expected = {os.path.join(resource_path, i) for i in expected_files}
         self.assertEqual(expected, files)
 
         index_files = {'html_index.html', 'ipynb1_index.html',
                 'ipynb2_index.html','md_index.html', 'topic_index.html',
-                'meta_and_templates_index.html'}
+                'meta_and_templates_index.html', 'ipynb_meta_index.html'}
         template_files = {'layout.html', 'li_tag.html', 'navbar_data.html'}
         results_files = {'md2.html'}
 

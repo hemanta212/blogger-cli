@@ -9,7 +9,6 @@ from bs4 import BeautifulSoup as BS
 from urllib.request import Request, urlopen
 
 
-
 def extract_and_write_static(ctx, html_body, topic_filename, blog_post_dir):
     global EXTRACT_LIST
     blog = ctx.current_blog
@@ -167,7 +166,7 @@ def extract_static_files(data, file_path, dest_dir):
 
 
 def extract_main_and_meta_from_file_content(ctx, file_data):
-    meta = OrderedDict()
+    metadata = ''
     meta_start, meta_end = extract_meta_format(ctx)
     first_mark = file_data.find(meta_start) + len(meta_start)
     second_mark = file_data.find(meta_end)
@@ -178,6 +177,7 @@ def extract_main_and_meta_from_file_content(ctx, file_data):
     main_data = file_data[second_mark + len(meta_end): ]
     meta_lines = metadata.strip().split('\n')
 
+    meta = OrderedDict()
     try:
         for key_value in meta_lines:
             key, value = key_value.split(':')
@@ -214,6 +214,7 @@ def replace_ext(file_path, ext):
 
 
 def extract_topic(ctx, meta):
+    override_meta = ctx.conversion.get('override_meta')
     given_topic = ctx.conversion.get('topic')
     meta_topic = meta.get('topic') if meta else None
     topics = (meta_topic, given_topic)
