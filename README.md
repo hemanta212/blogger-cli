@@ -1,4 +1,4 @@
-# Blogger-cli 
+# Blogger-cli
 A custom cli tool to process jupyter notebooks, markdown files and html files. Write your blog in markdown or jupyter notebooks and then transform into blog post with mathjax, code support, google analytics, navigation, disqus support.
 
 
@@ -18,36 +18,31 @@ Blogger-cli has simple conversion system that is fast as well extremely customiz
 
 
 ## 💻 Installation
+
+### Recommended Method
 ```
-$ git clone https://github.com/hemanta212/blogger-cli.git
-$ cd blogger-cli
-$ python -m venv venv 
+$ curl -sSL https://raw.githubusercontent.com/hemanta212/blogger-cli/master/get_blogger.py | python
+```
+Since blogger has alot of dependecies (nbconvert, jupyter), this custom installer will install in a virtualenv and add it to your path for global access!.
+
+### Using pip
+```
+pip install blogger-cli
 ```
 
-### Activation for Windows
-```
-$ venv\Scripts\activate
-```
-### Activation for Mac or Linux
-```
-$ source venv\bin\activate
-```
+If you mainly use jupyter notebook, then you already have all dependecies although it is recommende to use virutalenv.
 
-### After Activation
-```
-$ python -m pip install -e .
-```
 
 ## 🚀 Getting Started
 Make a website repository and clone it to your computer. Now register your blogname with blogger
 ```$ blogger addblog <blogname>```
 and setup necessary configs. Now, If you have new site or empty site. You can get blogger default design and boiler plate.
 ```
-$ blogger export blog_layout -b <blogname> 
-``` 
+$ blogger export blog_layout -b <blogname>
+```
 Now, all assets will be moved to the blog_dir you specified in the blog config during setup.
 ```
-$ blogger serve -b <blogname>
+$ blogger serve <blogname>
 ```
 Open the url http://localhost:8000/ in your browser to view your blog!!
 

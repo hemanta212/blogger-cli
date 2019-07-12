@@ -1,15 +1,13 @@
 # Exporting resources to your blog
 This command export resources that you can use to quickly setup your blog.
 When you export resources existing folder of same name will be replaced permanently, there is no going back. So always do this in empty folder or use -o option to place them in test/ folder.
-Note that while exporting files like blog_config and blog_index you cannot rename the file with -o option. You can rename after conversion.
+Note that while exporting files like blog_config and blog_index you cannot rename the file with -o option. You can rename after the export.
 
 Following files/folder can be replaced: 
 1. index.html
 2. css/
-3. js/
-4. fonts/
-5. images/
-6. \_blogger\_templates/
+3. images/
+4. \_blogger\_templates/
 
 Use ```blogger export --help``` to view items that can be exported.
 
@@ -21,11 +19,11 @@ Use ```blogger export --help``` to view items that can be exported.
 1. [Exporting blog template](#Exporting-blog-template)
 
 # Exporting blog layout
-Blog layout consists of assets(css), blog index, website index, images dir, _blogger_templates, blog directory to quickly set you up with a up and running site. You can customize this css as you like and indexes considering some procedure described [here](todo).
+Blog layout consists of assets(css), blog index, website index, images dir, _blogger_templates, blog directory to quickly set you up with a up and running site. You can customize this css as you like and indexes considering some procedure described [here](https://github.com/hemanta212/blogger-cli/blob/master/blogger_cli/docs/customizing.md).
 ```
 blogger export -b <blogname> blog_layout
 ```
-You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
+You can also specify a custom folder using -o option. It is relative from blog root folder however you can also specify other folder using absolute path from begining.
 ```
 blogger export -b <blogname> blog_layout -o test/
 blogger export -b <blogname> blog_layout -o ~/my_website_folder/test/

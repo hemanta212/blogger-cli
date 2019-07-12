@@ -40,7 +40,7 @@ class TestBasic(unittest.TestCase):
 
         index_files = {'html_index.html', 'ipynb1_index.html',
                 'ipynb2_index.html','md_index.html', 'topic_index.html',
-                'meta_and_templates_index.html', 'ipynb_meta_index.html'}
+                'meta_and_templates_index.html'}
         template_files = {'layout.html', 'li_tag.html', 'navbar_data.html'}
         results_files = {'md2.html'}
 
