@@ -23,7 +23,6 @@ class Context(object):
             'filter_post_without_title', 'working_dir_timestamp'
         ]
 
-
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''
 
