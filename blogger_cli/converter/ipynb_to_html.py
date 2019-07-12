@@ -23,6 +23,7 @@ def convert_and_copy_to_blog(ctx, ipynb_file):
     return html_filename_meta
 
 
+<<<<<<< HEAD
 def convert_to_html(ctx, ipynb_file_path):
     html_exporter = gen_exporter()
     ipynb_data, metadata = extract_main_and_meta(ctx, ipynb_file_path)
@@ -30,6 +31,31 @@ def convert_to_html(ctx, ipynb_file_path):
     (body, __) = html_exporter.from_notebook_node(nb)
     return body, metadata
 
+=======
+def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
+    extract_static = ctx.conversion['extract_static']
+    destination_dir = ctx.conversion['destination_dir']
+
+    ipynb_filename = os.path.basename(ipynb_file_path)
+    given_topic = ctx.conversion.get('topic')
+    topic = given_topic if given_topic else ''
+    if topic:
+        ctx.log(":: Got topic, ", topic)
+
+    ipynb_filename = os.path.join(topic, ipynb_filename)
+    html_filename = ipynb_filename.replace('.ipynb', '.html')
+    html_file_path = os.path.join(destination_dir, html_filename)
+    new_ipynb_file_path = os.path.join(destination_dir, ipynb_filename)
+    new_blog_post_dir = os.path.dirname(html_file_path)
+    ctx.vlog("New blog_posts_dir finalized::", new_blog_post_dir)
+
+    if not os.path.exists(new_blog_post_dir):
+        os.mkdir(new_blog_post_dir)
+
+    if extract_static:
+        html_body = extract_and_write_static(ctx, html_body,
+                                            ipynb_filename, new_blog_post_dir)
+>>>>>>> add_custom_installer
 
 def gen_exporter():
     config = TraitletsConfig()

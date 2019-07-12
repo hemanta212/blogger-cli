@@ -19,6 +19,8 @@ Now conversion is just running
 ```
 blogger convert
 ```
+Please read more about it [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md#recommended-workflow)
+For safety during folder conversion read [this](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md#conversion-of-folder)
 
 ## Deploying
 Just to make sure things are okay and experimeting your changes run ```blogger serve``` and visit your blog from browser.

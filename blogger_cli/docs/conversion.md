@@ -4,7 +4,7 @@ Blogger uses python-markdown and nbconvert library to convert your posts to html
 You can convert any number of files, folder you like at once. However they are treated as a batch i.e if you provide a topic option in command then every blog converted from that command will be under same topic.
 Various options are available to you in convert command. See all [here](#Conversion-options).
 
-As of now, you cannot place original and converted files in same folder. So do not run convert command from your blog's folder.
+As of now, you cannot place original and converted files in same folder. So do not convert files from and to your blog's folder.
 
 ## Contents
 1. [Conversion of files](#Conversion-of-files)
@@ -19,9 +19,9 @@ Converting a file is simple as:
 ```
 $ blogger convert filename
 ```
-However blogger fills various gaps like where converted files are placed and which blogs to use from your config.
+However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/blog_management.md) for how to set up configs.
 for example the above command assumes:
-1. You have set a [default blog](#todo) and [blog_dir and blog_posts_dir](#todo) in config,
+1. You have set a default blog and blog_dir and blog_posts_dir's value in config,
 2. File to be converted should be in current directory.
 
 A more flexible or independent command is (although it is recommended to setup you config)
@@ -30,7 +30,8 @@ $ blogger convert file1 file2 -b <blogname> -o ~/myblog.github.io/blog/
 ```
 > The options will override the configs everytime.
 
-RECOMMENDED WORKFLOW
+
+#### Recommended workflow
 You can set a working dir in your config providing a folder you use to store your md, ipynb, html files. Blogger will automatically convert the modified changes for you.
 ```
 blogger config -b <blogname> working_dir /path/to/dir
@@ -51,12 +52,47 @@ $ blogger convert filename --not-code
 ```
 
 ## Conversion of folders
-If folder are specified all supported extensions(html, md, ipynb) will be picked and converted. To avoid html files just pass --no-html option. Similarly you can recursively search within any folder to get files!
+If folder are specified all supported extensions(html, md, ipynb) will be picked and converted. To avoid html files just pass -ex-html/--exclude-html option. Similarly you can recursively search within any folder to get files!
 ```
 $ blogger convert file folder/ -b <blogname>
 $ blogger convert folder1/ folder2/ --exclude-html
 $ blogger convert . -r --exclude-html
 ```
+Similarly set up filter_post_withou_title config to filter experimental files without title from adding into the index. However they will be converted and placed in your blog's post folder.
+
+```
+blogger config -b <blogname> filter_posts_without_title true
+```
+
+## Static files transfer
+By default blogger searches for img and video tag in html then for:
+- URI: It decodes the base64 URI to mp4 and png video and img resp.
+- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
+- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
+
+You can switch all of them off by passing -no-ex or --no-extract option during conversion.
+Similarly you can set the post_extract_list config.
+```
+blogger config -b <blogname> post_extract_list ['URI', 'URL']
+blogger config -b <blogname> post_extract_list ['URL']
+blogger config -b <blogname> post_extract_list ['URI']
+```
+1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
+
+## Static files transfer
+By default blogger searches for img and video tag in html then for:
+- URI: It decodes the base64 URI to mp4 and png video and img resp.
+- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
+- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
+
+You can switch all of them off by passing -no-ex or --no-extract option during conversion.
+Similarly you can set the post_extract_list config.
+```
+blogger config -b <blogname> post_extract_list ['URI', 'URL']
+blogger config -b <blogname> post_extract_list ['URL']
+blogger config -b <blogname> post_extract_list ['URI']
+```
+1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
 
 ## Static files transfer
 By default blogger searches for img and video tag in html then for:

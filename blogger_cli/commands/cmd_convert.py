@@ -194,6 +194,8 @@ def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
     if not blog_img_dir and not output_img_dir:
         ctx.log("No images folder given. Specify one with -o option or",
             "setup in your", blog, "blog's config")
+        ctx.log("If you want to avoid extracting images use -no-ex  option.")
+
         if click.confirm("Put images dir in same folder as blog posts?"):
             img_dir = os.path.join(destination_dir, 'images')
             return img_dir

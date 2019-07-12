@@ -2,12 +2,12 @@
 Blogger-cli is primarily a conversion tool. So the blog management is more like config holder for your website's folder.
 
 # Contents
-1. [Registering a blog](#Registering-a-blog)\n
-2. [Editing blog's configs ](#Editing-blog's-configs)\n
-    i. [Editing in bulk](#Editing-in-bulk)\n
-    ii. [Editing individually](#Editing-individually)\n
-3. [setting default blog](#Setting-default-blog)\n
-4. [removing a blog](#Removing-a-blog)\n
+1. [Registering a blog](#Registering-a-blog)
+2. [Editing blog's configs ](#Editing-blog's-configs)
+    - [Editing in bulk](#Editing-in-bulk)
+    - [Editing individually](#Editing-individually)
+3. [setting default blog](#Setting-default-blog)
+4. [removing a blog](#Removing-a-blog)
 
 # Registering a blog
 'blogs' need to be registered first. You can do so by:
@@ -24,21 +24,34 @@ You can always setup configs later
 # Editing blog's config
 A registered blog has number of configs you can edit.
 
-'blog_dir': This is the main folder of your website. This folder is not used to store converted html blogs since it is treated as root website folder.
+'blog_dir':
+This is the main folder of your website. This folder is not used to store converted html blogs since it is treated as root website folder.
 eg values: '~/my_website_folder/', 'C:\Useres\Desktop\'
 
-'blog_posts_dir': This is the folder you want to keep your converted blog posts in. It is specified in respect to blog_dir folder (root dir). example value: 'blog/', 'posts/'.
+'blog_posts_dir':
+This is the folder you want to keep your converted blog posts in. It is specified in respect to blog_dir folder (root dir).
+
+Example values: 'blog/', 'posts/'.
+
 > Do not use '/' infront of folder name like '/blog/'. It conveys different meaning.
 
-'blog_images_dir': Where you want to store your images that we extract for you from http/s urls and data URI in your post. The path value is relative from root dir (blog_dir) same like blog_posts_dir. Images will be stored in folders with same name as your blog title and If you have topic then it will be used too. like topic/blog_title/.
+
+'blog_images_dir':
+Where you want to store your images that we extract for you from http/s urls and data URI in your post. The path value is relative from root dir (blog_dir) same like blog_posts_dir. Images will be stored in folders with same name as your blog title and If you have topic then it will be used too. like topic/blog_title/.
+
 Example values: 'images/blog_images/', 'images/blog/', 'blog/images/'.
+
 > For sites like github pages, you need to keep images in root folder of your website.
 
-'disqus_username': If you have a disqus account you can enter it here and commenting system will work on every posts. You can get it from disqus account url. eg https://badboy11.disqus.com 's username will be 'badboy11'
 
-'google_analytics_id': It is a snippet provided by google to analyze your website's traffic. Sign in and get a snippet and you can get id from there. eg: 'UA-879837f'
+'disqus_username':
+If you have a disqus account you can enter it here and commenting system will work on every posts. You can get it from disqus account url. eg https://badboy11.disqus.com 'susername will be 'badboy11'
 
-'templates_dir': It is the directory where you can override default html templates to suit your needs. More info [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md).
+'google_analytics_id':
+It is a snippet provided by google to analyze your website's traffic. Sign in and get a snippet and you can get id from there. eg: 'UA-879837f'
+
+'templates_dir':
+It is the directory where you can override default html templates to suit your needs. More info [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md).
 
 ## Editing in bulk
 To edit all configs in bulk. You can run

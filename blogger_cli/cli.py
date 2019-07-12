@@ -24,7 +24,6 @@ class Context(object):
             'create_nbdata_file', 'delete_ipynb_meta'
         ]
 
-
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''
 
