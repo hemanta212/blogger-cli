@@ -5,9 +5,10 @@ from urllib.request import urlopen, Request
 import markdown
 from bs4 import BeautifulSoup as BS
 
-from blogger_cli.converter.extractors import extract_and_write_static
-from blogger_cli.converter.utils import (replace_ext, extract_topic,
-                                    extract_main_and_meta_from_file_content)
+from blogger_cli.converter.extractor import (
+    extract_main_and_meta_from_file_content, extract_topic,
+    extract_and_write_static, replace_ext
+    )
 
 
 def convert_and_copy_to_blog(ctx, md_file):
@@ -28,7 +29,6 @@ def convert(ctx, md_file_path):
     html = markdown.markdown(main_md, extensions=extensions,
                             output_format='html5')
     return html, metadata
-
 
 
 def write_html_and_md(ctx, html_body, md_file_path, meta):

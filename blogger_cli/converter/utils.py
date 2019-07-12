@@ -62,5 +62,4 @@ def extract_topic(ctx, meta):
     else:
         topic = ''
 
-    ctx.log(":: Got topic,", topic)
     return topic

@@ -9,10 +9,9 @@ from nbconvert import HTMLExporter
 import nbformat
 from traitlets.config import Config as TraitletsConfig
 
-from blogger_cli.converter.extractors import extract_and_write_static
 from blogger_cli.converter.utils import (
         extract_meta_format, replace_ext, extract_topic,
-        extract_main_and_meta_from_file_content
+        extract_main_and_meta_from_file_content, extract_and_write_static
         )
 
 
@@ -45,24 +44,34 @@ def extract_main_and_meta(ctx, ipynb_file_path):
     blog = ctx.current_blog
     metadata = OrderedDict()
     delete_ipynb_meta = ctx.config.read(key=blog + ':delete_ipynb_meta')
+    ctx.written_ipynb = False
     with open(ipynb_file_path, 'r', encoding='utf-8') as rf:
         ipynb_data = rf.read()
 
     nbdata_file_path = replace_ext(ipynb_file_path, '.nbdata')
     if os.path.exists(nbdata_file_path):
+        ctx.vlog(":: Reading nbdata file", nbdata_file_path)
         with open(nbdata_file_path, 'r', encoding='utf-8') as rf:
             nbdata_content = rf.read()
 
         __, metadata = extract_main_and_meta_from_file_content(
                                             ctx, nbdata_content)
     if not metadata:
+        ctx.vlog(":: Extracting meta from file", ipynb_file_path)
         ipynb_data, metadata = extract_main_and_meta_from_ipynb(
                                                 ctx, ipynb_data)
 
-        if metadata and not delete_ipynb_meta in ['true', 'True']:
-            with open(ipynb_file_path, 'w', encoding='utf-8') as wf:
+        if metadata and not delete_ipynb_meta in ['false', 'False']:
+            ipynb_filename = os.path.basename(ipynb_file_path)
+            topic = extract_topic(ctx, metadata)
+            blog_post_dir = get_blog_post_dir(ctx, topic)
+            new_ipynb_file_path = os.path.join(blog_post_dir, ipynb_filename)
+
+            ctx.log(":: Deleting meta from ipynb_file", new_ipynb_file_path )
+            with open(new_ipynb_file_path, 'w', encoding='utf-8') as wf:
                 ipynb_dict = json.loads(ipynb_data)
                 json.dump(ipynb_dict, wf, indent=2)
+            ctx.written_ipynb = True
 
     return ipynb_data, metadata
 
@@ -95,35 +104,40 @@ def extract_main_and_meta_from_ipynb(ctx, ipynb_data):
         ipynb_data = json.dumps(ipynb_dict)
 
     except Exception as E:
-        ctx.log("Ipynb file is empty")
+        ctx.log(":: Ipynb file is empty")
 
     finally:
         ctx.vlog(":: Got metadata", metadata)
         return ipynb_data, metadata
 
 
+def get_blog_post_dir(ctx, topic):
+    destination_dir = ctx.conversion['destination_dir']
+    blog_post_dir = os.path.join(destination_dir, topic)
+    return blog_post_dir
+
+
 def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
     blog = ctx.current_blog
     extract_static = ctx.conversion['extract_static']
-    destination_dir = ctx.conversion['destination_dir']
     create_nbdata_file = ctx.config.read(key=blog + ':create_nbdata_file')
     topic = extract_topic(ctx, meta)
+    ctx.log(":: Got topic,", topic)
 
+    blog_post_dir = get_blog_post_dir(ctx, topic)
     ipynb_filename = os.path.basename(ipynb_file_path)
-    ipynb_filename = os.path.join(topic, ipynb_filename)
     html_filename = replace_ext(ipynb_filename, '.html')
+    html_file_path = os.path.join(blog_post_dir, html_filename)
+    new_ipynb_file_path = os.path.join(blog_post_dir, ipynb_filename)
+    ctx.vlog(":: New blog_posts_dir finalized::", blog_post_dir)
 
-    html_file_path = os.path.join(destination_dir, html_filename)
-    new_ipynb_file_path = os.path.join(destination_dir, ipynb_filename)
-    new_blog_post_dir = os.path.dirname(html_file_path)
-    ctx.vlog("New blog_posts_dir finalized::", new_blog_post_dir)
-
-    if not os.path.exists(new_blog_post_dir):
-        os.mkdir(new_blog_post_dir)
+    html_topic_filename = os.path.join(topic, html_filename)
+    if not os.path.exists(blog_post_dir):
+        os.mkdir(blog_post_dir)
 
     if extract_static:
         html_body = extract_and_write_static(ctx, html_body,
-                                            ipynb_filename, new_blog_post_dir)
+                                            ipynb_filename, blog_post_dir)
 
     if meta and not create_nbdata_file in ['false', 'False']:
         create_nbdata_file_in_blog_dir(ctx, meta, new_ipynb_file_path)
@@ -132,15 +146,16 @@ def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
         wf.write(html_body)
         ctx.log(":: Converted basic html to", html_file_path)
 
-    try:
-        copyfile(ipynb_file_path, new_ipynb_file_path)
-        ctx.log(":: Copied ipynb file to", new_ipynb_file_path)
-    except SameFileError:
-        os.remove(new_ipynb_file_path)
-        copyfile(ipynb_file_path, new_ipynb_file_path)
-        ctx.log(":: Overwriting ipynb file", new_ipynb_file_path)
+    if not ctx.written_ipynb:
+        try:
+            copyfile(ipynb_file_path, new_ipynb_file_path)
+            ctx.log(":: Copied ipynb file to", new_ipynb_file_path)
+        except SameFileError:
+            os.remove(new_ipynb_file_path)
+            copyfile(ipynb_file_path, new_ipynb_file_path)
+            ctx.log(":: Overwriting ipynb file", new_ipynb_file_path)
 
-    return (html_filename, meta)
+    return (html_topic_filename, meta)
 
 
 def create_nbdata_file_in_blog_dir(ctx, meta, file_path):
@@ -160,9 +175,7 @@ def create_nbdata_file_in_blog_dir(ctx, meta, file_path):
     meta_content = meta_template.render(meta_format=meta_format, meta=meta)
     meta_content = os.linesep.join([s for s in meta_content.splitlines() if s])
 
-    file_path_dir = os.path.dirname(file_path)
-    ipynb_filename = os.path.basename(file_path)
-    nbdata_filename = ipynb_filename.replace('.ipynb', '.nbdata')
-    nbdata_file_path = os.path.join(file_path_dir, nbdata_filename)
+    nbdata_file_path = replace_ext(file_path, '.nbdata')
+    ctx.log(":: Creating nbdata file", nbdata_file_path)
     with open(nbdata_file_path, 'w', encoding='utf-8') as wf:
         wf.write(meta_content)
