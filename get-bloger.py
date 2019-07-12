@@ -647,7 +647,7 @@ class Installer:
             if not self._modify_path:
                 message = POST_MESSAGE_WINDOWS_NO_MODIFY_PATH
 
-            blogger_cli_home_env = BLOGGER_CLI_BIN.replace(
+            blogger_cli_home_bin = BLOGGER_CLI_BIN.replace(
                 os.getenv("USERPROFILE", ""), "%USERPROFILE%"
             )
         else:
@@ -657,9 +657,9 @@ class Installer:
                 "comment", BLOGGER_CLI_ENV.replace(os.getenv("HOME", ""), "$HOME")
             )
 
-        kwargs["blogger_cli_home_bin"] = colorize("comment", blogger_cli_home_bin)
-        kwargs['linux_addition'] = self.linux_addition
+            kwargs['linux_addition'] = self.linux_addition
 
+        kwargs["blogger_cli_home_bin"] = colorize("comment", blogger_cli_home_bin)
         print(message.format(**kwargs))
 
     def call(self, *args):
