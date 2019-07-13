@@ -47,14 +47,14 @@ $ blogger serve <blogname>
 Open the url http://localhost:8000/ in your browser to view your blog!!
 
 ## 📖 Documentation
-- [Installation, update, uninstall methods](docs/installation.md)
-- [Managing blogs and configurations](docs/blog_management.md)
-- [Conversion of files and folders](docs/conversion.md)
-- [Serving blog locally](docs/serving_blog_locally.md)
-- [Using export command](docs/export.md)
-- [Customizing templates and design](docs/customizing.md)
-- [Writing blog's metadata](docs/meta.md)
-- [Recommended workflow for blogger-cli](docs/workflow.md)
+- [Installation, update, uninstall methods](blogger_cli/docs/installation.md)
+- [Managing blogs and configurations](blogger_cli/docs/blog_management.md)
+- [Conversion of files and folders](blogger_cli/docs/conversion.md)
+- [Serving blog locally](blogger_cli/docs/serving_blog_locally.md)
+- [Using export command](blogger_cli/docs/export.md)
+- [Customizing templates and design](blogger_cli/docs/customizing.md)
+- [Writing blog's metadata](blogger_cli/docs/meta.md)
+- [Recommended workflow for blogger-cli](blogger_cli/docs/workflow.md)
 
 ## Author
 

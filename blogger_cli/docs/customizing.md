@@ -9,7 +9,7 @@
 3. [Dynamic templating](#Dynamic-templating)
 
 ## Customizing css
-You can customize the default css by simply going to css folder in your blog folder and changing it. Yeah that's it. For adding new css, fonts, js files see below in adding snippets.
+You can customize the default css by simply going to css folder in your blog folder and changing it. Yeah that's it. For adding new css, fonts, js files see below in adding snippets. Look [here](#adding-static-files) for adding new.
 
 ## Customizing templates
 Templates are code snippets that are inserted to the html while converting your files.. eg disqus.html and google_analytics.html are template files that store respective snippets.
@@ -97,7 +97,7 @@ You can execute any python codes and use logic anyway you like inside {% %} in a
 You have 2 variable access.
 * snippet : This is only available in layout.html through this you can access any other snippet file's content along with title and file link.
 
-* meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is [here](docs/meta.md)
+* meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is [here](meta.md)
 
 * config: You may see config variable used in some templates eg disqus.html it just make disqus_username and google analytics id accessible for templating and IT IS NOT AVAILABLE in other templates except disqus.html and google_analytics.html
 
@@ -114,9 +114,10 @@ date: 3 may
 
 Now I can refer it in templates.
 ```
-Date: {{ meta.date }}, topic: {{ meta.python }}
+Date: {{ meta.date }}, topic: {{ meta.topic }}
 ```
 
+#### Adding static files
 Registering new css or js files. Just open css.html file or js.html file in the editor and edit the source.
 
 Default css.html

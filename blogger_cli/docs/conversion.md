@@ -12,17 +12,16 @@ As of now, you cannot place original and converted files in same folder. So do n
     - [code support](#code-support)
 2. [Conversion of folders](#Conversion-of-folders)
 3. [Static files transfer](#Static-files-transfer)
-3. [Conversion options](#Conversion-options)
+3. [Conversion options](#Conversion-option)
 
 ## Conversion of files
 Converting a file is simple as:
 ```
 $ blogger convert filename
 ```
-However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](docs/blog_management.md) for how to set up configs.
-
+However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](blog_management.md) for how to set up configs.
 for example the above command assumes:
-1. You have set a default blog and blog\_dir and blog\_posts\_dir's value in config,
+1. You have set a default blog and blog_dir and blog_posts_dir's value in config,
 2. File to be converted should be in current directory.
 
 A more flexible or independent command is (although it is recommended to setup you config)
@@ -35,7 +34,7 @@ $ blogger convert file1 file2 -b <blogname> -o ~/myblog.github.io/blog/
 #### Recommended workflow
 You can set a working dir in your config providing a folder you use to store your md, ipynb, html files. Blogger will automatically convert the modified changes for you.
 ```
-blogger config -b <blogname> working_dir path/to/dir
+blogger config -b <blogname> working_dir /path/to/dir
 ```
 Now you can just call ```blogger convert``` and then blogger will scan the dir and remember when the file wes last scanned to detect and process modified files automatically.
 You have all the options like -r, -ex-html, --topic etc available as well.
@@ -139,7 +138,7 @@ Topic in which this post should be placed in index. Applied to all files current
 Folder path of custom template. Default 'blog_templates_dir' value in config.
 
 --override-meta:
-Ignore meta topic in favour of --topic option. More info [here](docs/meta.md).
+Ignore meta topic in favour of --topic option. More info [here](meta.md).
 
 -v, --verbose:
 Enable verbose flag for detail reporting of what's going on.
