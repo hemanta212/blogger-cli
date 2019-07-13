@@ -15,14 +15,38 @@ that it will use the current Python installation.
 What this means is that one blogger-cli installation can serve for multiple
 Python versions.
 """
+import argparse
+import json
 import os
 import platform
+import re
 import shutil
 import stat
 import subprocess
 import sys
+import tarfile
+import tempfile
 
+from contextlib import closing
+from contextlib import contextmanager
+from functools import cmp_to_key
+from gzip import GzipFile
 from io import UnsupportedOperation
+
+try:
+    from urllib.error import HTTPError
+    from urllib.request import Request
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import HTTPError
+    from urllib2 import Request
+    from urllib2 import urlopen
+
+try:
+    input = raw_input
+except NameError:
+    pass
+
 
 try:
     try:
@@ -34,6 +58,7 @@ except ImportError:
 
 
 WINDOWS = sys.platform.startswith("win") or (sys.platform == "cli" and os.name == "nt")
+
 
 FOREGROUND_COLORS = {
     "black": 30,
@@ -104,11 +129,27 @@ def is_decorated():
         return False
 
 
+def is_interactive():
+    if not hasattr(sys.stdin, "fileno"):
+        return False
+
+    try:
+        return os.isatty(sys.stdin.fileno())
+    except UnsupportedOperation:
+        return False
+
+
 def colorize(style, text):
     if not is_decorated():
         return text
 
     return "{}{}\033[0m".format(STYLES[style], text)
+
+
+def string_to_bool(value):
+    value = value.lower()
+
+    return value in {"true", "1", "y", "yes"}
 
 
 def expanduser(path):
@@ -348,7 +389,7 @@ class Installer:
     def _make_venv(self):
         global BIN, BAT
         major, minor = self.CURRENT_PYTHON_VERSION
-        if not BLOGGER_CLI_VENV:
+        if not os.path.exists(BLOGGER_CLI_VENV):
             import venv
             print("Making virtualenv in", BLOGGER_CLI_VENV)
             venv.create(BLOGGER_CLI_VENV, with_pip=True)
@@ -409,6 +450,21 @@ class Installer:
         export_string = self.get_export_string()
 
         self.linux_addition = "\n{}\n".format(export_string)
+
+        updated = []
+        profiles = self.get_unix_profiles()
+        for profile in profiles:
+            if not os.path.exists(profile):
+                continue
+
+            with open(profile, "r") as f:
+                content = f.read()
+
+            if self.linux_addition not in content:
+                with open(profile, "a") as f:
+                    f.write(self.linux_addition)
+
+                updated.append(os.path.relpath(profile, HOME))
 
 
     def add_to_windows_path(self):
@@ -591,7 +647,7 @@ class Installer:
             if not self._modify_path:
                 message = POST_MESSAGE_WINDOWS_NO_MODIFY_PATH
 
-            blogger_cli_home_env = BLOGGER_CLI_BIN.replace(
+            blogger_cli_home_bin = BLOGGER_CLI_BIN.replace(
                 os.getenv("USERPROFILE", ""), "%USERPROFILE%"
             )
         else:
@@ -601,7 +657,51 @@ class Installer:
                 "comment", BLOGGER_CLI_ENV.replace(os.getenv("HOME", ""), "$HOME")
             )
 
-        kwargs["blogger_cli_home_bin"] = colorize("comment", blogger_cli_home_bin)
-        kwargs['linux_addition'] = self.linux_addition
+            kwargs['linux_addition'] = self.linux_addition
 
+        kwargs["blogger_cli_home_bin"] = colorize("comment", blogger_cli_home_bin)
         print(message.format(**kwargs))
+
+    def call(self, *args):
+        return subprocess.check_output(args, stderr=subprocess.STDOUT)
+
+    def _get(self, url):
+        request = Request(url, headers={"User-Agent": "Python Blogger-cli"})
+
+        with closing(urlopen(request)) as r:
+            return r.read()
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Installs the latest (or given) version of blogger-cli"
+    )
+    parser.add_argument("--version", dest="version")
+    parser.add_argument(
+        "-f", "--force", dest="force", action="store_true", default=False
+    )
+    parser.add_argument(
+        "-y", "--yes", dest="accept_all", action="store_true", default=False
+    )
+    parser.add_argument(
+        "--uninstall", dest="uninstall", action="store_true", default=False
+    )
+
+    args = parser.parse_args()
+
+    installer = Installer(
+        version=args.version or os.getenv("BLOGGER_CLI_VERSION"),
+        force=args.force,
+        accept_all=args.accept_all
+        or string_to_bool(os.getenv("BLOGGER_CLI_ACCEPT", "0"))
+        or not is_interactive(),
+    )
+
+    if args.uninstall or string_to_bool(os.getenv("BLOGGER_CLI_UNINSTALL", "0")):
+        return installer.uninstall()
+
+    return installer.run()
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,15 +1,18 @@
 from itertools import zip_longest
 
 import click
+from blogger_cli import __version__
 from blogger_cli.cli import pass_context
 
 
 @click.command('info', short_help="Show blog's properties")
 @click.argument('blog', required=False)
 @click.option('--all', 'show_all', is_flag=True)
+@click.option('-V', '--version', is_flag=True,
+        help='Show version of blogger-cli and exit')
 @click.option('-v', '--verbose', is_flag=True)
 @pass_context
-def cli(ctx, blog, show_all, verbose):
+def cli(ctx, blog, show_all, version, verbose):
     """
     Get details about blogs and app itself\n
     Usage:\n
@@ -19,6 +22,11 @@ def cli(ctx, blog, show_all, verbose):
     ctx.verbose = verbose
     blog_exists = ctx.blog_exists(blog)
 
+    if version:
+        ctx.log(__version__)
+        raise SystemExit(0)
+
+    ctx.log("\nBlogger-cli version:", __version__)
     if blog and not blog_exists:
         ctx.log('Invalid blog name. No such blog', blog)
 

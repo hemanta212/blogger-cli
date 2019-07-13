@@ -1,19 +1,9 @@
 '''
 Config manager file to quickly write app configurations
 '''
-
 import json
 import datetime
 import os
-from blogger_cli.cli_utils.logger import Logger
-
-file_path = __file__
-root_index = file_path.find('cli_utils')
-logs_dir = file_path[:root_index]
-FileLogger = Logger(console=False,
-                    debug_file= logs_dir + '/logs/debug/json_writer.log')
-logger = FileLogger.get_logger()
-
 
 class Config:
     '''
@@ -61,7 +51,6 @@ class Config:
         '''
         with open(self.file_path, 'r')as rf:
             data = json.load(rf)
-            logger.debug("succesfully added config dict")
             return data
 
     def write_dict(self, new_dict):
@@ -71,7 +60,6 @@ class Config:
         '''
         with open(self.file_path, 'w')as rf:
             json.dump(new_dict, rf, indent=2)
-            logger.debug("succesfully added config dict")
 
     def __dict_accesor(self, dict_name, key_list):
         '''
@@ -203,12 +191,9 @@ class Config:
         if backup:
             if not os.path.exists(self.backup_dir):
                 os.makedirs(self.backup_dir)
-                logger.debug('creating backup dir')
 
             new_name = os.path.join(self.backup_dir, name)
             os.rename(self.file_path, new_name)
-            logger.debug('deleted')
 
         else:
             os.remove(self.file_path)
-            logger.debug('deleted permanently')
