@@ -20,9 +20,9 @@ class Context(object):
         ]
         self.optional_config = [
             'meta_format', 'post_extract_list', 'index_div_name',
-            'filter_post_without_title', 'working_dir_timestamp'
+            'filter_post_without_title', 'working_dir_timestamp',
+            'create_nbdata_file', 'delete_ipynb_meta'
         ]
-
 
         self.SUPPORTED_EXTENSIONS = ['md', 'ipynb', 'html']
         self.current_blog = ''
@@ -73,6 +73,7 @@ class ComplexCLI(click.MultiCommand):
             mod = __import__('blogger_cli.commands.cmd_' + name,
                              None, None, ['cli'])
         except ImportError as e:
+            print(e)
             return
         return mod.cli
 

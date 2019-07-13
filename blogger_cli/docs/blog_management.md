@@ -3,7 +3,7 @@ Blogger-cli is primarily a conversion tool. So the blog management is more like 
 
 # Contents
 1. [Registering a blog](#Registering-a-blog)
-2. [Editing blog's configs ](#Editing-blog's-configs)
+2. [Editing blog configs ](#Editing-blog-configs)
     - [Editing in bulk](#Editing-in-bulk)
     - [Editing individually](#Editing-individually)
 3. [setting default blog](#Setting-default-blog)
@@ -21,7 +21,7 @@ blogger addblog <blogname> -s
 ```
 You can always setup configs later
 
-# Editing blog's config
+# Editing blog config
 A registered blog has number of configs you can edit.
 
 'blog_dir':
@@ -39,22 +39,22 @@ Example values: 'blog/', 'posts/'.
 'blog_images_dir':
 Where you want to store your images that we extract for you from http/s urls and data URI in your post. The path value is relative from root dir (blog_dir) same like blog_posts_dir. Images will be stored in folders with same name as your blog title and If you have topic then it will be used too. like topic/blog_title/.
 
-Example values: 'images/blog_images/', 'images/blog/', 'blog/images/'.
+Example values: 'images/blog/', 'images/', 'blog/images/'.
 
-> For sites like github pages, you need to keep images in root folder of your website.
+> For sites like github pages, you need to keep 'images' folder in root folder of your website.
 
 
 'disqus_username':
-If you have a disqus account you can enter it here and commenting system will work on every posts. You can get it from disqus account url. eg https://badboy11.disqus.com 'susername will be 'badboy11'
+If you have a disqus account you can enter username here and commenting system will work on every posts. You can get it from disqus account url. eg https://badboy11.disqus.com 's username will be 'badboy11'.
 
 'google_analytics_id':
-It is a snippet provided by google to analyze your website's traffic. Sign in and get a snippet and you can get id from there. eg: 'UA-879837f'
+It is a snippet provided by google to analyze your website's traffic. Sign in and get a snippet and you can get id from there. eg: 'UA-159824128-0'
 
 'templates_dir':
-It is the directory where you can override default html templates to suit your needs. More info [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/customizing.md).
+It is the directory where you can override default html templates to suit your needs. More info [here](customizing.md).
 
 ## Editing in bulk
-To edit all configs in bulk. You can run
+To edit all configs in bulk, you can run:
 ```
 blogger setupblog <blogname>
 ```
@@ -78,18 +78,18 @@ You can remove a default property of blog as well.
 ```
 blogger config -b <blogname> -rm default
 ```
-> Never use this to make some blog a default blog or face the consequences :)
+> Never use this to make some blog as a default blog instead use [setdefault](#Setting-default-blog) command.
 
 # Setting default blog:
-To set a default blog use.
+To set a blog as the default, use:
 ```
 blogger setdefault <blogname>
 ```
-Once a blog is set as default you do not need to specify a blog or -b parameter to ANY commands!. If you want to set another blog default use
+Once a blog is set as default you do not need to specify a blog or -b parameter to ANY commands!. If you want to set another blog as the default, use:
 ```
-blogger setdefault <anotherblog>
+blogger setdefault <anotherblogname>
 ``` 
-Everything will safely handled. If for some reason you want to set no blog as default use config command read above for instructions.
+Everything will safely handled. If for some reason you don't want to set any blog as default use [config command](#Editing-individually) to delete the default property.
 
 # Removing a blog
 You will lose everything if you do so.

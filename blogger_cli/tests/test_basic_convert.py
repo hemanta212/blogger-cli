@@ -20,9 +20,9 @@ class TestBasic(unittest.TestCase):
         self.runner.invoke(cli, ['addblog', 'test1'],
                     input=self.export_dir + '\nn \nn \nn \nn \nn \nn')
         self.runner.invoke(cli, ['config', '-b', 'test1',
-                                 'blog_posts_dir', 'blog'])
+                                 'blog_posts_dir', 'blog/'])
         self.runner.invoke(cli, ['config', '-b', 'test1',
-                                 'blog_images_dir', 'images'])
+                                 'blog_images_dir', 'images/'])
         self.runner.invoke(cli, ['export', '-b', 'test1', 'blog_index',
                                 '-o', 'blog'])
 
@@ -126,7 +126,7 @@ class TestBasic(unittest.TestCase):
                         self.read_file(test_index_path))
 
 
-    def test_meta_and_custom_templates(self):
+    def test_md_meta_and_custom_templates(self):
         md_path = resource_filename('blogger_cli',
                     'tests/tests_resources/md2.md')
         test_results_path = resource_filename('blogger_cli',

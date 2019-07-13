@@ -19,7 +19,7 @@ Converting a file is simple as:
 ```
 $ blogger convert filename
 ```
-However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](https://github.com/hemanta212/blogger-cli/master/tree/docs/blog_management.md) for how to set up configs.
+However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](blog_management.md) for how to set up configs.
 for example the above command assumes:
 1. You have set a default blog and blog_dir and blog_posts_dir's value in config,
 2. File to be converted should be in current directory.
@@ -79,6 +79,36 @@ blogger config -b <blogname> post_extract_list ['URI']
 ```
 1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
 
+## Static files transfer
+By default blogger searches for img and video tag in html then for:
+- URI: It decodes the base64 URI to mp4 and png video and img resp.
+- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
+- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
+
+You can switch all of them off by passing -no-ex or --no-extract option during conversion.
+Similarly you can set the post_extract_list config.
+```
+blogger config -b <blogname> post_extract_list ['URI', 'URL']
+blogger config -b <blogname> post_extract_list ['URL']
+blogger config -b <blogname> post_extract_list ['URI']
+```
+1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
+
+## Static files transfer
+By default blogger searches for img and video tag in html then for:
+- URI: It decodes the base64 URI to mp4 and png video and img resp.
+- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
+- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
+
+You can switch all of them off by passing -no-ex or --no-extract option during conversion.
+Similarly you can set the post_extract_list config.
+```
+blogger config -b <blogname> post_extract_list ['URI', 'URL']
+blogger config -b <blogname> post_extract_list ['URL']
+blogger config -b <blogname> post_extract_list ['URI']
+```
+1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
+
 ## Conversion options
 -r, --recursive :
 This will search any given folder recursively to deepest file. Without this option only surface files of specified folder is converted.
@@ -108,7 +138,7 @@ Topic in which this post should be placed in index. Applied to all files current
 Folder path of custom template. Default 'blog_templates_dir' value in config.
 
 --override-meta:
-Ignore meta topic in favour of --topic option. More info [here](#todo).
+Ignore meta topic in favour of --topic option. More info [here](meta.md).
 
 -v, --verbose:
 Enable verbose flag for detail reporting of what's going on.

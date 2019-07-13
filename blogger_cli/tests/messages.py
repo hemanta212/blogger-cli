@@ -19,6 +19,9 @@ Commands:
   serve       Serve your blog locally
   setdefault  Set a blog as default
   setupblog   Register a new blog
+  uninstall   Uninstall the custom installation
+  update      Update the custom installation
+
 '''
 
     addblog_success = '''\
@@ -38,15 +41,42 @@ Blog removed succesfully
 Registered Blogs:
    test1
 
-Blog:configs [standard] 	Optional:configs [Advanced]
-   google_analytics_id 		 meta_format
-   disqus_username 		 post_extract_list
-   blog_images_dir 		 index_div_name
-   templates_dir 		 filter_post_without_title
-   blog_posts_dir 		 working_dir_timestamp
+Blog:configs [standard]
+   google_analytics_id
+   disqus_username
+   blog_images_dir
+   templates_dir
+   blog_posts_dir
    default
    working_dir
    blog_dir
+
+Tip: Use blogger info blogname for blog details
+
+'''
+    all_info_success = '''\
+
+Registered Blogs:
+   test1
+
+Blog:configs [standard]
+   google_analytics_id
+   disqus_username
+   blog_images_dir
+   templates_dir
+   blog_posts_dir
+   default
+   working_dir
+   blog_dir
+
+Optional:configs [Advanced]
+   meta_format
+   post_extract_list
+   index_div_name
+   filter_post_without_title
+   working_dir_timestamp
+   create_nbdata_file
+   delete_ipynb_meta
 
 Tip: Use blogger info blogname for blog details
 

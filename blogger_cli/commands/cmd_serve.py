@@ -9,8 +9,10 @@ from blogger_cli.cli import pass_context
 @click.command('serve', short_help="Serve your blog locally")
 @click.argument('blog', required=False )
 @click.option('--port', '-p', 'port', type=int, default=8000)
-@click.option('-dir', 'dir')
-@click.option('-v', '--verbose', is_flag=True)
+@click.option('-d', '--dir', 'dir',
+            help="Folder path to serve. Default: blog_dir")
+@click.option('-v', '--verbose', is_flag=True,
+            help='Enable verbosity')
 @pass_context
 def cli(ctx, blog, port, dir,  verbose):
     ctx.verbose = verbose
@@ -20,8 +22,8 @@ def cli(ctx, blog, port, dir,  verbose):
         blog = ctx.default_blog
         ctx.vlog(":: No blog name given using default blog:", str(blog))
     if not blog:
-        ctx.log("Pass blog with -b option or set a default blog in configs")
-        raise SystemExit("ERROR: BLOG NAME NOT GIVEN")
+        ctx.log("Use blogger serve <blogname> or set a default blog in configs")
+        raise SystemExit("ERROR: Missing required argument 'BLOG' ")
 
     blog_dir = ctx.config.read(key=blog + ':blog_dir')
     if dir:
