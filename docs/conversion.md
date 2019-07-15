@@ -79,36 +79,6 @@ blogger config -b <blogname> post_extract_list ['URI']
 ```
 1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
 
-## Static files transfer
-By default blogger searches for img and video tag in html then for:
-- URI: It decodes the base64 URI to mp4 and png video and img resp.
-- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
-- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
-
-You can switch all of them off by passing -no-ex or --no-extract option during conversion.
-Similarly you can set the post_extract_list config.
-```
-blogger config -b <blogname> post_extract_list ['URI', 'URL']
-blogger config -b <blogname> post_extract_list ['URL']
-blogger config -b <blogname> post_extract_list ['URI']
-```
-1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
-
-## Static files transfer
-By default blogger searches for img and video tag in html then for:
-- URI: It decodes the base64 URI to mp4 and png video and img resp.
-- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
-- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
-
-You can switch all of them off by passing -no-ex or --no-extract option during conversion.
-Similarly you can set the post_extract_list config.
-```
-blogger config -b <blogname> post_extract_list ['URI', 'URL']
-blogger config -b <blogname> post_extract_list ['URL']
-blogger config -b <blogname> post_extract_list ['URI']
-```
-1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
-
 ## Conversion options
 -r, --recursive :
 This will search any given folder recursively to deepest file. Without this option only surface files of specified folder is converted.

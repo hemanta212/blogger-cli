@@ -25,7 +25,7 @@ Now add this folder's full path to your blog's config
 blogger config -b <blogname> templates_dir /path/to/dir
 ```
 
-Every templates except layout.html are small building blocks(snippets) and layout.html is the collector that arrange this snippets. #
+> Every templates except layout.html are small building blocks(snippets) and layout.html is the collector that arrange these snippets.
 
 ## Adding new snippets / templates
 To add a new snippet, just create any files with .html extension in the templates folder. Then update the 'layout.html' file.
@@ -36,7 +36,8 @@ Suppose you create footer.html snippet then you open the layout.html and place {
 You are free to edit the default templates and changes will be reflected. However if you mess up you can always again export blog_template from above process.
 
 You may want to eddit navbar_data.html. Here is what the default looks like:
-```{
+```
+{
     "Home": "../index.html",
     "Blog": "index.html",
     "Projects": "../projects.html/"
@@ -44,10 +45,10 @@ You may want to eddit navbar_data.html. Here is what the default looks like:
 ```
 You can add more navlinks or remove existing BUT make sure everything is inside DOUBLE QUOTES (\") and not single quotes and do not put comma in the end of last item.
 
-It is also a googd idea to override layout.html as you have read this in [here](#Adding-new-snippets--templates). You can add snippets you want by using {{ snippet_name }} at anywhre you want!
+It is also a good idea to override layout.html as you have read this in [here](#Adding-new-snippets--templates). You can add snippets you want by using {{ snippet_name }} at anywhre you want!
 
 
-### indexes
+### Indexes
 To make your indexes compatible. You just need to wrap your blog's post lists in a div with class 'posts_list'. Blogger reads this div by default. However you can control hat div class should blogger lookup by setting 'index\_div\_name' to your div class name.
 ```
 blogger config -b <blogname> index_div_name posts
@@ -65,13 +66,15 @@ You have meta variable access so you can set date in your post meta and referenc
 
 ## Dynamic templating
 You can have logics and variables in the blog_templates for dynamic template generation.
+Blogger-cli uses jinja2 templating engine. So, please lookup to jinja2 [documetation](http://jinja.pocoo.org/docs/latest/).
 
 ### Syntax
 1. Variables
 The variables are referenced using {{ var }} syntax.
 
 2. Logic code
-Logic code are written inside {% %} brackets. Well basic logic like if statements, for loop, while loop etc are available.
+Logic code are written inside ```{% %} \\some\\code\\ {% %}``` brackets. Well basic logic like if statements, for loop, while loop etc are available.
+
 eg: if else
 ```
 {% if var %}

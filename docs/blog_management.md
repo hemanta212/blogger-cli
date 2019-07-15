@@ -10,6 +10,7 @@ Blogger-cli is primarily a conversion tool. So the blog management is more like 
 4. [removing a blog](#Removing-a-blog)
 
 # Registering a blog
+
 'blogs' need to be registered first. You can do so by:
 ```
 blogger adddblog <blogname>
@@ -54,6 +55,7 @@ It is a snippet provided by google to analyze your website's traffic. Sign in an
 It is the directory where you can override default html templates to suit your needs. More info [here](customizing.md).
 
 ## Editing in bulk
+
 To edit all configs in bulk, you can run:
 ```
 blogger setupblog <blogname>
@@ -61,15 +63,24 @@ blogger setupblog <blogname>
 To skip without making any changes, type 'n' and press enter. To delete a VALUE from config, type one or many space and press enter.
 
 ## Editing individually
-Use blogger info  to view all config options for a blog then,
+
+Use blogger info to view all config options for a blog then,
 ```
 blogger config -b <blogname> [config option]  [value]
 ```
+
+## Config Command
+The config command allows you to manage configs in more flexible way. It allows you to set every configurations like [advanced configs](#Advanced-configs)
+
+### Viewing a config's value
 To view a value of a config,
 ```
 blogger config -b <blogname> [config option]
 ```
 If nothing shows up. Your value is empty.
+> To view all configs of blog use ```blogger info <blogname>``` instead.
+
+### Delete a config
 Similarly to delete a config,
 ```
 blogger config -b <blogname> -rm [config option]
@@ -78,7 +89,15 @@ You can remove a default property of blog as well.
 ```
 blogger config -b <blogname> -rm default
 ```
+
+### Restoring configurations
+You can also restore blog configs of a blog that you exported using [export command](export.md#Exporting-blog-configurations)
+```
+blogger config -b <blogname> -re <config_filename>
+```
+
 > Never use this to make some blog as a default blog instead use [setdefault](#Setting-default-blog) command.
+
 
 # Setting default blog:
 To set a blog as the default, use:
@@ -88,7 +107,7 @@ blogger setdefault <blogname>
 Once a blog is set as default you do not need to specify a blog or -b parameter to ANY commands!. If you want to set another blog as the default, use:
 ```
 blogger setdefault <anotherblogname>
-``` 
+```
 Everything will safely handled. If for some reason you don't want to set any blog as default use [config command](#Editing-individually) to delete the default property.
 
 # Removing a blog
@@ -97,3 +116,11 @@ You will lose everything if you do so.
 blogger rmblog <blogname>
 ```
 It only accepts one blog at a time.
+
+# Advanced configs
+
+You can view these configurations from
+```
+blogger info --all
+```
+The usecases of these configs has been specified by this documentation.
