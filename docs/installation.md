@@ -5,6 +5,7 @@ This document inclues:
 - [Uninstalling blogger_cli](#Uninstalling-blogger_cli)
 - [Developing guide](#Developing-guide)
 
+# Installing methods
 ## Custom installer
 ```
 curl -sSL https://raw.githubusercontent.com/hemanta212/blogger-cli//master/get_blogger.py

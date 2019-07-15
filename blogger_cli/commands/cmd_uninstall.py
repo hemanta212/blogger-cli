@@ -1,5 +1,6 @@
 import os
 import click
+import shutil
 from pkg_resources import resource_filename
 from blogger_cli import ROOT_DIR, CONFIG_DIR
 from blogger_cli.cli_utils.installation import (Installer, WINDOWS,
@@ -28,7 +29,7 @@ def cli():
     installer_location = 'cli_utils/installation.py'
     installer_path = resource_filename('blogger_cli', installer_location)
     shutil.copyfile(installer_path, new_file_path)
-    try:
-        os.system('python ' + new_file_path + ' --uninstall')
-    except:
-        print("Please manually remove the blogger dir at", BLOGGER_CLI_HOME)
+
+    print("Please run this command manually to Uninstall:\n",
+            "python", new_file_path, '--uninstall')
+

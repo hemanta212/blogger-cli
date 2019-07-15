@@ -1,5 +1,6 @@
 import os
 import click
+import shutil
 from pkg_resources import resource_filename
 from blogger_cli import ROOT_DIR, CONFIG_DIR
 from blogger_cli.cli_utils.installation import (Installer, WINDOWS,
@@ -33,17 +34,13 @@ def cli(version, force, accept_all):
     installer_location = 'cli_utils/installation.py'
     installer_path = resource_filename('blogger_cli', installer_location)
     shutil.copyfile(installer_path, new_file_path)
+    last_string = '-f '
 
-    last_string = ' -f '
     if version:
-        last_string += ' --version '+ version
+        last_string += ' --version '+version
     if accept_all:
-        last_string += ' -y'
+        last_string += ' -y '
 
-    try:
-        os.system('python ' + new_file_path + last_string)
-    except:
-        print("CRITICAL ERROR Please manually remove the blogger dir at",
-             BLOGGER_CLI_HOME, "And run file at", new_file_path,
-             "with python3 to install latest blogger-cli")
+    print("Please run this command manually to force update!:\n",
+            "python", new_file_path, last_string)
 

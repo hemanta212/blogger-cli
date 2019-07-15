@@ -39,3 +39,6 @@ Although above is default behaviour you can stop creation of .nbdata files by se
 blogger config -b <blogname> create_nbdata_file false
 blogger config -b <blogname> delete_ipynb_meta false
 ```
+
+> Well, you might want to use ``` <!-- ``` meta formatter in the first raw/markdown cell. It will be completely hidden while rendering and you need not maintain a separate nbdata file.
+
