@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta content="" name="description"/>
+  <meta content="Hemanta Sharma" name="author"/>
+  <title>
+   Managing the blog
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/custom.css" rel="stylesheet"/>
+ </head>
+
+ <body>
+  <nav class="navbar navbar-default">
+   <div class="container text-center">
+    <div class="navbar-collapse" id="navbar">
+     <ul class="nav navbar-nav">
+                  <li><a href="../index.html">Home</a></li>
+                  <li><a href="../blog/index.html">Blog</a></li>
+                  <li><a href="../teaching.html">Teaching</a></li>
+                  <li><a href="../projects.html">Projects</a></li>
+                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <div id="content">
+   <h1>
+    Managing the blog
+   </h1>
+   <p>
+    Blogger-cli is primarily a conversion tool. So the blog management is more like config holder for your website&rsquo;s folder.
+   </p>
+   <h1>
+    Contents
+   </h1>
+   <ol>
+    <li>
+     <a href="#Registering-a-blog">
+      Registering a blog
+     </a>
+    </li>
+    <li>
+     <a href="#Editing-blog-configs">
+      Editing blog configs
+     </a>
+     <ul>
+      <li>
+       <a href="#Editing-in-bulk">
+        Editing in bulk
+       </a>
+      </li>
+      <li>
+       <a href="#Editing-individually">
+        Editing individually
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#Setting-default-blog">
+      setting default blog
+     </a>
+    </li>
+    <li>
+     <a href="#Removing-a-blog">
+      removing a blog
+     </a>
+    </li>
+   </ol>
+   <h1>
+    Registering a blog
+   </h1>
+   <p>
+    &lsquo;blogs&rsquo; need to be registered first. You can do so by:
+   </p>
+   <pre class="prettyprint"><code>blogger adddblog &lt;blogname&gt;
+</code></pre>
+   <p>
+    You will be asked series of questions you can answer them or skip over them using &lsquo;n&rsquo;
+Similary if you want to avoid getting asked these questions and only want to register a blog use
+   </p>
+   <pre class="prettyprint"><code>blogger addblog &lt;blogname&gt; -s
+</code></pre>
+   <p>
+    You can always setup configs later
+   </p>
+   <h1>
+    Editing blog config
+   </h1>
+   <p>
+    A registered blog has number of configs you can edit.
+   </p>
+   <p>
+    &lsquo;blog_dir&rsquo;:
+This is the main folder of your website. This folder is not used to store converted html blogs since it is treated as root website folder.
+eg values: &lsquo;~/my_website_folder/&rsquo;, &lsquo;C:\Useres\Desktop'
+   </p>
+   <p>
+    &lsquo;blog_posts_dir&rsquo;:
+This is the folder you want to keep your converted blog posts in. It is specified in respect to blog_dir folder (root dir).
+   </p>
+   <p>
+    Example values: &lsquo;blog/&rsquo;, &lsquo;posts/&rsquo;.
+   </p>
+   <blockquote>
+    <p>
+     Do not use &lsquo;/&rsquo; infront of folder name like &lsquo;/blog/&rsquo;. It conveys different meaning.
+    </p>
+   </blockquote>
+   <p>
+    &lsquo;blog_images_dir&rsquo;:
+Where you want to store your images that we extract for you from http/s urls and data URI in your post. The path value is relative from root dir (blog_dir) same like blog_posts_dir. Images will be stored in folders with same name as your blog title and If you have topic then it will be used too. like topic/blog_title/.
+   </p>
+   <p>
+    Example values: &lsquo;images/blog/&rsquo;, &lsquo;images/&rsquo;, &lsquo;blog/images/&rsquo;.
+   </p>
+   <blockquote>
+    <p>
+     For sites like github pages, you need to keep &lsquo;images&rsquo; folder in root folder of your website.
+    </p>
+   </blockquote>
+   <p>
+    &lsquo;disqus_username&rsquo;:
+If you have a disqus account you can enter username here and commenting system will work on every posts. You can get it from disqus account url. eg https://badboy11.disqus.com &lsquo;s username will be &lsquo;badboy11&rsquo;.
+   </p>
+   <p>
+    &lsquo;google_analytics_id&rsquo;:
+It is a snippet provided by google to analyze your website&rsquo;s traffic. Sign in and get a snippet and you can get id from there. eg: &lsquo;UA-159824128-0&rsquo;
+   </p>
+   <p>
+    &lsquo;templates_dir&rsquo;:
+It is the directory where you can override default html templates to suit your needs. More info
+    <a href="customizing.md">
+     here
+    </a>
+    .
+   </p>
+   <h2>
+    Editing in bulk
+   </h2>
+   <p>
+    To edit all configs in bulk, you can run:
+   </p>
+   <pre class="prettyprint"><code>blogger setupblog &lt;blogname&gt;
+</code></pre>
+   <p>
+    To skip without making any changes, type &lsquo;n&rsquo; and press enter. To delete a VALUE from config, type one or many space and press enter.
+   </p>
+   <h2>
+    Editing individually
+   </h2>
+   <p>
+    Use blogger info to view all config options for a blog then,
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; [config option]  [value]
+</code></pre>
+   <h2>
+    Config Command
+   </h2>
+   <p>
+    The config command allows you to manage configs in more flexible way. It allows you to set every configurations like
+    <a href="#Advanced-configs">
+     advanced configs
+    </a>
+   </p>
+   <h3>
+    Viewing a config&rsquo;s value
+   </h3>
+   <p>
+    To view a value of a config,
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; [config option]
+</code></pre>
+   <p>
+    If nothing shows up. Your value is empty.
+   </p>
+   <blockquote>
+    <p>
+     To view all configs of blog use
+     <code>
+      blogger info &lt;blogname&gt;
+     </code>
+     instead.
+    </p>
+   </blockquote>
+   <h3>
+    Delete a config
+   </h3>
+   <p>
+    Similarly to delete a config,
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; -rm [config option]
+</code></pre>
+   <p>
+    You can remove a default property of blog as well.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; -rm default
+</code></pre>
+   <h3>
+    Restoring configurations
+   </h3>
+   <p>
+    You can also restore blog configs of a blog that you exported using
+    <a href="export.md#Exporting-blog-configurations">
+     export command
+    </a>
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; -re &lt;config_filename&gt;
+</code></pre>
+   <blockquote>
+    <p>
+     Never use this to make some blog as a default blog instead use
+     <a href="#Setting-default-blog">
+      setdefault
+     </a>
+     command.
+    </p>
+   </blockquote>
+   <h1>
+    Setting default blog:
+   </h1>
+   <p>
+    To set a blog as the default, use:
+   </p>
+   <pre class="prettyprint"><code>blogger setdefault &lt;blogname&gt;
+</code></pre>
+   <p>
+    Once a blog is set as default you do not need to specify a blog or -b parameter to ANY commands!. If you want to set another blog as the default, use:
+   </p>
+   <pre class="prettyprint"><code>blogger setdefault &lt;anotherblogname&gt;
+</code></pre>
+   <p>
+    Everything will safely handled. If for some reason you don&rsquo;t want to set any blog as default use
+    <a href="#Editing-individually">
+     config command
+    </a>
+    to delete the default property.
+   </p>
+   <h1>
+    Removing a blog
+   </h1>
+   <p>
+    You will lose everything if you do so.
+   </p>
+   <pre class="prettyprint"><code>blogger rmblog &lt;blogname&gt;
+</code></pre>
+   <p>
+    It only accepts one blog at a time.
+   </p>
+   <h1>
+    Advanced configs
+   </h1>
+   <p>
+    You can view these configurations from
+   </p>
+   <pre class="prettyprint"><code>blogger info --all
+</code></pre>
+   <p>
+    The usecases of these configs has been specified by this documentation.
+   </p>
+   <div class="container">
+    <div class="navbar-static-bottom" id="share">
+    </div>
+    <script>
+     $("#share").jsSocials({
+                    shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+                });
+    </script>
+    <div id="disqus_thread">
+    </div>
+    <script>
+     (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                    s.src = 'https://hemanta212.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+    </script>
+    <noscript>
+     Please enable JavaScript to view the
+     <a href="https://disqus.com/?ref_noscript">
+      comments powered by Disqus.
+     </a>
+    </noscript>
+    <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
+    </script>
+   </div>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
+   </script>
+   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+  </div>
+ </body>
+</html>

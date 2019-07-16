@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta content="" name="description"/>
+  <meta content="Hemanta Sharma" name="author"/>
+  <title>
+   Intended workflow for blogger-cli
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/custom.css" rel="stylesheet"/>
+
+ </head>
+ <body>
+  <nav class="navbar navbar-default">
+   <div class="container text-center">
+    <div class="navbar-collapse" id="navbar">
+     <ul class="nav navbar-nav">
+
+                  <li><a href="../index.html">Home</a></li>
+                  <li><a href="../blog/index.html">Blog</a></li>
+                  <li><a href="../teaching.html">Teaching</a></li>
+                  <li><a href="../projects.html">Projects</a></li>
+                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
+
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <div id="content">
+   <h1>
+    Intended workflow for blogger-cli
+   </h1>
+   <p>
+    Naturally you won&rsquo;t have more than 2/3 blog&rsquo;s to manage (Although you can manage how much blog you like).
+Your blogs are accessible globally. You do not need to be in your blog&rsquo;s folder.
+   </p>
+   <p>
+    You work on one blog at a time. Make that blog default.
+   </p>
+   <pre class="prettyprint"><code>blogger setdefault &lt;blogname&gt;
+</code></pre>
+   <p>
+    Now carry out commands without specifying -b option.
+   </p>
+   <p>
+    It is recommentd to fill your setup configs. Carefully curate all your needed configs and you can view all configs by using the command
+    <code>
+     blogger info
+    </code>
+    .  Also you can view your blog&rsquo;s config using
+    <code>
+     blogger info &lt;blogname&gt;
+    </code>
+    .
+Avoid passing options to commands  and instead fill your configs.
+   </p>
+   <p>
+    If you need to work on another blog  just switch the defaut blog to that.
+   </p>
+   <h2>
+    Conversion
+   </h2>
+   <p>
+    Set up a working_dir in your config to the folder where you save your ipynb, md, html files for your blog.
+Now conversion is just running
+   </p>
+   <pre class="prettyprint"><code>blogger convert
+</code></pre>
+   <p>
+    Please read more about it
+    <a href="customizing.md#recommended-workflow">
+     here
+    </a>
+    For safety during folder conversion read
+    <a href="customizing.md#conversion-of-folder">
+     this
+    </a>
+   </p>
+   <h2>
+    Deploying
+   </h2>
+   <p>
+    Just to make sure things are okay and experimeting your changes run
+    <code>
+     blogger serve
+    </code>
+    and visit your blog from browser.
+   </p>
+   <h2>
+    Versioning
+   </h2>
+   <p>
+    Keep _blogger_templates folder inside your blog for version control and global access. You can also export blog_config to your blog for versioning and to import it just run.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; -re /path/to/json/file
+</code></pre>
+   <div class="container">
+    <div class="navbar-static-bottom" id="share">
+    </div>
+    <script>
+     $("#share").jsSocials({
+                    shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+                });
+    </script>
+    <div id="disqus_thread">
+    </div>
+    <script>
+     (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                    s.src = 'https://hemanta212.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+    </script>
+    <noscript>
+     Please enable JavaScript to view the
+     <a href="https://disqus.com/?ref_noscript">
+      comments powered by Disqus.
+     </a>
+    </noscript>
+    <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
+    </script>
+   </div>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
+   </script>
+   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+  </div>
+ </body>
+</html>

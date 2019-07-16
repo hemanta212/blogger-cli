@@ -1,0 +1,15 @@
+*.pyc*
+*__pycache__*
+*.ropeproject
+*.log*
+*.personal*
+*.swo*
+*.swp*
+*.swn*
+*.orig*
+*.idea*
+*.vs*
+*.egg-info*
+*.ipynb_checkpoints
+*dist*
+*logs*

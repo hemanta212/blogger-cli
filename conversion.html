@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta content="" name="description"/>
+  <meta content="Hemanta Sharma" name="author"/>
+  <title>
+   Conversion
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/custom.css" rel="stylesheet"/>
+ </head>
+
+ <body>
+  <nav class="navbar navbar-default">
+   <div class="container text-center">
+    <div class="navbar-collapse" id="navbar">
+     <ul class="nav navbar-nav">
+                  <li><a href="../index.html">Home</a></li>
+                  <li><a href="../blog/index.html">Blog</a></li>
+                  <li><a href="../teaching.html">Teaching</a></li>
+                  <li><a href="../projects.html">Projects</a></li>
+                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <div id="content">
+   <h1>
+    Conversion
+   </h1>
+   <p>
+    Blogger uses python-markdown and nbconvert library to convert your posts to html and injects snippets to it. Thus markdown, jupyter and html are supported files.
+   </p>
+   <p>
+    You can convert any number of files, folder you like at once. However they are treated as a batch i.e if you provide a topic option in command then every blog converted from that command will be under same topic.
+Various options are available to you in convert command. See all
+    <a href="#Conversion-options">
+     here
+    </a>
+    .
+   </p>
+   <p>
+    As of now, you cannot place original and converted files in same folder. So do not convert files from and to your blog&rsquo;s folder.
+   </p>
+   <h2>
+    Contents
+   </h2>
+   <ol>
+    <li>
+     <a href="#Conversion-of-files">
+      Conversion of files
+     </a>
+     <ul>
+      <li>
+       <a href="#html-files">
+        html files
+       </a>
+      </li>
+      <li>
+       <a href="#code-support">
+        code support
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#Conversion-of-folders">
+      Conversion of folders
+     </a>
+    </li>
+    <li>
+     <a href="#Static-files-transfer">
+      Static files transfer
+     </a>
+    </li>
+    <li>
+     <a href="#Conversion-option">
+      Conversion options
+     </a>
+    </li>
+   </ol>
+   <h2>
+    Conversion of files
+   </h2>
+   <p>
+    Converting a file is simple as:
+   </p>
+   <pre class="prettyprint"><code>$ blogger convert filename
+</code></pre>
+   <p>
+    However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See
+    <a href="blog_management.md">
+     here
+    </a>
+    for how to set up configs.
+for example the above command assumes:
+1. You have set a default blog and blog_dir and blog_posts_dir&rsquo;s value in config,
+2. File to be converted should be in current directory.
+   </p>
+   <p>
+    A more flexible or independent command is (although it is recommended to setup you config)
+   </p>
+   <pre class="prettyprint"><code>$ blogger convert file1 file2 -b &lt;blogname&gt; -o ~/myblog.github.io/blog/
+</code></pre>
+   <blockquote>
+    <p>
+     The options will override the configs everytime.
+    </p>
+   </blockquote>
+   <h4>
+    Recommended workflow
+   </h4>
+   <p>
+    You can set a working dir in your config providing a folder you use to store your md, ipynb, html files. Blogger will automatically convert the modified changes for you.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; working_dir /path/to/dir
+</code></pre>
+   <p>
+    Now you can just call
+    <code>
+     blogger convert
+    </code>
+    and then blogger will scan the dir and remember when the file wes last scanned to detect and process modified files automatically.
+You have all the options like -r, -ex-html, &ndash;topic etc available as well.
+   </p>
+   <h3>
+    HTML files
+   </h3>
+   <p>
+    When a html file is passed for conversion. It is converted to html with all (navbar, analytics, disqus etc&hellip;) inserted inside it.
+So there is nothing extra for you to do
+   </p>
+   <pre class="prettyprint"><code>$ blogger convert htmlfile
+</code></pre>
+   <h3>
+    Code support
+   </h3>
+   <p>
+    Every file converted to html will have mathjax and code support injected to it. You can pass &ndash;not-code option to avoid injecting them incase you don&rsquo;t need those.
+   </p>
+   <pre class="prettyprint"><code>$ blogger convert filename --not-code
+</code></pre>
+   <h2>
+    Conversion of folders
+   </h2>
+   <p>
+    If folder are specified all supported extensions(html, md, ipynb) will be picked and converted. To avoid html files just pass -ex-html/&ndash;exclude-html option. Similarly you can recursively search within any folder to get files!
+   </p>
+   <pre class="prettyprint"><code>$ blogger convert file folder/ -b &lt;blogname&gt;
+$ blogger convert folder1/ folder2/ --exclude-html
+$ blogger convert . -r --exclude-html
+</code></pre>
+   <p>
+    Similarly set up filter_post_withou_title config to filter experimental files without title from adding into the index. However they will be converted and placed in your blog&rsquo;s post folder.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; filter_posts_without_title true
+</code></pre>
+   <h2>
+    Static files transfer
+   </h2>
+   <p>
+    By default blogger searches for img and video tag in html then for:
+- URI: It decodes the base64 URI to mp4 and png video and img resp.
+- URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
+- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
+   </p>
+   <p>
+    You can switch all of them off by passing -no-ex or &ndash;no-extract option during conversion.
+Similarly you can set the post_extract_list config.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; post_extract_list ['URI', 'URL']
+blogger config -b &lt;blogname&gt; post_extract_list ['URL']
+blogger config -b &lt;blogname&gt; post_extract_list ['URI']
+</code></pre>
+   <p>
+    1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
+   </p>
+   <h2>
+    Conversion options
+   </h2>
+   <p>
+    -r, &ndash;recursive :
+This will search any given folder recursively to deepest file. Without this option only surface files of specified folder is converted.
+   </p>
+   <p>
+    &ndash;not-code:
+Do not add mathjax and code support.
+   </p>
+   <p>
+    -o, &ndash;to:
+Destination for converted files, DEFAULT from blog_config.
+   </p>
+   <p>
+    -b, &ndash;blog:
+Name of the blog.
+   </p>
+   <p>
+    -ex-html, &ndash;exclude-html:
+Ignore html files from conversion.
+   </p>
+   <p>
+    &ndash;img-dir:
+Folder for post images. Default: blog&rsquo;s config
+   </p>
+   <p>
+    -no-imgex, &ndash;no-img-extract:
+Disable image extraction from URI and urls.
+   </p>
+   <p>
+    &ndash;topic:
+Topic in which this post should be placed in index. Applied to all files currently converting.
+   </p>
+   <p>
+    -temp, &ndash;template:
+Folder path of custom template. Default &lsquo;blog_templates_dir&rsquo; value in config.
+   </p>
+   <p>
+    &ndash;override-meta:
+Ignore meta topic in favour of &ndash;topic option. More info
+    <a href="meta.md">
+     here
+    </a>
+    .
+   </p>
+   <p>
+    -v, &ndash;verbose:
+Enable verbose flag for detail reporting of what&rsquo;s going on.
+   </p>
+   <div class="container">
+    <div class="navbar-static-bottom" id="share">
+    </div>
+    <script>
+     $("#share").jsSocials({
+                    shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+                });
+    </script>
+    <div id="disqus_thread">
+    </div>
+    <script>
+     (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                    s.src = 'https://hemanta212.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+    </script>
+    <noscript>
+     Please enable JavaScript to view the
+     <a href="https://disqus.com/?ref_noscript">
+      comments powered by Disqus.
+     </a>
+    </noscript>
+    <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
+    </script>
+   </div>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
+   </script>
+   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+  </div>
+ </body>
+</html>
