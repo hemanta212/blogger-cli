@@ -31,30 +31,6 @@ def convert_to_html(ctx, ipynb_file_path):
     return body, metadata
 
 
-def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
-    extract_static = ctx.conversion['extract_static']
-    destination_dir = ctx.conversion['destination_dir']
-
-    ipynb_filename = os.path.basename(ipynb_file_path)
-    given_topic = ctx.conversion.get('topic')
-    topic = given_topic if given_topic else ''
-    if topic:
-        ctx.log(":: Got topic, ", topic)
-
-    ipynb_filename = os.path.join(topic, ipynb_filename)
-    html_filename = ipynb_filename.replace('.ipynb', '.html')
-    html_file_path = os.path.join(destination_dir, html_filename)
-    new_ipynb_file_path = os.path.join(destination_dir, ipynb_filename)
-    new_blog_post_dir = os.path.dirname(html_file_path)
-    ctx.vlog("New blog_posts_dir finalized::", new_blog_post_dir)
-
-    if not os.path.exists(new_blog_post_dir):
-        os.mkdir(new_blog_post_dir)
-
-    if extract_static:
-        html_body = extract_and_write_static(ctx, html_body,
-                                            ipynb_filename, new_blog_post_dir)
-
 def gen_exporter():
     config = TraitletsConfig()
     config.htmlexporter.preprocessors = [
@@ -156,12 +132,13 @@ def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
     ctx.vlog(":: New blog_posts_dir finalized::", blog_post_dir)
 
     html_topic_filename = os.path.join(topic, html_filename)
+    ipynb_topic_filename = replace_ext(html_topic_filename, '.ipynb')
     if not os.path.exists(blog_post_dir):
         os.mkdir(blog_post_dir)
 
     if extract_static:
-        html_body = extract_and_write_static(ctx, html_body,
-                                            ipynb_filename, blog_post_dir)
+        html_body = extract_and_write_static(ctx, html_body, blog_post_dir,
+                                            ipynb_topic_filename)
 
     if meta and not create_nbdata_file in ['false', 'False']:
         create_nbdata_file_in_blog_dir(ctx, meta, new_ipynb_file_path)

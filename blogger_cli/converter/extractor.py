@@ -1,4 +1,3 @@
-
 import os
 import shutil
 from base64 import b64decode
@@ -9,7 +8,7 @@ from bs4 import BeautifulSoup as BS
 from urllib.request import Request, urlopen
 
 
-def extract_and_write_static(ctx, html_body, topic_filename, blog_post_dir):
+def extract_and_write_static(ctx, html_body, blog_post_dir, topic_filename):
     global EXTRACT_LIST
     blog = ctx.current_blog
     EXTRACT_LIST = ctx.config.read(key=blog+':post_extract_list')
@@ -17,6 +16,7 @@ def extract_and_write_static(ctx, html_body, topic_filename, blog_post_dir):
         EXTRACT_LIST = ['URI', 'URL']
 
     static_dir = ctx.conversion['img_dir']
+
     topic = os.path.dirname(topic_filename)
     filename = os.path.basename(topic_filename)
     name, ext = os.path.splitext(filename)
@@ -166,6 +166,7 @@ def get_static_src(destination_dir, static_path):
 
 def get_absolute_path(ctx, filename):
     all_files = ctx.conversion['file_ext_map'].keys()
+
     file_path = [file for file in all_files if filename in file]
     return file_path[0]
 

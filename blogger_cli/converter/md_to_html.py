@@ -49,8 +49,8 @@ def write_html_and_md(ctx, html_body, md_file_path, meta):
 
     extract_static = ctx.conversion['extract_static']
     if extract_static:
-        html_body = extract_and_write_static(ctx, html_body,
-                                            md_filename, new_blog_post_dir)
+        html_body = extract_and_write_static(ctx, html_body, new_blog_post_dir,
+                                            md_filename)
 
     with open(html_file_path, 'w', encoding='utf8') as wf:
         wf.write(html_body)
