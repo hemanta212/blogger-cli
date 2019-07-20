@@ -57,7 +57,7 @@ Open the url http://localhost:8000/ in your browser to view your blog!!
 - [Writing blog's metadata](docs/meta.md)
 - [Recommended workflow for blogger-cli](docs/workflow.md)
 
-> View docs in: [website](https://hemanta.github.io/blogger-cli/)
+> View docs in: [website](https://hemanta212.github.io/blogger-cli/)
 
 ## Author
 
