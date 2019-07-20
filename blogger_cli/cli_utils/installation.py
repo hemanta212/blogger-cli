@@ -402,7 +402,7 @@ class Installer:
         if self._version:
             install_cmd = new_pip + ' install blogger-cli==' + self._version
         else:
-            install_cmd = new_pip + ' install blogger-cli'
+            install_cmd = new_pip + ' install -U blogger-cli'
 
         BIN = BIN.format(python_path=new_python)
         BAT = BAT.format(python_path=new_python,
