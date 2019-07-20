@@ -2,11 +2,12 @@ from setuptools import setup
 
 setup(
     name='blogger-cli',
-    version = "1.0.0a3",
+    version = "1.0.1",
     description = "Blogger cli is a CLI tool to convert ipynb, md, txt file to responsive html files.",
     authors = ["hemanta212 <sharmahemanta.212@gmail.com>"],
     readme = 'README.md',
     repository = "https://github.com/hemanta212/blogger-cli",
+    documentation = "https://hemanta212.github.io/blogger-cli",
     keywords = ["jupyter notebook", "github pages", "blogger"],
     license = "MIT",
 
@@ -14,7 +15,7 @@ setup(
                 'blogger_cli.blog_manager', 'blogger_cli.converter'],
     include_package_data=True,
     install_requires=[
-        'click', 'nbconvert', 'markdown'
+        'click', 'nbconvert', 'markdown', 'bs4'
     ],
     entry_points='''
         [console_scripts]

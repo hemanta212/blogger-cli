@@ -1,6 +1,7 @@
 # Blogger-cli
 A custom cli tool to process jupyter notebooks, markdown files and html files. Write your blog in markdown or jupyter notebooks and then transform into blog post with mathjax, code support, google analytics, navigation, disqus support.
 
+See a sample blog made by blogger-cli: [Here](https://pykancha.github.io/test/)
 
 ## Why?
 It is easy to get your hands on, works flawlessly and won't get bulky and slow overtime.
@@ -55,6 +56,8 @@ Open the url http://localhost:8000/ in your browser to view your blog!!
 - [Customizing templates and design](docs/customizing.md)
 - [Writing blog's metadata](docs/meta.md)
 - [Recommended workflow for blogger-cli](docs/workflow.md)
+
+> View docs in: [website](https://hemanta.github.io/blogger-cli/)
 
 ## Author
 
