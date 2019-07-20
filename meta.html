@@ -5,77 +5,147 @@
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139924028-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-139924028-1');
+  </script>
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   pykancha
+   Meta
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$",'$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                // Center justify equations in code and markdown cells. Elsewhere
+                // we use CSS to left justify single line equations in code cells.
+                displayAlign: 'center',
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}},
+                    linebreaks: { automatic: true }
+                }
+            });
+  </script>
  </head>
  <body>
   <nav class="navbar navbar-default">
    <div class="container text-center">
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
-
-                  <li><a href="../index.html">Home</a></li>
-                  <li><a href="../blog/index.html">Blog</a></li>
-                  <li><a href="../teaching.html">Teaching</a></li>
-                  <li><a href="../projects.html">Projects</a></li>
-                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
-
+      <li>
+       <a href="../index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a href="index.html">
+        Blog
+       </a>
+      </li>
+      <li>
+       <a href="../projects.html/">
+        Projects
+       </a>
+      </li>
      </ul>
     </div>
    </div>
   </nav>
   <div id="content">
-   <pre class="prettyprint"><code>However, this is not forced. You can change the syntax easily by
+   <h1>
+    Meta
+   </h1>
+   <h2>
+    Content
+   </h2>
+   <ol>
+    <li>
+     <a href="#Syntax-for-meta">
+      Syntax for meta
+     </a>
+    </li>
+    <li>
+     <a href="#Meta-for-md-files">
+      Meta for md files
+     </a>
+    </li>
+    <li>
+     <a href="#Meta-for-ipynb-files">
+      Meta for ipynb files
+     </a>
+    </li>
+    <li>
+     <a href="#Conversion-of-meta">
+      Conversion of meta
+     </a>
+    </li>
+   </ol>
+   <h2>
+    Syntax for meta
+   </h2>
+   <p>
+    The default syntax for writing meta is like of html comment ie.
+   </p>
+   <pre class="prettyprint"><code>&lt;!--
+key: value
+--&gt;
 </code></pre>
    <p>
-    blogger config -b
-    <blogname>
-     meta_format &ldquo;/
-     <em>
-     </em>
-     /&rdquo;
-    </blogname>
+    However, this is not forced. You can change the syntax easily by
    </p>
-   <pre class="prettyprint"><code>will make the syntax something like
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; meta_format "/* */"
 </code></pre>
    <p>
-    /
-    <em>
-     key: value
-    </em>
-    /
+    will make the syntax something like
    </p>
-   <pre class="prettyprint"><code>
-## Meta for md files
-For md files, It is recommended that you write the meta at top of files.
+   <pre class="prettyprint"><code>/*
+key: value
+*/
+</code></pre>
+   <h2>
+    Meta for md files
+   </h2>
+   <p>
+    For md files, It is recommended that you write the meta at top of files.
 However, technically you can write it wherever you want as far as it is the first occurence of the meta format.
-
-## Meta for ipynb files
-For ipynb file meta is lot diverse. You can declare meta in first raw cell.
-Your meta will be read then deleted making your notebooks clean. The meta will be written to &lt;filename&gt;.nbdata file where &lt;filename&gt; is the same name as your notebook's name.
-
-Similarly you can make a separate .nbdata file with same name as notebook and blogger will read it during conversion.
-
-Although above is default behaviour you can stop creation of .nbdata files by setting create\_nbdata\_file to false and stop the deletion of meta cell in notebook by delete\_ipynb\_meta to false.
-</code></pre>
-   <p>
-    blogger config -b
-    <blogname>
-     create_nbdata_file false
-blogger config -b
-     <blogname>
-      delete_ipynb_meta false
-```
-     </blogname>
-    </blogname>
    </p>
+   <h2>
+    Meta for ipynb files
+   </h2>
+   <p>
+    For ipynb file meta is lot diverse. You can declare meta in first raw cell.
+Your meta will be read then deleted making your notebooks clean. The meta will be written to
+    <filename>
+     .nbdata file where
+     <filename>
+      is the same name as your notebook&rsquo;s name.
+     </filename>
+    </filename>
+   </p>
+   <p>
+    Similarly you can make a separate .nbdata file with same name as notebook and blogger will read it during conversion.
+   </p>
+   <p>
+    Although above is default behaviour you can stop creation of .nbdata files by setting create_nbdata_file to false and stop the deletion of meta cell in notebook by delete_ipynb_meta to false.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; create_nbdata_file false
+blogger config -b &lt;blogname&gt; delete_ipynb_meta false
+</code></pre>
    <blockquote>
     <p>
      Well, you might want to use

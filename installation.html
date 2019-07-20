@@ -5,7 +5,15 @@
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139924028-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-139924028-1');
+  </script>
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
@@ -13,21 +21,47 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$",'$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                // Center justify equations in code and markdown cells. Elsewhere
+                // we use CSS to left justify single line equations in code cells.
+                displayAlign: 'center',
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}},
+                    linebreaks: { automatic: true }
+                }
+            });
+  </script>
  </head>
-
  <body>
   <nav class="navbar navbar-default">
    <div class="container text-center">
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
-
-                  <li><a href="../index.html">Home</a></li>
-                  <li><a href="../blog/index.html">Blog</a></li>
-                  <li><a href="../teaching.html">Teaching</a></li>
-                  <li><a href="../projects.html">Projects</a></li>
-                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
-
+      <li>
+       <a href="../index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a href="index.html">
+        Blog
+       </a>
+      </li>
+      <li>
+       <a href="../projects.html/">
+        Projects
+       </a>
+      </li>
      </ul>
     </div>
    </div>
@@ -38,49 +72,55 @@
    </h1>
    <p>
     This document inclues:
--
-    <a href="#Installing-methods">
-     Installing methods
-    </a>
-    -
-    <a href="#Updating-blogger_cli">
-     Updating blogger_cli
-    </a>
-    -
-    <a href="#Uninstalling-blogger_cli">
-     Uninstalling blogger_cli
-    </a>
-    -
-    <a href="#Developing-guide">
-     Developing guide
-    </a>
    </p>
-   <h1>
-    Installing methods
-   </h1>
+   <ol>
+    <li>
+     <a href="#Installing-methods">
+      Installing methods
+     </a>
+    </li>
+    <li>
+     <a href="#Updating-blogger_cli">
+      Updating blogger_cli
+     </a>
+    </li>
+    <li>
+     <a href="#Uninstalling-blogger_cli">
+      Uninstalling blogger_cli
+     </a>
+    </li>
+    <li>
+     <a href="#Developing-guide">
+      Developing guide
+     </a>
+    </li>
+   </ol>
    <h2>
-    Custom installer
+    Installing methods
    </h2>
+   <h3>
+    Custom installer
+   </h3>
    <pre class="prettyprint"><code>curl -sSL https://raw.githubusercontent.com/hemanta212/blogger-cli//master/get_blogger.py
 </code></pre>
-   <h2>
-    WHY
-   </h2>
+   <h4>
+    Why?
+   </h4>
    <p>
     The custom installer provides a isolated installation for blogger-cli. It is very desirable since blogger-cli relies on nbconvert / jupyter-core that have many dependencies and are likely to cause you some trouble.
 Even if you install it in virutalenv yourself you need ot constantly activate it in order to use it. This installer does exactly that and in addition puts blogger command in the system&rsquo;s path.
    </p>
-   <h2>
+   <h3>
     With pip
-   </h2>
+   </h3>
    <pre class="prettyprint"><code>pip install blogger-cli
 </code></pre>
    <p>
     If you already have jupyter in your system python then a pip install will work just fine and you can access blogger without any hassle.
    </p>
-   <h1>
+   <h2>
     Updating blogger_cli
-   </h1>
+   </h2>
    <p>
     If you have installed through custom installation then,
    </p>
@@ -97,9 +137,9 @@ Even if you install it in virutalenv yourself you need ot constantly activate it
    </p>
    <pre class="prettyprint"><code>pip install --upgrade blogger-cli
 </code></pre>
-   <h1>
+   <h2>
     Uninstalling blogger_cli
-   </h1>
+   </h2>
    <pre class="prettyprint"><code>blogger uninstall
 </code></pre>
    <p>

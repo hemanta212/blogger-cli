@@ -5,7 +5,15 @@
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139924028-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-139924028-1');
+  </script>
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
@@ -13,20 +21,47 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$",'$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                // Center justify equations in code and markdown cells. Elsewhere
+                // we use CSS to left justify single line equations in code cells.
+                displayAlign: 'center',
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}},
+                    linebreaks: { automatic: true }
+                }
+            });
+  </script>
  </head>
  <body>
   <nav class="navbar navbar-default">
    <div class="container text-center">
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
-
-                  <li><a href="../index.html">Home</a></li>
-                  <li><a href="../blog/index.html">Blog</a></li>
-                  <li><a href="../teaching.html">Teaching</a></li>
-                  <li><a href="../projects.html">Projects</a></li>
-                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
-
+      <li>
+       <a href="../index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a href="index.html">
+        Blog
+       </a>
+      </li>
+      <li>
+       <a href="../projects.html/">
+        Projects
+       </a>
+      </li>
      </ul>
     </div>
    </div>
@@ -60,11 +95,13 @@ Folder path to serve. By default, it is the blog_dir value in blog&rsquo;s confi
 Port to host on. Default is 8000. It appears in url like, http://localhost:port
      </p>
     </li>
-   </ul>
-   <p>
-    &ndash;verbose, -v:
+    <li>
+     <p>
+      &ndash;verbose, -v:
 Enable verbosity for more information on the process.
-   </p>
+     </p>
+    </li>
+   </ul>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
     </div>

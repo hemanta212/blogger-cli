@@ -5,62 +5,320 @@
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139924028-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-139924028-1');
+  </script>
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   pykancha
+   Customizing templates and design
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$",'$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                // Center justify equations in code and markdown cells. Elsewhere
+                // we use CSS to left justify single line equations in code cells.
+                displayAlign: 'center',
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}},
+                    linebreaks: { automatic: true }
+                }
+            });
+  </script>
  </head>
-
  <body>
   <nav class="navbar navbar-default">
    <div class="container text-center">
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
-                  <li><a href="../index.html">Home</a></li>
-                  <li><a href="../blog/index.html">Blog</a></li>
-                  <li><a href="../teaching.html">Teaching</a></li>
-                  <li><a href="../projects.html">Projects</a></li>
-                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
+      <li>
+       <a href="../index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a href="index.html">
+        Blog
+       </a>
+      </li>
+      <li>
+       <a href="../projects.html/">
+        Projects
+       </a>
+      </li>
      </ul>
     </div>
    </div>
   </nav>
   <div id="content">
-   <pre class="prettyprint"><code>
-Now I can refer it in templates.
+   <h1>
+    Customizing templates and design
+   </h1>
+   <h2>
+    Contents
+   </h2>
+   <ol>
+    <li>
+     <a href="#Customizing-css">
+      Customizing css
+     </a>
+    </li>
+    <li>
+     <a href="#Customizing-templates">
+      Customizing templates
+     </a>
+     <ul>
+      <li>
+       <a href="#Adding-new-snippets--templates">
+        Adding new snippets / templates
+       </a>
+      </li>
+      <li>
+       <a href="#Overriding-existing-templates">
+        Overriding existing templates
+       </a>
+      </li>
+      <li>
+       <a href="#indexes">
+        indexes
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#Dynamic-templating">
+      Dynamic templating
+     </a>
+    </li>
+   </ol>
+   <h2>
+    Customizing css
+   </h2>
+   <p>
+    You can customize the default css by simply going to css folder in your blog folder and changing it. Yeah that&rsquo;s it. For adding new css, fonts, js files see below in adding snippets. Look
+    <a href="#adding-static-files">
+     here
+    </a>
+    for adding new.
+   </p>
+   <h2>
+    Customizing templates
+   </h2>
+   <p>
+    Templates are code snippets that are inserted to the html while converting your files.. eg disqus.html and google_analytics.html are template files that store respective snippets.
+   </p>
+   <p>
+    First export all templates to your blog&rsquo;s root dir
+   </p>
+   <pre class="prettyprint"><code>blogger export blog_template
 </code></pre>
    <p>
-    Date: {{ meta.date }}, topic: {{ meta.topic }}
+    or specify other folder using -o option. A _blogger_templates folder should appear.
    </p>
-   <pre class="prettyprint"><code>
-#### Adding static files
-Registering new css or js files. Just open css.html file or js.html file in the editor and edit the source.
+   <p>
+    Now add this folder&rsquo;s full path to your blog&rsquo;s config
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; templates_dir /path/to/dir
+</code></pre>
+   <blockquote>
+    <p>
+     Every templates except layout.html are small building blocks(snippets) and layout.html is the collector that arrange these snippets.
+    </p>
+   </blockquote>
+   <h2>
+    Adding new snippets / templates
+   </h2>
+   <p>
+    To add a new snippet, just create any files with .html extension in the templates folder. Then update the &lsquo;layout.html&rsquo; file.
+   </p>
+   <p>
+    Suppose you create footer.html snippet then you open the layout.html and place {{ snippet.footer }} before closing body tag or wherever you want to add this snippet.
+   </p>
+   <h3>
+    Overriding existing templates
+   </h3>
+   <p>
+    You are free to edit the default templates and changes will be reflected. However if you mess up you can always again export blog_template from above process.
+   </p>
+   <p>
+    You may want to eddit navbar_data.html. Here is what the default looks like:
+   </p>
+   <pre class="prettyprint"><code>{
+    "Home": "../index.html",
+    "Blog": "index.html",
+    "Projects": "../projects.html/"
+}
+</code></pre>
+   <p>
+    You can add more navlinks or remove existing BUT make sure everything is inside DOUBLE QUOTES (") and not single quotes and do not put comma in the end of last item.
+   </p>
+   <p>
+    It is also a good idea to override layout.html as you have read this in
+    <a href="#Adding-new-snippets--templates">
+     here
+    </a>
+    . You can add snippets you want by using {{ snippet_name }} at anywhre you want!
+   </p>
+   <h3>
+    Indexes
+   </h3>
+   <p>
+    To make your indexes compatible. You just need to wrap your blog&rsquo;s post lists in a div with class &lsquo;posts_list&rsquo;. Blogger reads this div by default. However you can control hat div class should blogger lookup by setting &lsquo;index_div_name&rsquo; to your div class name.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; index_div_name posts
+</code></pre>
+   <p>
+    Now blogger will look for div with class &lsquo;posts&rsquo; instead!
+   </p>
+   <p>
+    To modify what happens when each file is added to index you have to modify li_tag.html template. Here is the default content.
+   </p>
+   <pre class="prettyprint"><code>&lt;li&gt;&lt;a href="{{ snippet.link }}"&gt;{{ snippet.title }}&lt;/a&gt; &lt;/li&gt;
+</code></pre>
+   <p>
+    You have meta variable access so you can set date in your post meta and reference it by meta.date here.
+   </p>
+   <pre class="prettyprint"><code>&lt;li&gt;&lt;a href="{{ snippet.link }}"&gt;{{ snippet.title }}&lt;/a&gt; ({{ meta.date }}) &lt;/li&gt;
+</code></pre>
+   <h2>
+    Dynamic templating
+   </h2>
+   <p>
+    You can have logics and variables in the blog_templates for dynamic template generation.
+Blogger-cli uses jinja2 templating engine. So, please lookup to jinja2
+    <a href="http://jinja.pocoo.org/docs/latest/">
+     documetation
+    </a>
+    .
+   </p>
+   <h3>
+    Syntax
+   </h3>
+   <ol>
+    <li>
+     <p>
+The variables are referenced using {{ var }} syntax.
+     </p>
+    </li>
+    <li>
+     <p>
+Logic code are written inside
+      <code>
+       {% %} \\some\\code\\ {% %}
+      </code>
+      brackets. Well basic logic like if statements, for loop, while loop etc are available.
+     </p>
+    </li>
+   </ol>
+   <p>
+    eg: if else
+   </p>
+   <pre class="prettyprint"><code>{% if var %}
+    something
+{% elif %}
+    sth
+{% else %}
+    sth
+{% endif %}
+</code></pre>
+   <p>
+    for loop
+   </p>
+   <pre class="prettyprint"><code>{% for i in var %}
+    something
+{% endfor %}
 
-Default css.html
+{% for i,j in zip(var.a,var.b) %}
+{% endfor %}
 </code></pre>
-   <p _="%" endif="">
-    {% if meta.topic %}
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../assets/css/custom.css" rel="stylesheet"/>
-    {% else %}
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../assets/css/custom.css" rel="stylesheet"/>
-   </p>
-   <pre class="prettyprint"><code>Default js.html
-</code></pre>
-   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
-   </script>
-   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
-   </script>
+   <h4>
+    Usage
+   </h4>
    <p>
-    <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
-    <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    ```
-You can add additional links for new file you make.
+    You can execute any python codes and use logic anyway you like inside {% %} in any templates.
+You have 2 variable access.
+* snippet : This is only available in layout.html through this you can access any other snippet file&rsquo;s content along with title and file link.
+   </p>
+   <ul>
+    <li>
+     <p>
+      meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is
+      <a href="meta.html">
+       here
+      </a>
+     </p>
+    </li>
+    <li>
+     <p>
+      config: You may see config variable used in some templates eg disqus.html it just make disqus_username and google analytics id accessible for templating and IT IS NOT AVAILABLE in other templates except disqus.html and google_analytics.html
+     </p>
+    </li>
+   </ul>
+   <blockquote>
+    <p>
+     You can access meta class from any custom templates and inbuilt templates. Just add something in your meta and reference it with {{ meta.var }}
+    </p>
+   </blockquote>
+   <p>
+    eg I write a md file
+test.md
+   </p>
+   <pre class="prettyprint"><code>&lt;!--
+topic: python
+date: 3 may
+--&gt;
+</code></pre>
+   <p>
+    Now I can refer it in templates.
+   </p>
+   <pre class="prettyprint"><code>Date: {{ meta.date }}, topic: {{ meta.topic }}
+</code></pre>
+   <h4>
+    Adding static files
+   </h4>
+   <p>
+    Registering new css or js files. Just open css.html file or js.html file in the editor and edit the source.
+   </p>
+   <p>
+    Default css.html
+   </p>
+   <pre class="prettyprint"><code>{% if meta.topic %}
+        &lt;link rel="stylesheet" href="../../assets/css/bootstrap.min.css" /&gt;
+        &lt;link rel="stylesheet" href="../../assets/css/custom.css" /&gt;
+{% else %}
+        &lt;link rel="stylesheet" href="../assets/css/bootstrap.min.css" /&gt;
+        &lt;link rel="stylesheet" href="../assets/css/custom.css" /&gt;
+{% endif %}
+</code></pre>
+   <p>
+    Default js.html
+   </p>
+   <pre class="prettyprint"><code>&lt;script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"&gt;
+&lt;/script&gt;
+
+&lt;script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"&gt;&lt;/script&gt;
+&lt;link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /&gt;
+</code></pre>
+   <p>
+    You can add additional links for new file you make.
    </p>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
@@ -98,7 +356,7 @@ You can add additional links for new file you make.
    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
-   <link href="../../assets/css/light_theme.css" rel="stylesheet"/>
+   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
   </div>
  </body>
 </html>

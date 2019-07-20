@@ -5,7 +5,15 @@
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139924028-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-139924028-1');
+  </script>
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
@@ -13,18 +21,47 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$",'$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                // Center justify equations in code and markdown cells. Elsewhere
+                // we use CSS to left justify single line equations in code cells.
+                displayAlign: 'center',
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}},
+                    linebreaks: { automatic: true }
+                }
+            });
+  </script>
  </head>
-
  <body>
   <nav class="navbar navbar-default">
    <div class="container text-center">
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
-                  <li><a href="../index.html">Home</a></li>
-                  <li><a href="../blog/index.html">Blog</a></li>
-                  <li><a href="../teaching.html">Teaching</a></li>
-                  <li><a href="../projects.html">Projects</a></li>
-                  <li><a href="../hemanta_sharma.pdf">CV</a></li>
+      <li>
+       <a href="../index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a href="index.html">
+        Blog
+       </a>
+      </li>
+      <li>
+       <a href="../projects.html/">
+        Projects
+       </a>
+      </li>
      </ul>
     </div>
    </div>
@@ -136,7 +173,7 @@ It is a snippet provided by google to analyze your website&rsquo;s traffic. Sign
    <p>
     &lsquo;templates_dir&rsquo;:
 It is the directory where you can override default html templates to suit your needs. More info
-    <a href="customizing.md">
+    <a href="customizing.html">
      here
     </a>
     .
@@ -207,7 +244,7 @@ It is the directory where you can override default html templates to suit your n
    </h3>
    <p>
     You can also restore blog configs of a blog that you exported using
-    <a href="export.md#Exporting-blog-configurations">
+    <a href="export.html#Exporting-blog-configurations">
      export command
     </a>
    </p>
