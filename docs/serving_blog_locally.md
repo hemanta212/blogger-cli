@@ -15,5 +15,5 @@ Folder path to serve. By default, it is the blog_dir value in blog's config
 - -p:
 Port to host on. Default is 8000. It appears in url like, http://localhost:port
 
---verbose, -v:
+- --verbose, -v:
 Enable verbosity for more information on the process.
