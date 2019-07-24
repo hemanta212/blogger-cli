@@ -10,7 +10,7 @@ Blogger-cli has simple conversion system that is fast as well extremely customiz
 
 ## Features
 * Robust conversion of ipynb notebooks with great support for mobile devices as well.
-* Built in support for disqus, google analytics, navigation bar, mathjax and code highlighting.
+* Built-in support for disqus, google analytics, navigation bar, mathjax and code highlighting.
 * Blog management: updating index, parsing out images, managing topics and metadata. 
 * Write and post blogs from android or any micro device. All that is required is command line with python and pip.
 * Built in design, blog_templates for rapidly setting up your blog from scratch.
@@ -31,11 +31,11 @@ Since blogger has alot of dependecies (nbconvert, jupyter), this custom installe
 pip install blogger-cli
 ```
 
-If you mainly use jupyter notebook, then you already have all dependecies although it is recommende to use virutalenv.
+If you mainly use jupyter notebook, then you already have all the required dependencies although it is recommended to use `virutalenv`.
 
 
 ## 🚀 Getting Started
-Make a website repository and clone it to your computer. Now register your blogname with blogger
+Make a website repository and clone it to your computer. Now register your blog name with blogger
 ```$ blogger addblog <blogname>```
 and setup necessary configs. Now, If you have new site or empty site. You can get blogger default design and boiler plate.
 ```
