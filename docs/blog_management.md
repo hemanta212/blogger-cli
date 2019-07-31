@@ -6,8 +6,8 @@ Blogger-cli is primarily a conversion tool. So the blog management is more like 
 2. [Editing blog configs ](#Editing-blog-configs)
     - [Editing in bulk](#Editing-in-bulk)
     - [Editing individually](#Editing-individually)
-3. [setting default blog](#Setting-default-blog)
-4. [removing a blog](#Removing-a-blog)
+3. [Setting default blog](#Setting-default-blog)
+4. [Removing a blog](#Removing-a-blog)
 
 # Registering a blog
 
@@ -23,7 +23,7 @@ blogger addblog <blogname> -s
 You can always setup configs later
 
 # Editing blog config
-A registered blog has number of configs you can edit.
+A registered blog has number of configs that you can edit.
 
 'blog_dir':
 This is the main folder of your website. This folder is not used to store converted html blogs since it is treated as root website folder.
@@ -49,7 +49,7 @@ Example values: 'images/blog/', 'images/', 'blog/images/'.
 If you have a disqus account you can enter username here and commenting system will work on every posts. You can get it from disqus account url. eg https://badboy11.disqus.com 's username will be 'badboy11'.
 
 'google_analytics_id':
-It is a snippet provided by google to analyze your website's traffic. Sign in and get a snippet and you can get id from there. eg: 'UA-159824128-0'
+It is a snippet provided by google to analyze your website's traffic. Sign in and get a snippet and you can get id from that snippet. eg: 'UA-159824128-0'
 
 'templates_dir':
 It is the directory where you can override default html templates to suit your needs. More info [here](customizing.md).
@@ -96,7 +96,7 @@ You can also restore blog configs of a blog that you exported using [export comm
 blogger config -b <blogname> -re <config_filename>
 ```
 
-> Never use this to make some blog as a default blog instead use [setdefault](#Setting-default-blog) command.
+> Never use config to add a default property to a blog to make it default instead use [setdefault](#Setting-default-blog) command.
 
 
 # Setting default blog:
@@ -109,6 +109,8 @@ Once a blog is set as default you do not need to specify a blog or -b parameter 
 blogger setdefault <anotherblogname>
 ```
 Everything will safely handled. If for some reason you don't want to set any blog as default use [config command](#Editing-individually) to delete the default property.
+Similarly if blog 'A' is default you can specify -b option in command for operating on other blogs.
+
 
 # Removing a blog
 You will lose everything if you do so.

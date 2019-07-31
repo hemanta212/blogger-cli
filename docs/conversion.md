@@ -1,5 +1,5 @@
 # Conversion
-Blogger uses python-markdown and nbconvert library to convert your posts to html and injects snippets to it. Thus markdown, jupyter and html are supported files.
+Blogger uses python-markdown and nbconvert library to convert your posts to html and injects snippets to it. Thus markdown(.md), jupyter(.ipynb) and html(.html) are supported files.
 
 You can convert any number of files, folder you like at once. However they are treated as a batch i.e if you provide a topic option in command then every blog converted from that command will be under same topic.
 Various options are available to you in convert command. See all [here](#Conversion-options).
@@ -8,8 +8,8 @@ As of now, you cannot place original and converted files in same folder. So do n
 
 ## Contents
 1. [Conversion of files](#Conversion-of-files)
-    - [html files](#html-files)
-    - [code support](#code-support)
+    - [Html files](#html-files)
+    - [Code support](#code-support)
 2. [Conversion of folders](#Conversion-of-folders)
 3. [Static files transfer](#Static-files-transfer)
 3. [Conversion options](#Conversion-option)
@@ -58,10 +58,10 @@ $ blogger convert file folder/ -b <blogname>
 $ blogger convert folder1/ folder2/ --exclude-html
 $ blogger convert . -r --exclude-html
 ```
-Similarly set up filter_post_withou_title config to filter experimental files without title from adding into the index. However they will be converted and placed in your blog's post folder.
+Similarly set up filter_post_without_title config to filter out 'experimental' files without title from adding into the index. However they will be converted and placed in your blog's post folder.
 
 ```
-blogger config -b <blogname> filter_posts_without_title true
+blogger config -b <blogname> filter_post_without_title true
 ```
 
 ## Static files transfer
@@ -98,8 +98,8 @@ Ignore html files from conversion.
 --img-dir:
 Folder for post images. Default: blog's config
 
--no-imgex, --no-img-extract:
-Disable image extraction from URI and urls.
+-no-ex, --no-img-extract:
+Disable image, video extraction from URI, urls and local files.
 
 --topic:
 Topic in which this post should be placed in index. Applied to all files currently converting.

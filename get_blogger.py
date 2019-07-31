@@ -3,17 +3,12 @@ This script will install blogger-cli and its dependencies
 in isolation from the rest of the system.
 
 It does, in order:
-  - Downloads the latest stable (or pre-release) version of blogger-cli.
+  - Downloads the latest stable version of blogger-cli.
   - Downloads all its dependencies in the blogger-cli/venv directory.
   - Copies it and all extra files in $BLOGGER_CLI_HOME.
   - Updates the PATH in a system-specific way.
 
 There will be a `blogger` script that will be installed in $BLOGGER_CLI_HOME/bin
-which will act as the blogger command but is slightly different in the sense
-that it will use the current Python installation.
-
-What this means is that one blogger-cli installation can serve for multiple
-Python versions.
 """
 import argparse
 import json

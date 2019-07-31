@@ -3,18 +3,14 @@ This script will install blogger-cli and its dependencies
 in isolation from the rest of the system.
 
 It does, in order:
-  - Downloads the latest stable (or pre-release) version of blogger-cli.
+  - Downloads the latest stable version of blogger-cli.
   - Downloads all its dependencies in the blogger-cli/venv directory.
   - Copies it and all extra files in $BLOGGER_CLI_HOME.
   - Updates the PATH in a system-specific way.
 
 There will be a `blogger` script that will be installed in $BLOGGER_CLI_HOME/bin
-which will act as the blogger command but is slightly different in the sense
-that it will use the current Python installation.
-
-What this means is that one blogger-cli installation can serve for multiple
-Python versions.
 """
+
 import argparse
 import json
 import os
@@ -271,7 +267,6 @@ class Installer:
         self._accept_all = accept_all
 
     def run(self):
-        self.customize_install()
         self.display_pre_message()
         self.ensure_python_version()
         self.ensure_home()
@@ -302,17 +297,6 @@ class Installer:
         if major < 3 or minor < 5:
             print("SORRY BLOGGER CLI IS NOT SUPPORTED ONLY FOR 3.5 AND ABOVE!")
             sys.exit(1)
-
-    def customize_install(self):
-        if not self._accept_all and WINDOWS:
-            print("Before we start, please answer the following questions.")
-            print("You may simply press the Enter key to leave unchanged.")
-
-            modify_path = input("Modify PATH variable? ([y]/n) ") or "y"
-            if modify_path.lower() in {"n", "no"}:
-                self._modify_path = False
-
-            print("")
 
     def customize_uninstall(self):
         if not self._accept_all:

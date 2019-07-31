@@ -3,7 +3,7 @@ This command export resources that you can use to quickly setup your blog.
 When you export resources existing folder of same name will be replaced permanently, there is no going back. So always do this in empty folder or use -o option to place them in test/ folder.
 Note that while exporting files like blog_config and blog_index you cannot rename the file with -o option. You can rename after conversion.
 
-Following files/folder can be replaced: 
+Following files/folder can be replaced:
 1. index.html
 2. css/
 3. js/

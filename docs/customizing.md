@@ -45,7 +45,7 @@ You may want to eddit navbar_data.html. Here is what the default looks like:
 ```
 You can add more navlinks or remove existing BUT make sure everything is inside DOUBLE QUOTES (\") and not single quotes and do not put comma in the end of last item.
 
-It is also a good idea to override layout.html as you have read this in [here](#Adding-new-snippets--templates). You can add snippets you want by using {{ snippet_name }} at anywhre you want!
+It is also a good idea to override layout.html as you have read this in [here](#Adding-new-snippets--templates). You can add snippets you want by using {{ snippet.name }} anywhere you want!
 
 
 ### Indexes
