@@ -26,7 +26,7 @@ from blogger_cli.cli import pass_context
         help="Folder for post images. Default: blog's config, Destination dir")
 @click.option('-no-ex', '--no-extract', 'extract_static', is_flag=True, default=True,
         help="Disable resource extraction from files like images from ipynbs")
-@click.option('--topic', 'topic', type=str,
+@click.option('-t', '--topic', 'topic', type=str,
         help="Topic in which this post should be placed in index")
 @click.option('-temp', '--template','templates_dir', type=click.Path(exists=True),
         help="Folder path of custom templates")
