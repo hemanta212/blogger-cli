@@ -22,7 +22,6 @@ def cli(ctx, blog, silent, verbose):
     if not silent:
         ctx.log("Running setup for", blog)
         setup(ctx, blog)
-        ctx.log("Setup completed succesfully")
 
 
 def add_blog_if_valid(ctx, blog, blog_dir=None):

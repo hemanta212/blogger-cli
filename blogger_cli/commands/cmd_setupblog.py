@@ -1,3 +1,4 @@
+from pathlib import Path
 import click
 from blogger_cli.cli import pass_context
 
@@ -17,7 +18,6 @@ def cli(ctx, blog, verbose):
     else:
         ctx.log("Setting up blog")
         setup(ctx, blog)
-        ctx.log("Blog setup completed succesfully")
 
 
 def setup(ctx, blog):
@@ -34,6 +34,8 @@ def setup(ctx, blog):
         'disqus_username': 'It is in url of your disqus account eg: https://username.disqus.com/',
     }
 
+    messages = []
+    success = True
     for k, v in sorted(blog_attrs.items()):
         try:
             hint = ' - {0}'.format(help[k])
@@ -43,9 +45,30 @@ def setup(ctx, blog):
                 ctx.config.write('{0}:{1}'.format(blog, k), None)
 
             elif value != 'n':
+                if k in ['blog_dir', 'working_dir']:
+                    value, msg = ensure_and_expand_dir(ctx, value)
+                    if msg:
+                        success = False
+                        messages.append(msg)
+
                 ctx.config.write('{0}:{1}'.format(blog, k), value)
+
 
         except KeyError:
         # The option is not supposed to be setup by user like defaultblog
             pass
 
+    for message in messages:
+        ctx.log('\n', message)
+    if success:
+        ctx.log("Blog setup completed succesfully")
+
+
+def ensure_and_expand_dir(ctx, dir):
+    folder = Path(dir)
+    try:
+        full_path = str(folder.expanduser().resolve())
+    except FileNotFoundError as E:
+        return None, "ERROR:" + str(E)
+
+    return full_path, ''
