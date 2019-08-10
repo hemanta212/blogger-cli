@@ -147,7 +147,7 @@ def write_html_and_ipynb(ctx, ipynb_file_path,  html_body, meta):
         wf.write(html_body)
         ctx.log(":: Converted basic html to", html_file_path)
 
-    if not ctx.written_ipynb:
+    if (not ctx.written_ipynb) and (ipynb_file_path != new_ipynb_file_path):
         try:
             copyfile(ipynb_file_path, new_ipynb_file_path)
             ctx.log(":: Copied ipynb file to", new_ipynb_file_path)
