@@ -1,6 +1,6 @@
 import os
 import json
-from shutil import copyfile, SameFileError
+from shutil import copyfile
 from collections import OrderedDict
 
 import jinja2

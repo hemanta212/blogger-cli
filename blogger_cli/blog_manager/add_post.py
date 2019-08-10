@@ -1,7 +1,6 @@
 import os
 import jinja2
 import json
-import shutil
 from pathlib import Path
 from collections import OrderedDict
 from pkg_resources import resource_string

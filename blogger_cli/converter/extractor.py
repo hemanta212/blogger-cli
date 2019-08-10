@@ -81,7 +81,8 @@ def extract_videos(ctx, videos, video_path, filename, blog_post_dir):
         else:
             file_path = get_absolute_path(ctx, filename)
             dest_path = os.path.dirname(video_path)
-            extracted_path = extract_static_files(video_data, file_path, dest_path)
+            extracted_path = extract_static_files(ctx, video_data,
+                                                  file_path, dest_path)
             if extracted_path:
                 ctx.log(":: Detected STATIC video. Copying to", extracted_path)
                 new_video_src = get_static_src(blog_post_dir, extracted_path)
@@ -115,7 +116,8 @@ def extract_images(ctx, images, img_path, filename, blog_post_dir):
         else:
             file_path = get_absolute_path(ctx, filename)
             dest_path = os.path.dirname(image_path)
-            extracted_path = extract_static_files(img_data, file_path, dest_path)
+            extracted_path = extract_static_files(ctx, img_data,
+                                                  file_path, dest_path)
             if extracted_path:
                 ctx.log(":: Detected STATIC img. Copying to", extracted_path)
                 new_img_src = get_static_src(blog_post_dir, extracted_path)
@@ -171,16 +173,60 @@ def get_absolute_path(ctx, filename):
     return file_path[0]
 
 
-def extract_static_files(file_name, file_path, dest_dir):
+def extract_static_files(ctx, file_name, file_path, dest_dir):
+    '''
+    This function will look for static local files that were linked
+    from inside ipynb file. The path is built dynamically according
+    to the one provided in ipynb file.
+
+    Eg: ('learning.mp4')
+    The learning.mp4 file will be searched in same dir as of original
+    ipynb file.
+
+    Eg: ('../learning.mp4)
+    Similarly, now blogger will look learning.mp4 in the parent dir of
+    original ipynb file.
+
+    NOTE: In cases where the ipynb file was previously converted and is
+    located  inside the blog_dir then entire blog_dir will be searched
+    for that image and the path that contain topic/ipynb_filename will
+    be selected as static_path. What this means if You have to use same
+    topic as before to make use of this.
+    '''
+
     orig_dir = Path(os.path.dirname(file_path))
     static_path = orig_dir / file_name
     file_name = os.path.basename(file_name)  # manage cases like ../../video.mp4
 
+    # Detect if the original file is in blog dir itself
+    blog_dir = Path(ctx.config.read(key=ctx.current_blog + ':blog_dir'))
+    blog_dir = blog_dir.expanduser()
+
+    is_inside_blog_dir = False
+    if str(blog_dir) in file_path:
+        is_inside_blog_dir = True
+
+    # Provide the static files path if orig file is in blog_dir
+    if not static_path.exists() and is_inside_blog_dir:
+        dest_dir_parts = Path(dest_dir).parts
+        topic_filename = Path(dest_dir_parts[-2]) / dest_dir_parts[-1]
+
+        image_dirs = list(blog_dir.rglob(str(topic_filename)))
+
+        while not static_path.exists() and image_dirs:
+            static_path_dir = image_dirs.pop(0)
+            static_path = static_path_dir / file_name
+
     if static_path.exists():
         static_path = static_path.resolve()
         dest_path = os.path.join(dest_dir, file_name)
-        shutil.copyfile(str(static_path), dest_path)
+        try:
+            shutil.copyfile(str(static_path), dest_path)
+        except shutil.SameFileError:
+            pass
+
         return dest_path
+
 
 
 def extract_main_and_meta_from_file_content(ctx, file_data):

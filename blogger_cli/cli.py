@@ -84,7 +84,7 @@ class ComplexCLI(click.MultiCommand):
 @pass_context
 def cli(ctx, verbose):
     '''
-     A CLI tool to maintain your blogger blog. Sync, convert and upload :).
+     A CLI tool to maintain your jupyter notebook blog. Sync, convert and upload :).
     '''
     ctx.verbose = verbose
     ctx.vlog("Started the main command")
