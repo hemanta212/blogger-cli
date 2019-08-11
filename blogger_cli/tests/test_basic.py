@@ -1,3 +1,4 @@
+import os
 import unittest
 from click.testing import CliRunner
 from blogger_cli.cli import cli
@@ -48,18 +49,18 @@ class TestBasic(unittest.TestCase):
 
     def test_config_success(self):
         result = self.runner.invoke(cli, ['config', '-b', 'test1',
-                                    'working_dir', 'html/'])
+                                    'working_dir', '~'])
         self.assertEqual(result.exit_code, 0)
 
         result = self.runner.invoke(cli, ['config', '-b', 'test1', 'working_dir'])
-        self.assertEqual(result.output, 'html/\n')
+        self.assertEqual(result.output, os.path.expanduser('~')+'\n')
 
         result = self.runner.invoke(cli, ['setdefault', 'test1'])
-        result = self.runner.invoke(cli, ['config', 'blog_dir', '~/blog_dir/'])
+        result = self.runner.invoke(cli, ['config', 'blog_dir', '~/'])
         self.assertEqual(result.exit_code, 0)
 
         result = self.runner.invoke(cli, ['config', 'blog_dir'])
-        self.assertEqual(result.output, '~/blog_dir/\n')
+        self.assertEqual(result.output, os.path.expanduser('~')+'\n')
 
         result = self.runner.invoke(cli, ['config', '-rm', 'default'])
         self.assertEqual(result.exit_code, 0)

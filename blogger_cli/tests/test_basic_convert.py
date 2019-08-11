@@ -155,6 +155,7 @@ class TestBasic(unittest.TestCase):
 
         self.assertEqual(self.read_file(self.index_path),
                         self.read_file(test_index_path))
+        #os.system('cp '+ converted_html + ' ' + test_results_path)
         self.assertEqual(self.read_file(converted_html),
                         self.read_file(test_results_path))
 

@@ -18,6 +18,8 @@ class TestBasic(unittest.TestCase):
     def setUp(self):
         self.runner = CliRunner()
         self.export_dir = os.path.expanduser('~/.blogger_tmp/')
+        if not os.path.exists(self.export_dir):
+            os.mkdir(self.export_dir)
         self.runner.invoke(cli, ['addblog', 'test1'],
                     input=self.export_dir + '\nn \nn \nn \nn \nn \nn')
 
