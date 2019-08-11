@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='blogger-cli',
-    version = "1.0.2",
+    version = "1.1.0",
     description = "Blogger cli is a CLI tool to convert ipynb, md, html file to responsive html files.",
     authors = ["hemanta212 <sharmahemanta.212@gmail.com>"],
     readme = 'README.md',

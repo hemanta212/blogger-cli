@@ -1,6 +1,6 @@
 import os
 
-__version__ = '1.0.2'
+__version__ = '1.1.0'
 ROOT_DIR = os.path.join(os.path.split(__file__)[0])
 RESOURCE_DIR = os.path.join(os.path.split(__file__)[0], 'resources')
 
