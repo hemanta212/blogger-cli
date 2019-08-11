@@ -4,7 +4,6 @@ Blogger uses python-markdown and nbconvert library to convert your posts to html
 You can convert any number of files, folder you like at once. However they are treated as a batch i.e if you provide a topic option in command then every blog converted from that command will be under same topic.
 Various options are available to you in convert command. See all [here](#Conversion-options).
 
-As of now, you cannot place original and converted files in same folder. So do not convert files from and to your blog's folder.
 
 ## Contents
 1. [Conversion of files](#Conversion-of-files)
@@ -21,6 +20,7 @@ $ blogger convert filename
 ```
 However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See [here](blog_management.md) for how to set up configs.
 for example the above command assumes:
+
 1. You have set a default blog and blog_dir and blog_posts_dir's value in config,
 2. File to be converted should be in current directory.
 
@@ -45,11 +45,14 @@ So there is nothing extra for you to do
 ```
 $ blogger convert htmlfile
 ```
+
 ### Code support
 Every file converted to html will have mathjax and code support injected to it. You can pass --not-code option to avoid injecting them incase you don't need those.
 ```
 $ blogger convert filename --not-code
 ```
+
+For ipynb files, the converted html won't have input/output prompts like In[1] Out[2] etc. You can enable this by editing js.html snippet. Look [here](customizing.md)
 
 ## Conversion of folders
 If folder are specified all supported extensions(html, md, ipynb) will be picked and converted. To avoid html files just pass -ex-html/--exclude-html option. Similarly you can recursively search within any folder to get files!
@@ -79,6 +82,7 @@ blogger config -b <blogname> post_extract_list ['URI']
 ```
 1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
 
+
 ## Conversion options
 -r, --recursive :
 This will search any given folder recursively to deepest file. Without this option only surface files of specified folder is converted.
@@ -96,7 +100,7 @@ Name of the blog.
 Ignore html files from conversion.
 
 --img-dir:
-Folder for post images. Default: blog's config
+Folder to store post images. Default: blog's config
 
 -no-ex, --no-img-extract:
 Disable image, video extraction from URI, urls and local files.

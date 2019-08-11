@@ -1,6 +1,7 @@
 # Exporting resources to your blog
-This command export resources that you can use to quickly setup your blog.
+This command exports resources that you can use to quickly setup your blog.
 When you export resources existing folder of same name will be replaced permanently, there is no going back. So always do this in empty folder or use -o option to place them in test/ folder.
+
 Note that while exporting files like blog_config and blog_index you cannot rename the file with -o option. You can rename after conversion.
 
 Following files/folder can be replaced:
@@ -25,7 +26,7 @@ Blog layout consists of assets(css), blog index, website index, images dir, _blo
 ```
 blogger export -b <blogname> blog_layout
 ```
-You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
+You can  specify a custom folder using -o option. It is relative from blog root folder. However, you can also specify other folder using absolute path from begining.
 ```
 blogger export -b <blogname> blog_layout -o test/
 blogger export -b <blogname> blog_layout -o ~/my_website_folder/test/
@@ -74,12 +75,12 @@ If you want config of all blogs. copy ~/.blogger/blog_config.cfg to your folder.
 
 # Exporting blog template
 Blog template consists of all the snippets that gets added to your blog posts during conversion. You can customize default and add other templates. For info to customize look [here](customizing.md)
-https://github.com/hemanta212/blogger-cli/blob/add_templating/blogger_cli/docs/blog_management.md#editing-blogs-config
+
 ```
-blogger export -b <blogname> blog_template
+blogger export -b <blogname> blog_template -o _blogger_templates/
 ```
 A _blogger_templates folder will appear in your blog's root directory.
-You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
+You can specify a custom folder using -o option. It is relative from blog root folder however, you can also specify other folder using absolute path from begining.
 
 ```
 blogger export -b <blogname> blog_template -o test/

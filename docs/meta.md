@@ -7,12 +7,13 @@
 4. [Conversion of meta](#Conversion-of-meta)
 
 ## Syntax for meta
-The default syntax for writing meta is like of html comment ie.
+The default syntax for writing meta is like that of html comment ie.
 ```
 <!--
 key: value
 -->
 ```
+It is choosen because it is hidden while rendering by default.
 However, this is not forced. You can change the syntax easily by
 ```
 blogger config -b <blogname> meta_format "/* */"
@@ -25,7 +26,7 @@ key: value
 ```
 
 ## Meta for md files
-For md files, It is recommended that you write the meta at top of files.
+For md files, it is recommended that you write the meta at top of the file.
 However, technically you can write it wherever you want as far as it is the first occurence of the meta format.
 
 ## Meta for ipynb files

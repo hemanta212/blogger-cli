@@ -5,12 +5,12 @@ See a sample blog made by blogger-cli: [Here](https://pykancha.github.io/test/)
 
 ## Why?
 It is easy to get your hands on, works flawlessly and won't get bulky and slow overtime.
-Blogger-cli has simple conversion system that is fast as well extremely customizable. 
+Blogger-cli has a simple conversion system that is fast as well as extremely customizable. 
 
 
 ## Features
 * Robust conversion of ipynb notebooks with great support for mobile devices as well.
-* Built-in support for disqus, google analytics, navigation bar, mathjax and code highlighting.
+* Built-in support for disqus, google analytics, navigation bar, social sharing, mathjax and code highlighting.
 * Blog management: updating index, parsing out images, managing topics and metadata. 
 * Write and post blogs from android or any micro device. All that is required is command line with python and pip.
 * Built in design, blog_templates for rapidly setting up your blog from scratch.
@@ -24,20 +24,20 @@ Blogger-cli has simple conversion system that is fast as well extremely customiz
 ```
 $ curl -sSL https://hemanta212.github.io/blogger-cli/get_blogger.py | python
 ```
-Since blogger has alot of dependecies (nbconvert, jupyter), this custom installer will install in a virtualenv and add it to your path for global access!.
+Since blogger has alot of dependecies (nbconvert, jupyter), this custom installer will install them in a virtual environment and add it to your path for global access.
 
 ### Using pip
 ```
 pip install blogger-cli
 ```
 
-If you mainly use jupyter notebook, then you already have all the required dependencies although it is recommended to use `virutalenv`.
+If you mainly use jupyter notebooks, then you already have all the required dependencies although it is recommended to use `virutal environments`.
 
 
 ## 🚀 Getting Started
 Make a website repository and clone it to your computer. Now register your blog name with blogger
 ```$ blogger addblog <blogname>```
-and setup necessary configs. Now, If you have new site or empty site. You can get blogger default design and boiler plate.
+and setup necessary configs. Now, If you have new site or empty site. You can get blogger default design and boilerplate.
 ```
 $ blogger export blog_layout -b <blogname>
 ```

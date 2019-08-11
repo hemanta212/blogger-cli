@@ -35,7 +35,7 @@ Suppose you create footer.html snippet then you open the layout.html and place {
 ### Overriding existing templates
 You are free to edit the default templates and changes will be reflected. However if you mess up you can always again export blog_template from above process.
 
-You may want to eddit navbar_data.html. Here is what the default looks like:
+You may want to edit navbar_data.html. Here is what the default looks like:
 ```
 {
     "Home": "../index.html",
