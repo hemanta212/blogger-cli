@@ -21,7 +21,7 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
   <script type="text/x-mathjax-config">
@@ -53,25 +53,15 @@
        </a>
       </li>
       <li>
-       <a href="../blog/index.html">
+       <a href="index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html">
+       <a href="../projects.html/">
         Projects
        </a>
       </li>
-      <li>
-       <a href="../teaching.html">
-        Teaching
-       </a>
-      </li>
-       <li>
-        <a href="../hemanta_sharma.pdf">
-         CV
-        </a>
-       </li>
      </ul>
     </div>
    </div>
@@ -167,7 +157,7 @@
     You are free to edit the default templates and changes will be reflected. However if you mess up you can always again export blog_template from above process.
    </p>
    <p>
-    You may want to eddit navbar_data.html. Here is what the default looks like:
+    You may want to edit navbar_data.html. Here is what the default looks like:
    </p>
    <pre class="prettyprint"><code>{
     "Home": "../index.html",
@@ -183,7 +173,7 @@
     <a href="#Adding-new-snippets--templates">
      here
     </a>
-    . You can add snippets you want by using {{ snippet_name }} at anywhre you want!
+    . You can add snippets you want by using {{ snippet.name }} anywhere you want!
    </p>
    <h3>
     Indexes
@@ -223,11 +213,13 @@ Blogger-cli uses jinja2 templating engine. So, please lookup to jinja2
    <ol>
     <li>
      <p>
+      Variables
 The variables are referenced using {{ var }} syntax.
      </p>
     </li>
     <li>
      <p>
+      Logic code
 Logic code are written inside
       <code>
        {% %} \\some\\code\\ {% %}
@@ -269,7 +261,7 @@ You have 2 variable access.
     <li>
      <p>
       meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is
-      <a href="meta.html">
+      <a href="meta.md">
        here
       </a>
      </p>
@@ -330,6 +322,25 @@ date: 3 may
    <p>
     You can add additional links for new file you make.
    </p>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
     </div>
@@ -357,13 +368,6 @@ date: 3 may
     <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
     </script>
    </div>
-   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
-   </script>
-   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
-   </script>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
    <link href="../assets/css/light_theme.css" rel="stylesheet"/>

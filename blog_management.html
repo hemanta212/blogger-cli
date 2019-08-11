@@ -21,7 +21,7 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
   <script type="text/x-mathjax-config">
@@ -53,25 +53,15 @@
        </a>
       </li>
       <li>
-       <a href="../blog/index.html">
+       <a href="index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html">
+       <a href="../projects.html/">
         Projects
        </a>
       </li>
-      <li>
-       <a href="../teaching.html">
-        Teaching
-       </a>
-      </li>
-       <li>
-        <a href="../hemanta_sharma.pdf">
-         CV
-        </a>
-       </li>
      </ul>
     </div>
    </div>
@@ -111,12 +101,12 @@
     </li>
     <li>
      <a href="#Setting-default-blog">
-      setting default blog
+      Setting default blog
      </a>
     </li>
     <li>
      <a href="#Removing-a-blog">
-      removing a blog
+      Removing a blog
      </a>
     </li>
    </ol>
@@ -141,7 +131,7 @@ Similary if you want to avoid getting asked these questions and only want to reg
     Editing blog config
    </h1>
    <p>
-    A registered blog has number of configs you can edit.
+    A registered blog has number of configs that you can edit.
    </p>
    <p>
     &lsquo;blog_dir&rsquo;:
@@ -178,12 +168,12 @@ If you have a disqus account you can enter username here and commenting system w
    </p>
    <p>
     &lsquo;google_analytics_id&rsquo;:
-It is a snippet provided by google to analyze your website&rsquo;s traffic. Sign in and get a snippet and you can get id from there. eg: &lsquo;UA-159824128-0&rsquo;
+It is a snippet provided by google to analyze your website&rsquo;s traffic. Sign in and get a snippet and you can get id from that snippet. eg: &lsquo;UA-159824128-0&rsquo;
    </p>
    <p>
     &lsquo;templates_dir&rsquo;:
 It is the directory where you can override default html templates to suit your needs. More info
-    <a href="customizing.html">
+    <a href="customizing.md">
      here
     </a>
     .
@@ -254,7 +244,7 @@ It is the directory where you can override default html templates to suit your n
    </h3>
    <p>
     You can also restore blog configs of a blog that you exported using
-    <a href="export.html#Exporting-blog-configurations">
+    <a href="export.md#Exporting-blog-configurations">
      export command
     </a>
    </p>
@@ -262,7 +252,7 @@ It is the directory where you can override default html templates to suit your n
 </code></pre>
    <blockquote>
     <p>
-     Never use this to make some blog as a default blog instead use
+     Never use config to add a default property to a blog to make it default instead use
      <a href="#Setting-default-blog">
       setdefault
      </a>
@@ -288,6 +278,7 @@ It is the directory where you can override default html templates to suit your n
      config command
     </a>
     to delete the default property.
+Similarly if blog &lsquo;A&rsquo; is default you can specify -b option in command for operating on other blogs.
    </p>
    <h1>
     Removing a blog
@@ -311,6 +302,25 @@ It is the directory where you can override default html templates to suit your n
    <p>
     The usecases of these configs has been specified by this documentation.
    </p>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
     </div>
@@ -338,13 +348,6 @@ It is the directory where you can override default html templates to suit your n
     <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
     </script>
    </div>
-   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
-   </script>
-   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
-   </script>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
    <link href="../assets/css/light_theme.css" rel="stylesheet"/>

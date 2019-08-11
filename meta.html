@@ -17,11 +17,10 @@
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   Meta
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
   <script type="text/x-mathjax-config">
@@ -53,109 +52,65 @@
        </a>
       </li>
       <li>
-       <a href="../blog/index.html">
+       <a href="index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html">
+       <a href="../projects.html/">
         Projects
        </a>
       </li>
-      <li>
-       <a href="../teaching.html">
-        Teaching
-       </a>
-      </li>
-       <li>
-        <a href="../hemanta_sharma.pdf">
-         CV
-        </a>
-       </li>
      </ul>
     </div>
    </div>
   </nav>
   <div id="content">
-   <h1>
-    Meta
-   </h1>
-   <h2>
-    Content
-   </h2>
-   <ol>
-    <li>
-     <a href="#Syntax-for-meta">
-      Syntax for meta
-     </a>
-    </li>
-    <li>
-     <a href="#Meta-for-md-files">
-      Meta for md files
-     </a>
-    </li>
-    <li>
-     <a href="#Meta-for-ipynb-files">
-      Meta for ipynb files
-     </a>
-    </li>
-    <li>
-     <a href="#Conversion-of-meta">
-      Conversion of meta
-     </a>
-    </li>
-   </ol>
-   <h2>
-    Syntax for meta
-   </h2>
-   <p>
-    The default syntax for writing meta is like of html comment ie.
-   </p>
-   <pre class="prettyprint"><code>&lt;!--
-key: value
---&gt;
+   <pre class="prettyprint"><code>It is choosen because it is hidden while rendering by default.
+However, this is not forced. You can change the syntax easily by
 </code></pre>
    <p>
-    However, this is not forced. You can change the syntax easily by
+    blogger config -b
+    <blogname>
+     meta_format &ldquo;/
+     <em>
+     </em>
+     /&rdquo;
+    </blogname>
    </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; meta_format "/* */"
+   <pre class="prettyprint"><code>will make the syntax something like
 </code></pre>
    <p>
-    will make the syntax something like
+    /
+    <em>
+     key: value
+    </em>
+    /
    </p>
-   <pre class="prettyprint"><code>/*
-key: value
-*/
-</code></pre>
-   <h2>
-    Meta for md files
-   </h2>
-   <p>
-    For md files, It is recommended that you write the meta at top of files.
+   <pre class="prettyprint"><code>
+## Meta for md files
+For md files, it is recommended that you write the meta at top of the file.
 However, technically you can write it wherever you want as far as it is the first occurence of the meta format.
-   </p>
-   <h2>
-    Meta for ipynb files
-   </h2>
-   <p>
-    For ipynb file meta is lot diverse. You can declare meta in first raw cell.
-Your meta will be read then deleted making your notebooks clean. The meta will be written to
-    <filename>
-     .nbdata file where
-     <filename>
-      is the same name as your notebook&rsquo;s name.
-     </filename>
-    </filename>
-   </p>
-   <p>
-    Similarly you can make a separate .nbdata file with same name as notebook and blogger will read it during conversion.
-   </p>
-   <p>
-    Although above is default behaviour you can stop creation of .nbdata files by setting create_nbdata_file to false and stop the deletion of meta cell in notebook by delete_ipynb_meta to false.
-   </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; create_nbdata_file false
-blogger config -b &lt;blogname&gt; delete_ipynb_meta false
+
+## Meta for ipynb files
+For ipynb file meta is lot diverse. You can declare meta in first raw cell.
+Your meta will be read then deleted making your notebooks clean. The meta will be written to &lt;filename&gt;.nbdata file where &lt;filename&gt; is the same name as your notebook's name.
+
+Similarly you can make a separate .nbdata file with same name as notebook and blogger will read it during conversion.
+
+Although above is default behaviour you can stop creation of .nbdata files by setting create\_nbdata\_file to false and stop the deletion of meta cell in notebook by delete\_ipynb\_meta to false.
 </code></pre>
+   <p>
+    blogger config -b
+    <blogname>
+     create_nbdata_file false
+blogger config -b
+     <blogname>
+      delete_ipynb_meta false
+```
+     </blogname>
+    </blogname>
+   </p>
    <blockquote>
     <p>
      Well, you might want to use
@@ -165,6 +120,25 @@ blogger config -b &lt;blogname&gt; delete_ipynb_meta false
      meta formatter in the first raw/markdown cell. It will be completely hidden while rendering and you need not maintain a separate nbdata file.
     </p>
    </blockquote>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
     </div>
@@ -192,13 +166,6 @@ blogger config -b &lt;blogname&gt; delete_ipynb_meta false
     <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
     </script>
    </div>
-   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
-   </script>
-   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
-   </script>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
    <link href="../assets/css/light_theme.css" rel="stylesheet"/>

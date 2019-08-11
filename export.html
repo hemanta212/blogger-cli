@@ -21,7 +21,7 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
   <script type="text/x-mathjax-config">
@@ -53,25 +53,15 @@
        </a>
       </li>
       <li>
-       <a href="../blog/index.html">
+       <a href="index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html">
+       <a href="../projects.html/">
         Projects
        </a>
       </li>
-      <li>
-       <a href="../teaching.html">
-        Teaching
-       </a>
-      </li>
-       <li>
-        <a href="../hemanta_sharma.pdf">
-         CV
-        </a>
-       </li>
      </ul>
     </div>
    </div>
@@ -81,12 +71,14 @@
     Exporting resources to your blog
    </h1>
    <p>
-    This command export resources that you can use to quickly setup your blog.
+    This command exports resources that you can use to quickly setup your blog.
 When you export resources existing folder of same name will be replaced permanently, there is no going back. So always do this in empty folder or use -o option to place them in test/ folder.
-Note that while exporting files like blog_config and blog_index you cannot rename the file with -o option. You can rename after conversion.
    </p>
    <p>
-    Following files/folder can be replaced: 
+    Note that while exporting files like blog_config and blog_index you cannot rename the file with -o option. You can rename after conversion.
+   </p>
+   <p>
+    Following files/folder can be replaced:
 1. index.html
 2. css/
 3. js/
@@ -136,7 +128,7 @@ Note that while exporting files like blog_config and blog_index you cannot renam
    </h1>
    <p>
     Blog layout consists of assets(css), blog index, website index, images dir, _blogger_templates, blog directory to quickly set you up with a up and running site. You can customize this css as you like and indexes considering some procedure described
-    <a href="customizing.html">
+    <a href="customizing.md">
      here
     </a>
     .
@@ -144,7 +136,7 @@ Note that while exporting files like blog_config and blog_index you cannot renam
    <pre class="prettyprint"><code>blogger export -b &lt;blogname&gt; blog_layout
 </code></pre>
    <p>
-    You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
+    You can  specify a custom folder using -o option. It is relative from blog root folder. However, you can also specify other folder using absolute path from begining.
    </p>
    <pre class="prettyprint"><code>blogger export -b &lt;blogname&gt; blog_layout -o test/
 blogger export -b &lt;blogname&gt; blog_layout -o ~/my_website_folder/test/
@@ -174,7 +166,7 @@ blogger export -b &lt;blogname&gt; blog_index -o ~/my_website/test
    <blockquote>
     <p>
      If you export css, js in different folder you have to override the default templates with new path. More info
-     <a href="customizing.html">
+     <a href="customizing.md">
       here
      </a>
     </p>
@@ -207,7 +199,7 @@ create a folder named my_blog.cfg instead. So just user -o ~/ and rename later.
    </blockquote>
    <p>
     You can import these blog&rsquo;s configuration using config command. see
-    <a href="blog_management.html#importing-blog-config">
+    <a href="blog_management.md#importing-blog-config">
      here
     </a>
    </p>
@@ -219,20 +211,38 @@ create a folder named my_blog.cfg instead. So just user -o ~/ and rename later.
    </h1>
    <p>
     Blog template consists of all the snippets that gets added to your blog posts during conversion. You can customize default and add other templates. For info to customize look
-    <a href="customizing.html">
+    <a href="customizing.md">
      here
     </a>
-    https://github.com/hemanta212/blogger-cli/blob/add_templating/blogger_cli/docs/blog_management.md#editing-blogs-config
    </p>
-   <pre class="prettyprint"><code>blogger export -b &lt;blogname&gt; blog_template
+   <pre class="prettyprint"><code>blogger export -b &lt;blogname&gt; blog_template -o _blogger_templates/
 </code></pre>
    <p>
     A _blogger_templates folder will appear in your blog&rsquo;s root directory.
-You can also specify a custom folder using -o option. It is relative from blog root folder however you can alsospecify other folder using absolute path from begining.
+You can specify a custom folder using -o option. It is relative from blog root folder however, you can also specify other folder using absolute path from begining.
    </p>
    <pre class="prettyprint"><code>blogger export -b &lt;blogname&gt; blog_template -o test/
 blogger export -b &lt;blogname&gt; blog_template -o ~/my_website_folder/test/
 </code></pre>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
     </div>
@@ -260,13 +270,6 @@ blogger export -b &lt;blogname&gt; blog_template -o ~/my_website_folder/test/
     <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
     </script>
    </div>
-   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
-   </script>
-   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
-   </script>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
    <link href="../assets/css/light_theme.css" rel="stylesheet"/>

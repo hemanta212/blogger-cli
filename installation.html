@@ -21,7 +21,7 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
   <script type="text/x-mathjax-config">
@@ -53,25 +53,15 @@
        </a>
       </li>
       <li>
-       <a href="../blog/index.html">
+       <a href="index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html">
+       <a href="../projects.html/">
         Projects
        </a>
       </li>
-      <li>
-       <a href="../teaching.html">
-        Teaching
-       </a>
-      </li>
-       <li>
-        <a href="../hemanta_sharma.pdf">
-         CV
-        </a>
-       </li>
      </ul>
     </div>
    </div>
@@ -81,7 +71,7 @@
     Installation Guide
    </h1>
    <p>
-    This document inclues:
+    This document includes:
    </p>
    <ol>
     <li>
@@ -90,13 +80,13 @@
      </a>
     </li>
     <li>
-     <a href="#Updating-blogger_cli">
-      Updating blogger_cli
+     <a href="#Updating-blogger-cli">
+      Updating blogger-cli
      </a>
     </li>
     <li>
-     <a href="#Uninstalling-blogger_cli">
-      Uninstalling blogger_cli
+     <a href="#Uninstalling-blogger-cli">
+      Uninstalling blogger-cli
      </a>
     </li>
     <li>
@@ -117,8 +107,8 @@
     Why?
    </h4>
    <p>
-    The custom installer provides a isolated installation for blogger-cli. It is very desirable since blogger-cli relies on nbconvert / jupyter-core that have many dependencies and are likely to cause you some trouble.
-Even if you install it in virutalenv yourself you need ot constantly activate it in order to use it. This installer does exactly that and in addition puts blogger command in the system&rsquo;s path.
+    The custom installer provides an isolated installation for blogger-cli. It is sensible since blogger-cli relies on nbconvert / jupyter-core that have many dependencies and are likely to cause you some trouble.
+Even if you install it in a virutal environment yourself, you need to constantly activate it in order to use the command. This installer solves exactly that; it puts &lsquo;blogger&rsquo; command in the system&rsquo;s path.
    </p>
    <h3>
     With pip
@@ -129,7 +119,7 @@ Even if you install it in virutalenv yourself you need ot constantly activate it
     If you already have jupyter in your system python then a pip install will work just fine and you can access blogger without any hassle.
    </p>
    <h2>
-    Updating blogger_cli
+    Updating blogger-cli
    </h2>
    <p>
     If you have installed through custom installation then,
@@ -137,7 +127,7 @@ Even if you install it in virutalenv yourself you need ot constantly activate it
    <pre class="prettyprint"><code>blogger update
 </code></pre>
    <p>
-    See blogger update &ndash;help for information regaurding various options
+    See blogger update &ndash;help for information regarding various options
    </p>
    <p>
     <strong>
@@ -148,7 +138,7 @@ Even if you install it in virutalenv yourself you need ot constantly activate it
    <pre class="prettyprint"><code>pip install --upgrade blogger-cli
 </code></pre>
    <h2>
-    Uninstalling blogger_cli
+    Uninstalling blogger-cli
    </h2>
    <pre class="prettyprint"><code>blogger uninstall
 </code></pre>
@@ -178,6 +168,25 @@ Even if you install it in virutalenv yourself you need ot constantly activate it
    </p>
    <pre class="prettyprint"><code>pip install -e .
 </code></pre>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
     </div>
@@ -205,13 +214,6 @@ Even if you install it in virutalenv yourself you need ot constantly activate it
     <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
     </script>
    </div>
-   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
-   </script>
-   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
-   </script>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
    <link href="../assets/css/light_theme.css" rel="stylesheet"/>

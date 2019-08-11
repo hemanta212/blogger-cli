@@ -21,7 +21,7 @@
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
   <script type="text/x-mathjax-config">
@@ -53,25 +53,15 @@
        </a>
       </li>
       <li>
-       <a href="../blog/index.html">
+       <a href="index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html">
+       <a href="../projects.html/">
         Projects
        </a>
       </li>
-      <li>
-       <a href="../teaching.html">
-        Teaching
-       </a>
-      </li>
-       <li>
-        <a href="../hemanta_sharma.pdf">
-         CV
-        </a>
-       </li>
      </ul>
     </div>
    </div>
@@ -81,7 +71,7 @@
     Conversion
    </h1>
    <p>
-    Blogger uses python-markdown and nbconvert library to convert your posts to html and injects snippets to it. Thus markdown, jupyter and html are supported files.
+    Blogger uses python-markdown and nbconvert library to convert your posts to html and injects snippets to it. Thus markdown(.md), jupyter(.ipynb) and html(.html) are supported files.
    </p>
    <p>
     You can convert any number of files, folder you like at once. However they are treated as a batch i.e if you provide a topic option in command then every blog converted from that command will be under same topic.
@@ -90,9 +80,6 @@ Various options are available to you in convert command. See all
      here
     </a>
     .
-   </p>
-   <p>
-    As of now, you cannot place original and converted files in same folder. So do not convert files from and to your blog&rsquo;s folder.
    </p>
    <h2>
     Contents
@@ -105,12 +92,12 @@ Various options are available to you in convert command. See all
      <ul>
       <li>
        <a href="#html-files">
-        html files
+        Html files
        </a>
       </li>
       <li>
        <a href="#code-support">
-        code support
+        Code support
        </a>
       </li>
      </ul>
@@ -141,14 +128,20 @@ Various options are available to you in convert command. See all
 </code></pre>
    <p>
     However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See
-    <a href="blog_management.html">
+    <a href="blog_management.md">
      here
     </a>
     for how to set up configs.
 for example the above command assumes:
-1. You have set a default blog and blog_dir and blog_posts_dir&rsquo;s value in config,
-2. File to be converted should be in current directory.
    </p>
+   <ol>
+    <li>
+     You have set a default blog and blog_dir and blog_posts_dir&rsquo;s value in config,
+    </li>
+    <li>
+     File to be converted should be in current directory.
+    </li>
+   </ol>
    <p>
     A more flexible or independent command is (although it is recommended to setup you config)
    </p>
@@ -192,6 +185,12 @@ So there is nothing extra for you to do
    </p>
    <pre class="prettyprint"><code>$ blogger convert filename --not-code
 </code></pre>
+   <p>
+    For ipynb files, the converted html won&rsquo;t have input/output prompts like In[1] Out[2] etc. You can enable this by editing js.html snippet. Look
+    <a href="customizing.md">
+     here
+    </a>
+   </p>
    <h2>
     Conversion of folders
    </h2>
@@ -203,9 +202,9 @@ $ blogger convert folder1/ folder2/ --exclude-html
 $ blogger convert . -r --exclude-html
 </code></pre>
    <p>
-    Similarly set up filter_post_withou_title config to filter experimental files without title from adding into the index. However they will be converted and placed in your blog&rsquo;s post folder.
+    Similarly set up filter_post_without_title config to filter out &lsquo;experimental&rsquo; files without title from adding into the index. However they will be converted and placed in your blog&rsquo;s post folder.
    </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; filter_posts_without_title true
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; filter_post_without_title true
 </code></pre>
    <h2>
     Static files transfer
@@ -252,11 +251,11 @@ Ignore html files from conversion.
    </p>
    <p>
     &ndash;img-dir:
-Folder for post images. Default: blog&rsquo;s config
+Folder to store post images. Default: blog&rsquo;s config
    </p>
    <p>
-    -no-imgex, &ndash;no-img-extract:
-Disable image extraction from URI and urls.
+    -no-ex, &ndash;no-img-extract:
+Disable image, video extraction from URI, urls and local files.
    </p>
    <p>
     &ndash;topic:
@@ -269,7 +268,7 @@ Folder path of custom template. Default &lsquo;blog_templates_dir&rsquo; value i
    <p>
     &ndash;override-meta:
 Ignore meta topic in favour of &ndash;topic option. More info
-    <a href="meta.html">
+    <a href="meta.md">
      here
     </a>
     .
@@ -278,6 +277,25 @@ Ignore meta topic in favour of &ndash;topic option. More info
     -v, &ndash;verbose:
 Enable verbose flag for detail reporting of what&rsquo;s going on.
    </p>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
    <div class="container">
     <div class="navbar-static-bottom" id="share">
     </div>
@@ -305,13 +323,6 @@ Enable verbose flag for detail reporting of what&rsquo;s going on.
     <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
     </script>
    </div>
-   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
-   </script>
-   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
-   </script>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
-   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
    <link href="../assets/css/light_theme.css" rel="stylesheet"/>
