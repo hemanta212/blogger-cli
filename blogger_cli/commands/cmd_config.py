@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 import click
 from blogger_cli.cli import pass_context
 
@@ -42,6 +43,9 @@ def cli(ctx, remove, blog, configs, restore, verbose):
 
     try:
         value = configs[1]
+        if key in ['blog_dir', 'templates_dir', 'working_dir']:
+            value = ensure_and_expand_dir(value)
+
         ctx.config.write(blog + ":" + key, value)
         ctx.log(key, "->", value)
     except IndexError:
@@ -51,6 +55,16 @@ def cli(ctx, remove, blog, configs, restore, verbose):
         else:
             ctx.log(blog_dict.get(key))
             raise SystemExit(0)
+
+
+def ensure_and_expand_dir(dir):
+    folder = Path(dir)
+    try:
+        full_path = str(folder.expanduser().resolve())
+    except FileNotFoundError as E:
+        raise SystemExit("ERROR:", E, dir)
+
+    return full_path
 
 
 def __get_blog(ctx, blog):

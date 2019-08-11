@@ -45,8 +45,8 @@ def setup(ctx, blog):
                 ctx.config.write('{0}:{1}'.format(blog, k), None)
 
             elif value != 'n':
-                if k in ['blog_dir', 'working_dir']:
-                    value, msg = ensure_and_expand_dir(ctx, value)
+                if k in ['blog_dir', 'working_dir', 'templates_dir']:
+                    value, msg = ensure_and_expand_dir(value)
                     if msg:
                         success = False
                         messages.append(msg)
@@ -64,7 +64,7 @@ def setup(ctx, blog):
         ctx.log("Blog setup completed succesfully")
 
 
-def ensure_and_expand_dir(ctx, dir):
+def ensure_and_expand_dir(dir):
     folder = Path(dir)
     try:
         full_path = str(folder.expanduser().resolve())
