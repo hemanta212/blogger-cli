@@ -197,7 +197,9 @@ def update_posts_index(ctx, snippet_content_map, meta):
 
     snippet = snippet_content_map
     ctx.log(":: File link and title", snippet['link'], '->', snippet['title'])
-    with open(index_path, 'w', encoding='utf8') as wf:
+
+    soup = filter_invalid_index_links(ctx, soup, destination_dir)
+    with open(index_path, 'w', encoding='utf-8') as wf:
         wf.write(soup.prettify(formatter='html'))
 
     ctx.log("Index successfully updated\n")
@@ -261,3 +263,30 @@ def check_and_remove_duplicate_tag(div_tag, file_link):
             ul_tag.decompose()
 
     return div_tag
+
+def filter_invalid_index_links(ctx, soup, blog_posts_dir):
+    ctx.log(":: Checking validity of existing index links...")
+    blog = ctx.current_blog
+    posts_list_div = ctx.config.read(key=blog + ':index_div_name')
+    if not posts_list_div:
+        posts_list_div = 'posts_list'
+
+    posts_list = soup.find('div', class_=posts_list_div)
+    ul_tags = posts_list.find_all('ul')
+    for ul_tag in ul_tags:
+        try:
+            href_data = ul_tag.li.a['href']
+            if (href_data.startswith('http:') or href_data.startswith('file:')
+                    or href_data.startswith('data:')):
+                raise ValueError
+        except:
+            href_data = None
+
+        if href_data:
+            full_path = os.path.join(blog_posts_dir, href_data)
+            if not os.path.exists(full_path):
+                ctx.log(":: WARNING! Deleting invalid index path", full_path)
+                ul_tag.decompose()
+
+    ctx.log(":: Index links checking \ Done!")
+    return soup

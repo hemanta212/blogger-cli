@@ -109,8 +109,7 @@ def extract_images(ctx, images, img_path, filename, blog_post_dir):
             ctx.log(":: Detected DATA URI img. Writing to", image_path)
             img_tag = extract_and_write_uri(img_data, img_tag, image_path,
                                         blog_post_dir)
-        elif ( (img_data.startswith('http') or img_data.startswith('https'))
-                and 'URL' in EXTRACT_LIST):
+        elif img_data.startswith('http') and 'URL' in EXTRACT_LIST:
             img_tag = extract_and_write_url_img(ctx, img_data, img_tag,
                                                 image_path, blog_post_dir)
         else:

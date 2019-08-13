@@ -75,6 +75,6 @@ Open the url http://localhost:8000/ in your browser to view your blog!!
 Please ⭐️ this repository if this project helped you!
 
 ## 📝 License
-Copyright © 2019 [Hemanta Sharma](https://github.com/kefranabg).<br />
+Copyright © 2019 [Hemanta Sharma](https://github.com/hemanta212).<br />
 This project is [MIT](LICENSE) licensed.
 ---
