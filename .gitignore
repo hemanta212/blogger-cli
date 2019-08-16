@@ -13,3 +13,5 @@
 *.ipynb_checkpoints
 *dist*
 *logs*
+*.venv*
+*.vim*

@@ -5,16 +5,17 @@ See a sample blog made by blogger-cli: [Here](https://pykancha.github.io/test/)
 
 ## Why?
 It is easy to get your hands on, works flawlessly and won't get bulky and slow overtime.
-Blogger-cli has a simple conversion system that is fast as well as extremely customizable. 
+Blogger-cli has a simple conversion system that is fast as well as extremely customizable.
 
 
 ## Features
 * Robust conversion of ipynb notebooks with great support for mobile devices as well.
 * Built-in support for disqus, google analytics, navigation bar, social sharing, mathjax and code highlighting.
-* Blog management: updating index, parsing out images, managing topics and metadata. 
+* Support for spell checking, live server and generation of rss/atom feeds.
+* Blog management: updating index, parsing out images, managing topics and metadata.
 * Write and post blogs from android or any micro device. All that is required is command line with python and pip.
 * Built in design, blog_templates for rapidly setting up your blog from scratch.
-* Fully customizable with support for custom themes and templates
+* Fully customizable with support for custom themes and templates.
 * Also support conversion of other file formats like markdown. You can also implement your own.
 
 
@@ -55,6 +56,9 @@ Open the url http://localhost:8000/ in your browser to view your blog!!
 - [Using export command](docs/export.md)
 - [Customizing templates and design](docs/customizing.md)
 - [Writing blog's metadata](docs/meta.md)
+- [Using spellcheck](docs/spellcheck.md)
+- [Generating feed for your blog](docs/feed.md)
+- [Advanced optional configurations](docs/optional_config.md)
 - [Recommended workflow for blogger-cli](docs/workflow.md)
 
 > View docs in: [website](https://hemanta212.github.io/blogger-cli/)

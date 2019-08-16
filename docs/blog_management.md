@@ -64,7 +64,7 @@ To skip without making any changes, type 'n' and press enter. To delete a VALUE 
 
 ## Editing individually
 
-Use blogger info to view all config options for a blog then,
+Use 'blogger info' command to view all config options for a blog then,
 ```
 blogger config -b <blogname> [config option]  [value]
 ```
@@ -125,4 +125,4 @@ You can view these configurations from
 ```
 blogger info --all
 ```
-The usecases of these configs has been specified by this documentation.
+The usecases of these configs has been specified [here](optional_config.md).

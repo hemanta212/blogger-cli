@@ -45,22 +45,22 @@ def extract_videos(ctx, videos, video_path, filename, blog_post_dir):
     def get_name_from_title(video_tag):
         try:
             video_name = video_tag["title"].strip().lower()
-        except:
+        except Exception:
             video_name = None
         return video_name
 
     def get_video_data(video_tag):
         try:
             video_data = video_tag["src"]
-        except:
+        except Exception:
             video_data = video_tag.source["src"]
         return video_data
 
     for index, video_tag in enumerate(videos):
         try:
             video_data = get_video_data(video_tag)
-        except:
-            ctx.log("Cannot find src attribute. Skipping...")
+        except Exception as E:
+            ctx.log("Cannot find src attribute. Skipping...", E)
             continue
 
         video_name = get_name_from_title(video_tag)
@@ -92,7 +92,7 @@ def extract_images(ctx, images, img_path, filename, blog_post_dir):
         img_data = img_tag["src"]
         try:
             image_name = img_tag["title"].strip().lower()
-        except:
+        except Exception:
             image_name = None
 
         if not image_name:
@@ -153,7 +153,6 @@ def extract_and_write_url_img(ctx, img_data, img_tag, image_path, blog_post_dir)
         ctx.vlog(":: Replacing source tag with:", image_src)
     except Exception as E:
         ctx.vlog(":: skipping  the image.", E)
-        pass
 
     return img_tag
 
@@ -226,7 +225,7 @@ def extract_static_files(ctx, file_name, file_path, dest_dir):
         return dest_path
 
 
-def extract_main_and_meta_from_file_content(ctx, file_data):
+def extract_main_and_meta_from_md(ctx, file_data):
     metadata = ""
     meta_start, meta_end = extract_meta_format(ctx)
     first_mark = file_data.find(meta_start) + len(meta_start)
@@ -243,7 +242,8 @@ def extract_main_and_meta_from_file_content(ctx, file_data):
         for key_value in meta_lines:
             key, value = key_value.split(":")
             meta[key.strip()] = value.strip()
-    except:
+    except Exception as E:
+        ctx.vlog(":: warning no meta", E)
         main_data = file_data
 
     ctx.vlog(":: Got metadata", meta)
@@ -256,8 +256,8 @@ def extract_meta_format(ctx):
         meta_signs = [i.strip() for i in meta_separator.strip().split(" ")]
         try:
             meta_start, meta_end = meta_signs
-        except:
-            raise SystemExit("Invalid custom meta format", meta_signs)
+        except Exception as E:
+            raise SystemExit("Invalid custom meta format", meta_signs, E)
 
     else:
         meta_start, meta_end = "<!--", "-->"
@@ -291,6 +291,35 @@ def extract_topic(ctx, meta):
     return topic
 
 
+def extract_meta_from_nbdata(nbdata_file):
+    with open(nbdata_file, "r", encoding="utf-8") as rf:
+        data = rf.read().strip()
+
+    lines = data.split("\n")
+    valid_lines = [i for i in lines if i]
+    meta = {}
+    for key_value in valid_lines:
+        key, value = key_value.split(":")
+        key, value = key.strip(), value.strip()
+        meta[key] = value
+    return meta
+
+
+def get_summary_limit(ctx, file_type=None):
+    config_key = ctx.current_blog + ":" + file_type + "_summary_limit"
+    char_limit = ctx.config.read(key=config_key)
+    if char_limit and "c" in char_limit and file_type == "ipynb":
+        return char_limit
+
+    try:
+        char_limit = int(char_limit) if char_limit else 1000
+    except Exception:
+        ctx.log("Invalid {0}_summary_limit. Using 1000".format(file_type))
+        char_limit = 1000
+
+    return char_limit
+
+
 def extract_text_from_ipynb(ipynb_file):
     with open(ipynb_file, "r", encoding="utf-8") as rf:
         ipynb_dict = json.load(rf)
@@ -301,6 +330,7 @@ def extract_text_from_ipynb(ipynb_file):
         if cell.get("cell_type") == "markdown":
             string = " ".join(cell["source"])
             text += string
+
     return text
 
 

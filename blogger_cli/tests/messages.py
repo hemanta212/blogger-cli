@@ -1,6 +1,6 @@
 class BloggerMessage(object):
 
-    main = '''\
+    main = """\
 Usage: blogger [OPTIONS] COMMAND [ARGS]...
 
   A CLI tool to maintain your blogger blog. Sync, convert and upload :).
@@ -22,21 +22,21 @@ Commands:
   uninstall   Uninstall the custom installation
   update      Update the custom installation
 
-'''
+"""
 
-    addblog_success = '''\
+    addblog_success = """\
 Blog added succesfully
-'''
+"""
 
-    addblog_existing = '''\
+    addblog_existing = """\
 Blog already exists!
-'''
+"""
 
-    rmblog_success = '''\
+    rmblog_success = """\
 Blog removed succesfully
-'''
+"""
 
-    info_success = '''\
+    info_success = """\
 
 Blogger-cli version: 1.1.0
 
@@ -55,8 +55,8 @@ Blog:configs [standard]
 
 Tip: Use blogger info blogname for blog details
 
-'''
-    all_info_success = '''\
+"""
+    all_info_success = """\
 
 Blogger-cli version: 1.1.0
 
@@ -81,7 +81,11 @@ Optional:configs [Advanced]
    working_dir_timestamp
    create_nbdata_file
    delete_ipynb_meta
+   feed_file
+   site_url
+   md_summary_limit
+   ipynb_summary_limit
 
 Tip: Use blogger info blogname for blog details
 
-'''
+"""

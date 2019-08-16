@@ -1,43 +1,98 @@
 import os
 import shutil
-import click
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
-from blogger_cli.commands.convert_utils.classifier import convert_and_copyfiles
+import click
+
 from blogger_cli.blog_manager import add_post
 from blogger_cli.cli import pass_context
+from blogger_cli.commands.convert_utils.classifier import convert_and_copyfiles
 
 
-@click.command('convert', short_help='Convert files to html')
-@click.argument('path', nargs=-1, required=False,
-                type=click.Path(exists=True))
-@click.option('--recursive', '-r', 'recursive', is_flag=True,
-        help="Recusively search folder for files to convert. USE WITH CAUTION")
-@click.option('--not-code', 'iscode', is_flag=True, default=True,
-        help="Do not add mathjax and code support")
-@click.option('-o', 'destination_dir', type=click.Path(exists=True),
-        help="Destination for converted files,DEFAULT from blog_config")
-@click.option('-b', '--blog',
-        help="Name of the blog")
-@click.option('-ex-html', '--exclude-html', 'exclude_html', is_flag=True,
-        help='Ignore html files from conversion')
-@click.option('--img-dir', 'img_dir', type=click.Path(exists=True),
-        help="Folder for post images. Default: blog's config, Destination dir")
-@click.option('-no-ex', '--no-extract', 'extract_static', is_flag=True, default=True,
-        help="Disable resource extraction from files like images from ipynbs")
-@click.option('-t', '--topic', 'topic', type=str,
-        help="Topic in which this post should be placed in index")
-@click.option('-temp', '--template','templates_dir', type=click.Path(exists=True),
-        help="Folder path of custom templates")
-@click.option('--override-meta','override_meta', is_flag=True,
-        help="Ignore meta topic in favour of --topic option")
-@click.option('-v', '--verbose', is_flag=True,
-        help="Enable verbose flag")
+@click.command("convert", short_help="Convert files to html")
+@click.argument(
+    "path", nargs=-1, required=False, type=click.Path(exists=True, readable=True)
+)
+@click.option(
+    "--recursive",
+    "-r",
+    "recursive",
+    is_flag=True,
+    help="Recusively search folder for files to convert. USE WITH CAUTION",
+)
+@click.option(
+    "--not-code",
+    "iscode",
+    is_flag=True,
+    default=True,
+    help="Do not add mathjax and code support",
+)
+@click.option(
+    "-o",
+    "destination_dir",
+    type=click.Path(exists=True, writable=True),
+    help="Destination for converted files,DEFAULT from blog_config",
+)
+@click.option("-b", "--blog", help="Name of the blog")
+@click.option(
+    "-ex-html",
+    "--exclude-html",
+    "exclude_html",
+    is_flag=True,
+    help="Ignore html files from conversion",
+)
+@click.option(
+    "--img-dir",
+    "img_dir",
+    type=click.Path(exists=True),
+    help="Folder for post images. Default: blog's config, Destination dir",
+)
+@click.option(
+    "-no-ex",
+    "--no-extract",
+    "extract_static",
+    is_flag=True,
+    default=True,
+    help="Disable resource extraction from files like images from ipynbs",
+)
+@click.option(
+    "-t",
+    "--topic",
+    "topic",
+    type=str,
+    help="Topic in which this post should be placed in index",
+)
+@click.option(
+    "-temp",
+    "--template",
+    "templates_dir",
+    type=click.Path(exists=True),
+    help="Folder path of custom templates",
+)
+@click.option(
+    "--override-meta",
+    "override_meta",
+    is_flag=True,
+    help="Ignore meta topic in favour of --topic option",
+)
+@click.option("-v", "--verbose", is_flag=True, help="Enable verbose flag")
 @pass_context
-def cli(ctx, path, iscode, blog, exclude_html, extract_static,
-        destination_dir, img_dir, topic, templates_dir,
-        recursive, override_meta, verbose):
+def cli(
+    ctx,
+    path,
+    iscode,
+    blog,
+    exclude_html,
+    extract_static,
+    destination_dir,
+    img_dir,
+    topic,
+    templates_dir,
+    recursive,
+    override_meta,
+    verbose,
+):
     """
     Convert from diffrent file format to html
 
@@ -64,19 +119,25 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_static,
     img_dir = check_and_ensure_img_dir(ctx, destination_dir, img_dir)
     templates_dir = resolve_templates_dir(ctx, templates_dir)
 
-    ctx.log("\nCONVERTING", len(file_ext_map), 'FILES')
-    ctx.vlog("Got files and ext:", file_ext_map, 'img_dir:', img_dir,
-            "templates_dir:", templates_dir)
+    ctx.log("\nCONVERTING", len(file_ext_map), "FILES")
+    ctx.vlog(
+        "Got files and ext:",
+        file_ext_map,
+        "img_dir:",
+        img_dir,
+        "templates_dir:",
+        templates_dir,
+    )
 
     ctx.conversion = {
-            'file_ext_map': file_ext_map,
-            'destination_dir': destination_dir,
-            'iscode': iscode,
-            'img_dir': img_dir,
-            'extract_static': extract_static,
-            'templates_dir':templates_dir,
-            'override_meta': override_meta,
-            'topic': topic
+        "file_ext_map": file_ext_map,
+        "destination_dir": destination_dir,
+        "iscode": iscode,
+        "img_dir": img_dir,
+        "extract_static": extract_static,
+        "templates_dir": templates_dir,
+        "override_meta": override_meta,
+        "topic": topic,
     }
     filenames_meta = convert_and_copyfiles(ctx)
     ctx.log("Converted files successfully.\n\nADDING FILES TO BLOG")
@@ -87,15 +148,15 @@ def cli(ctx, path, iscode, blog, exclude_html, extract_static,
 def get_files_from_working_dir(ctx, recursive):
     ctx.log("\n:: No input files given. Scanning working folder for changes..")
     blog = ctx.current_blog
-    last_checked = ctx.config.read(key=blog + ': working_dir_timestamp')
-    working_dir = ctx.config.read(key=blog + ': working_dir')
+    last_checked = ctx.config.read(key=blog + ": working_dir_timestamp")
+    working_dir = ctx.config.read(key=blog + ": working_dir")
     working_dir = Path(str(working_dir))
     if not working_dir or not working_dir.exists():
         ctx.log(":: Working folder doesnot exist")
         raise SystemExit(":: ERROR: No input files")
 
     current_timestamp = datetime.today().timestamp()
-    ctx.config.write(blog + ':working_dir_timestamp', current_timestamp)
+    ctx.config.write(blog + ":working_dir_timestamp", current_timestamp)
 
     if not last_checked:
         return str(working_dir)
@@ -103,10 +164,11 @@ def get_files_from_working_dir(ctx, recursive):
     try:
         last_checked = float(last_checked)
     except:
-        ctx.log("Parse error for last sync. Please convert",
-                "files manually or convert all files in your working_dir")
+        ctx.log(
+            "Parse error for last sync. Please convert",
+            "files manually or convert all files in your working_dir",
+        )
         raise SystemExit("ERROR: Last sync date invalid")
-
 
     def is_modified_file(path):
         if not path.is_file():
@@ -116,18 +178,17 @@ def get_files_from_working_dir(ctx, recursive):
 
         return False
 
-
     all_files = []
 
     for item in working_dir.iterdir():
         if item.is_file():
             if is_modified_file(item):
-                all_files.append( str(item.resolve()) )
+                all_files.append(str(item.resolve()))
             else:
                 continue
 
         elif recursive:
-            items = item.rglob('*')
+            items = item.rglob("*")
             files = [str(i.resolve()) for i in items if is_modified_file(i)]
             all_files += files
 
@@ -144,8 +205,8 @@ def get_files_being_converted(path, recursive=False):
             continue
 
         if recursive:
-            items = Path(item).rglob('*')
-            files = [ str(i.resolve()) for i in items if i.is_file() ]
+            items = Path(item).rglob("*")
+            files = [str(i.resolve()) for i in items if i.is_file()]
             all_files += files
         elif not recursive:
             items = get_all_files(item)
@@ -165,12 +226,16 @@ def get_all_files(folder):
 
 
 def check_and_ensure_destination_dir(ctx, output_dir):
-    blog  = ctx.current_blog
-    blog_dir = ctx.config.read(key=blog+': blog_dir')
-    posts_dir = ctx.config.read(key=blog + ' : blog_posts_dir')
+    blog = ctx.current_blog
+    blog_dir = ctx.config.read(key=blog + ": blog_dir")
+    posts_dir = ctx.config.read(key=blog + " : blog_posts_dir")
     if not posts_dir and not output_dir:
-        ctx.log("No target folder set. Specify one with -o option or",
-            "setup in your", blog, "blog's config")
+        ctx.log(
+            "No target folder set. Specify one with -o option or",
+            "setup in your",
+            blog,
+            "blog's config",
+        )
         raise SystemExit("ERROR: NO OUTPUT FOLDER")
 
     if posts_dir:
@@ -188,16 +253,20 @@ def check_and_ensure_destination_dir(ctx, output_dir):
 
 def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
     blog = ctx.current_blog
-    blog_dir = ctx.config.read(key=blog+': blog_dir')
-    blog_img_dir = ctx.config.read(key=blog+': blog_images_dir')
+    blog_dir = ctx.config.read(key=blog + ": blog_dir")
+    blog_img_dir = ctx.config.read(key=blog + ": blog_images_dir")
 
     if not blog_img_dir and not output_img_dir:
-        ctx.log("No images folder given. Specify one with -o option or",
-            "setup in your", blog, "blog's config")
+        ctx.log(
+            "No images folder given. Specify one with -o option or",
+            "setup in your",
+            blog,
+            "blog's config",
+        )
         ctx.log("If you want to avoid extracting images use -no-ex  option.")
 
         if click.confirm("Put images dir in same folder as blog posts?"):
-            img_dir = os.path.join(destination_dir, 'images')
+            img_dir = os.path.join(destination_dir, "images")
             return img_dir
         else:
             raise SystemExit("ERROR: NO OUTPUT FOLDER")
@@ -217,8 +286,8 @@ def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
 
 def resolve_templates_dir(ctx, templates_dir_from_cmd):
     blog = ctx.current_blog
-    blog_dir = ctx.config.read(key=blog+': blog_dir')
-    blog_templates_dir = ctx.config.read(key=blog + ': templates_dir')
+    blog_dir = ctx.config.read(key=blog + ": blog_dir")
+    blog_templates_dir = ctx.config.read(key=blog + ": templates_dir")
     templates_dir = blog_templates_dir
 
     if templates_dir_from_cmd:
@@ -245,7 +314,7 @@ def get_file_ext_map(ctx, exclude_html, files_being_converted):
     file_ext_map = {}
 
     if exclude_html:
-        ctx.SUPPORTED_EXTENSIONS.remove('html')
+        ctx.SUPPORTED_EXTENSIONS.remove("html")
 
     for file in files_being_converted:
         ext = get_file_ext(file)

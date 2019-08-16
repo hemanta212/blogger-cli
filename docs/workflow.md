@@ -1,4 +1,4 @@
-# Intended workflow for blogger-cli
+# Recommended workflow for blogger-cli
 Naturally you won't have more than 2/3 blog's to manage (Although you can manage how much blog you like).
 Your blogs are accessible globally. You do not need to be in your blog's folder.
 

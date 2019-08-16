@@ -1,8 +1,13 @@
 import os
+import click
 
-__version__ = '1.1.0'
+__version__ = "1.1.0"
 ROOT_DIR = os.path.join(os.path.split(__file__)[0])
-RESOURCE_DIR = os.path.join(os.path.split(__file__)[0], 'resources')
+RESOURCE_DIR = os.path.join(os.path.split(__file__)[0], "resources")
 
-HOME = os.path.expanduser('~')
-CONFIG_DIR = os.path.join(HOME, '.config', 'blogger_cli')
+CONFIG_DIR = click.get_app_dir("blogger_cli")
+BACKUP_DIR = os.path.join(CONFIG_DIR, "backup")
+
+for DIR in (CONFIG_DIR, BACKUP_DIR):
+    if not os.path.exists(DIR):
+        os.makedirs(DIR)
