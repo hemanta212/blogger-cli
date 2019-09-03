@@ -235,6 +235,14 @@ six = "*"
 
 [[package]]
 category = "main"
+description = "Pure python spell checker based on work by Peter Norvig"
+name = "pyspellchecker"
+optional = false
+python-versions = "*"
+version = "0.5.0"
+
+[[package]]
+category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -285,7 +293,7 @@ python-versions = "*"
 version = "0.5.1"
 
 [metadata]
-content-hash = "46965871ce97572040c16c806646306646cbddc0ac82f46271e49e7adf615c6b"
+content-hash = "df73d8e0c70fc6a0ac52b65d64814bea8ba9c2d746cd91a9765db5b6551bc1d2"
 python-versions = "^3.5"
 
 [metadata.hashes]
@@ -309,6 +317,7 @@ nbformat = ["b9a0dbdbd45bb034f4f8893cafd6f652ea08c8c1674ba83f2dc55d3955743b0b", 
 pandocfilters = ["b3dd70e169bb5449e6bc6ff96aea89c5eea8c5f6ab5e207fc2f521a2cf4a0da9"]
 pygments = ["71e430bc85c88a430f000ac1d9b331d2407f681d6f6aec95e8bcfbc3df5b0127", "881c4c157e45f30af185c1ffe8d549d48ac9127433f2c380c24b84572ad66297"]
 pyrsistent = ["16692ee739d42cf5e39cef8d27649a8c1fdb7aa99887098f1460057c5eb75c3a"]
+pyspellchecker = ["31c917e7531a306b16d3b5345f8880421e5aae3ef757d61032ebed5b32feaa14", "a6e42b3586614955d2c4b34f2d5777d362f1cd420c8371bfc5865f8001a19e3f"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 soupsieve = ["6898e82ecb03772a0d82bd0d0a10c0d6dcc342f77e0701d0ec4a8271be465ece", "b20eff5e564529711544066d7dc0f7661df41232ae263619dede5059799cdfca"]
 testpath = ["46c89ebb683f473ffe2aab0ed9f12581d4d078308a3cb3765d79c6b2317b0109", "b694b3d9288dbd81685c5d2e7140b81365d46c29f5db4bc659de5aa6b98780f8"]
