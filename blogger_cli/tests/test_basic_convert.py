@@ -30,7 +30,7 @@ class TestBasic(unittest.TestCase):
 
         result = self.runner.invoke(cli, ["convert", "-b", "test1", html_path, "-v"])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(["blog", "images"], os.listdir(self.export_dir))
+        self.assertEqual({"blog", "images"}, set(os.listdir(self.export_dir)))
 
         self.assertEqual({"html.html", "index.html"}, set(os.listdir(self.blog_dir)))
         self.assertEqual(

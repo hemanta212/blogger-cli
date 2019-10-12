@@ -286,7 +286,6 @@ def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
 
 def resolve_templates_dir(ctx, templates_dir_from_cmd):
     blog = ctx.current_blog
-    blog_dir = ctx.config.read(key=blog + ": blog_dir")
     blog_templates_dir = ctx.config.read(key=blog + ": templates_dir")
     templates_dir = blog_templates_dir
 

@@ -9,7 +9,6 @@ import shutil
 import unittest
 from click.testing import CliRunner
 from blogger_cli.cli import cli
-from blogger_cli.tests.messages import BloggerMessage as BM
 
 
 class TestBasic(unittest.TestCase):
