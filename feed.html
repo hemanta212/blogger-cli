@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139924028-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-139924028-1');
+  </script>
+  <meta content="" name="description"/>
+  <meta content="Hemanta Sharma" name="author"/>
+  <title>
+   Feeds in blogger
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
+  </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$",'$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                // Center justify equations in code and markdown cells. Elsewhere
+                // we use CSS to left justify single line equations in code cells.
+                displayAlign: 'center',
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}},
+                    linebreaks: { automatic: true }
+                }
+            });
+  </script>
+ </head>
+ <body>
+  <nav class="navbar navbar-default">
+   <div class="container text-center">
+    <div class="navbar-collapse" id="navbar">
+     <ul class="nav navbar-nav">
+      <li>
+       <a href="../index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a href="index.html">
+        Blog
+       </a>
+      </li>
+      <li>
+       <a href="../projects.html/">
+        Projects
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <div id="content">
+   <p>
+    <a id="orgad6581f">
+    </a>
+   </p>
+   <h1>
+    Feeds in blogger
+   </h1>
+   <h1>
+    Table of Contents
+   </h1>
+   <ol>
+    <li>
+     <a href="#org44119c8">
+      Introduction
+     </a>
+    </li>
+    <li>
+     <a href="#org9ef5f13">
+      Creating a feed.
+     </a>
+    </li>
+    <li>
+     <a href="#org04b5e16">
+      Using an existing feed.
+     </a>
+     <ol>
+      <li>
+       <a href="#orgc51c26e">
+        Adding entries
+       </a>
+      </li>
+      <li>
+       <a href="#orga2fcc10">
+        Duplicate entries/ Updating entries:
+       </a>
+      </li>
+     </ol>
+    </li>
+   </ol>
+   <p>
+    <a id="org44119c8">
+    </a>
+   </p>
+   <h2>
+    Introduction
+   </h2>
+   <p>
+    The feed is a feature you can use to generate rss/atom feed for your blog.
+With this you&rsquo;ll be able to:
+   </p>
+   <ul>
+    <li>
+     Generate a new rss/atom feed from scratch.
+    </li>
+    <li>
+     Use an existing rss/atom feed to append entries to it.
+    </li>
+    <li>
+     Specify a default feed file to be used by blogger, thus manage multiple feed files.
+    </li>
+   </ul>
+   <p>
+    To use, let&rsquo;s start by setting config file in config.
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; feed_file path/to/feed/file
+</code></pre>
+   <p>
+    Of course, the file doesnot have to exist. If you want the feed file to be out of your blog folder,
+you need to provide absolute path. Other path will simply be interpreted relative to blog_dir.
+   </p>
+   <pre class="prettyprint"><code>#1. This resolves to blog_dir/blog/feed.xml
+$ blogger config -b &lt;blogname&gt; feed_file blog/feed.xml
+
+#2. This resolves to ~/.my_files/feed.xml
+$ blogger config -b &lt;blogname&gt; feed_file ~/.my_files/feed.xml
+</code></pre>
+   <p>
+    Similary, you can also set &lsquo;site_url&rsquo; config now with your website name which helps to resolve absolute link of your post.
+   </p>
+   <p>
+    <a id="org9ef5f13">
+    </a>
+   </p>
+   <h2>
+    Creating a feed.
+   </h2>
+   <p>
+    If you don&rsquo;t have a feed for your blog, you can create one using:
+   </p>
+   <pre class="prettyprint"><code>#1. creates atom feed by default
+$ blogger addfeed -b &lt;blogname&gt; --setup
+
+#2. To create rss feed
+$ blogger addfeed -b &lt;blogname&gt; --setup -rss
+</code></pre>
+   <p>
+    You&rsquo;ll be prompted to set feed file path if you haven&rsquo;t already. A set of questions will be asked to setup your feed.
+   </p>
+   <p>
+    <a id="org04b5e16">
+    </a>
+   </p>
+   <h2>
+    Using an existing feed.
+   </h2>
+   <p>
+    Whether you created feed file with blogger or had existing feed file, you should be able to add entries to it.
+The type of feed file will be automatically determined. Entries will be appended to it as you add your posts to it.
+However, note that the indentation of whole file will change to two space indentation.
+   </p>
+   <p>
+    <a id="orgc51c26e">
+    </a>
+   </p>
+   <h3>
+    Adding entries
+   </h3>
+   <p>
+    A normal entry consists of:
+   </p>
+   <ul>
+    <li>
+     title
+    </li>
+    <li>
+     content [optional]  # summary or even the whole post.
+    </li>
+    <li>
+     link
+    </li>
+   </ul>
+   <p>
+    You have to provide a file argument to addfeed command which SHOULD be inside your blog and MUST have &ldquo;.html&rdquo; extension. The &lsquo;link&rsquo; is then automatically interpreted.
+However you have to provide &ndash;title/-t and &ndash;content/-c option. You can omit &ndash;content option if you want.
+Blogger has -i/&ndash;interactive command as well if you want to set title and content in your default editor.
+   </p>
+   <pre class="prettyprint"><code>$ blogger addfeed -b &lt;blogname&gt; file/path --title MYPOST --content HI
+$ blogger addfeed -b &lt;blogname&gt; file/path --title "Only Title"
+</code></pre>
+   <p>
+    Now, if the file was converted by blogger(version &gt;=1.2) then blogger can automatically fill title and content too as metadata &lsquo;title&rsquo;, &lsquo;content&rsquo;(if any) are cached after conversion. This file is in &lsquo;~/.config/blogger_cli/
+    <blogname>
+     /meta.json&rsquo; file. To control what goes to content see
+     <a href="#content_options">
+      content options
+     </a>
+    </blogname>
+   </p>
+   <p>
+    Of course you can always override those cached title and content by passing the &ndash;title and --content option to addfeed command.
+   </p>
+   <pre class="prettyprint"><code>$ blogger addfeed -b &lt;blogname&gt; file/path
+</code></pre>
+   <p>
+    <a id="orga2fcc10">
+    </a>
+   </p>
+   <h3>
+    Duplicate entries/ Updating entries:
+   </h3>
+   <p>
+    In a feed, &lsquo;blogger&rsquo; identifies entries by their links. When it encounters duplicate entry in &lsquo;addfeed&rsquo; command then it simply deletes the old and updates it with current one.
+&lsquo;blogger&rsquo; however, keeps the id&rsquo;s(&lsquo;id&rsquo; in atom and &lsquo;guid&rsquo; in rss feeds) of feed entries unchanged.
+   </p>
+   <p>
+    <a id="content_options">
+    </a>
+   </p>
+   <h3>
+    Content options
+   </h3>
+   <p>
+    You can control what summary is extracted and cached for markdown and ipynb file. As of now, summary extraction is not available for html file however manual entries are supported.
+   </p>
+   <p>
+    You can control the maximum number of charectars to inclue from md and ipynb post. Similary for ipynb you can specify nth markdown cell (where n is a integer).
+   </p>
+   <p>
+    To specify you need to set &lsquo;md_summary_limit&rsquo; and &lsquo;ipynb_summary_limit&rsquo; config keys. The value is number. 1000 charectars is default for md files.
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; md_summary_limit 100
+$ blogger config -b &lt;blogname&gt; ipynb_summary_limit 200
+</code></pre>
+   <p>
+    In ipynb files the charectar limit applies from 2nd md cell. The first md cell is assumed to be title and left out from summary.
+   </p>
+   <p>
+    Similarly to set cell no in ipynb you can use c[1,2,3] eg: c1, c2 to select 1st and 2nd markdown cell&rsquo;s text respectively. The default value is c2 for every ipynb file.
+   </p>
+   <pre class="prettyprint"><code># Selects second markdown cell in notebook
+$ blogger config -b &lt;blogname&gt; ipynb_summary_limit c2
+</code></pre>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
+   <div class="container">
+    <div class="navbar-static-bottom" id="share">
+    </div>
+    <script>
+     $("#share").jsSocials({
+                    shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+                });
+    </script>
+    <div id="disqus_thread">
+    </div>
+    <script>
+     (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                    s.src = 'https://hemanta212.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+    </script>
+    <noscript>
+     Please enable JavaScript to view the
+     <a href="https://disqus.com/?ref_noscript">
+      comments powered by Disqus.
+     </a>
+    </noscript>
+    <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
+    </script>
+   </div>
+   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
+   </script>
+   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+  </div>
+ </body>
+</html>

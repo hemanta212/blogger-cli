@@ -17,7 +17,7 @@
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   Meta
+   Spellchecking (Experimental)
   </title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../assets/css/custom.css" rel="stylesheet"/>
@@ -68,94 +68,64 @@
   </nav>
   <div id="content">
    <h1>
-    Meta
+    Spellchecking (Experimental)
    </h1>
-   <h2>
-    Content
-   </h2>
-   <ol>
-    <li>
-     <a href="#Syntax-for-meta">
-      Syntax for meta
-     </a>
-    </li>
-    <li>
-     <a href="#Meta-for-md-files">
-      Meta for md files
-     </a>
-    </li>
-    <li>
-     <a href="#Meta-for-ipynb-files">
-      Meta for ipynb files
-     </a>
-    </li>
-    <li>
-     <a href="#Conversion-of-meta">
-      Conversion of meta
-     </a>
-    </li>
-   </ol>
-   <h2>
-    Syntax for meta
-   </h2>
    <p>
-    The default syntax for writing meta is like that of html comment ie.
-   </p>
-   <pre class="prettyprint"><code>&lt;!--
-key: value
---&gt;
-</code></pre>
-   <p>
-    It is choosen because it is hidden while rendering by default.
-However, this is not forced. You can change the syntax easily by
-   </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; meta_format "/* */"
-</code></pre>
-   <p>
-    will make the syntax something like
-   </p>
-   <pre class="prettyprint"><code>/*
-key: value
-*/
-</code></pre>
-   <h2>
-    Meta for md files
-   </h2>
-   <p>
-    For md files, it is recommended that you write the meta at top of the file.
-However, technically you can write it wherever you want as far as it is the first occurence of the meta format.
+    Spellchecking is available in blogger for &lsquo;html&rsquo;, &lsquo;ipynb&rsquo; and &lsquo;markdown&rsquo; files. It is best supported in markdown files. However, technically you can run the &lsquo;spellcheck&rsquo; command on any type of file.
    </p>
    <h2>
-    Meta for ipynb files
+    Usage
    </h2>
    <p>
-    For ipynb file meta is lot diverse. You can declare meta in first raw cell.
-Your meta will be read then deleted making your notebooks clean. The meta will be written to
-    <filename>
-     .nbdata file where
-     <filename>
-      is the same name as your notebook&rsquo;s name.
-     </filename>
-    </filename>
+    The command only takes a single parameter that is file path.
    </p>
-   <p>
-    Similarly you can make a separate .nbdata file with same name as notebook and blogger will read it during conversion.
-   </p>
-   <p>
-    Although above is default behaviour you can stop creation of .nbdata files by setting create_nbdata_file to false and stop the deletion of meta cell in notebook by delete_ipynb_meta to false.
-   </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; create_nbdata_file false
-blogger config -b &lt;blogname&gt; delete_ipynb_meta false
+   <pre class="prettyprint"><code>$ blogger spellcheck  ~/test.md
 </code></pre>
-   <blockquote>
-    <p>
-     Well, you might want to use
-     <code>
-      &lt;!--
-     </code>
-     meta formatter in the first raw/markdown cell. It will be completely hidden while rendering and you need not maintain a separate nbdata file.
-    </p>
-   </blockquote>
+   <p>
+    It outputs incorrect words, its line no and suggestion(if available)
+Due to pyspellcheck being slow in large files it&rsquo;s suggestions is not displayed. You can use -f to force suggestions.
+   </p>
+   <h2>
+    Performance
+   </h2>
+   <p>
+    Spellchecking, apparently is not easy job. An offline blogger engine can only do so much.
+There are some issues with spellchecking.
+- Text extraction
+- Speed of suggestion
+   </p>
+   <h3>
+    Speed of suggestion
+   </h3>
+   <p>
+    The following library are used by blogger to provide this functionality:
+- misspellings
+- pyspellcheck
+   </p>
+   <p>
+    Both are available offline. Misspellings has collection of misspelling-&gt;correct word map.
+It is much faster but it&rsquo;s scope is low and only catch common english errors.
+You can get incorrect words and suggestions if misspellings catches it.
+   </p>
+   <p>
+    Similarly, pyspellcheck almost catches all incorrect spellings. But running its suggestion engine in blog posts files is very expensive so suggestions are not available.
+   </p>
+   <p>
+    Pyspellcheck, obiously is not complete as it sometimes can label correct words as incorrect especially if thery are slang words, brand names and such.
+   </p>
+   <h3>
+    Text extraction
+   </h3>
+   <p>
+    Extracting sentence structure is difficult without Natural language processing. Blogger instead splits each words and passes into spell check. This leads to some problems where the words at last of sentence get extracted along with grammatical symbols and are marked as incorrect words like &lsquo;good?&rsquo;, &lsquo;go.&rsquo;, etc.
+Ignoring words with these symbols was not an option as it may suppress real incorrect words.
+   </p>
+   <p>
+    However, html tags and other redundancies are eliminated.
+   </p>
+   <p>
+    To sum up, &lsquo;spellcheck&rsquo; command leaves you to filter through incorrect and analyze mistakes for most part.
+   </p>
    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
    </script>
    <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">

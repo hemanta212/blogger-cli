@@ -3,42 +3,29 @@ This script will install blogger-cli and its dependencies
 in isolation from the rest of the system.
 
 It does, in order:
-  - Downloads the latest stable (or pre-release) version of blogger-cli.
+  - Downloads the latest stable version of blogger-cli.
   - Downloads all its dependencies in the blogger-cli/venv directory.
   - Copies it and all extra files in $BLOGGER_CLI_HOME.
   - Updates the PATH in a system-specific way.
 
 There will be a `blogger` script that will be installed in $BLOGGER_CLI_HOME/bin
-which will act as the blogger command but is slightly different in the sense
-that it will use the current Python installation.
-
-What this means is that one blogger-cli installation can serve for multiple
-Python versions.
 """
+
 import argparse
-import json
 import os
 import platform
-import re
 import shutil
 import stat
 import subprocess
 import sys
-import tarfile
-import tempfile
 
 from contextlib import closing
-from contextlib import contextmanager
-from functools import cmp_to_key
-from gzip import GzipFile
 from io import UnsupportedOperation
 
 try:
-    from urllib.error import HTTPError
     from urllib.request import Request
     from urllib.request import urlopen
 except ImportError:
-    from urllib2 import HTTPError
     from urllib2 import Request
     from urllib2 import urlopen
 
@@ -166,7 +153,7 @@ def expanduser(path):
 
 
 HOME = expanduser("~")
-LINUX_HOME = os.path.join(HOME, 'local', '.blogger_cli')
+LINUX_HOME = os.path.join(HOME, "local", ".blogger_cli")
 WINDOWS_HOME = os.path.join(HOME, ".blogger_cli")
 BLOGGER_CLI_HOME = WINDOWS_HOME if WINDOWS else LINUX_HOME
 BLOGGER_CLI_BIN = os.path.join(BLOGGER_CLI_HOME, "bin")
@@ -259,12 +246,7 @@ class Installer:
     CURRENT_PYTHON = sys.executable
     CURRENT_PYTHON_VERSION = sys.version_info[:2]
 
-    def __init__(
-        self,
-        version=None,
-        force=False,
-        accept_all=False,
-    ):
+    def __init__(self, version=None, force=False, accept_all=False):
         self._version = version
         self._force = force
         self._modify_path = True
@@ -348,7 +330,7 @@ class Installer:
         """
         Installs Blogger-cli in $BLOGGER_CLI_HOME.
         """
-        version = self._version if self._version else 'Latest'
+        version = self._version if self._version else "Latest"
         print("Installing version: " + colorize("info", version))
 
         self.make_venv()
@@ -357,7 +339,6 @@ class Installer:
         self.update_path()
 
         return 0
-
 
     def make_venv(self):
         """
@@ -391,22 +372,22 @@ class Installer:
         major, minor = self.CURRENT_PYTHON_VERSION
         if not os.path.exists(BLOGGER_CLI_VENV):
             import venv
+
             print("Making virtualenv in", BLOGGER_CLI_VENV)
             venv.create(BLOGGER_CLI_VENV, with_pip=True)
 
-        windows_path = os.path.join(BLOGGER_CLI_VENV, 'Scripts', 'python')
-        linux_path = os.path.join(BLOGGER_CLI_VENV, 'bin', 'python')
+        windows_path = os.path.join(BLOGGER_CLI_VENV, "Scripts", "python")
+        linux_path = os.path.join(BLOGGER_CLI_VENV, "bin", "python")
         new_python = windows_path if WINDOWS else linux_path
-        new_pip = new_python + ' -m pip'
+        new_pip = new_python + " -m pip"
 
         if self._version:
-            install_cmd = new_pip + ' install blogger-cli==' + self._version
+            install_cmd = new_pip + " install blogger-cli==" + self._version
         else:
-            install_cmd = new_pip + ' install blogger-cli'
+            install_cmd = new_pip + " install blogger-cli"
 
         BIN = BIN.format(python_path=new_python)
-        BAT = BAT.format(python_path=new_python,
-                        blogger_cli_bin='{blogger_cli_bin}')
+        BAT = BAT.format(python_path=new_python, blogger_cli_bin="{blogger_cli_bin}")
 
         os.system(install_cmd)
 
@@ -418,9 +399,9 @@ class Installer:
             with open(os.path.join(BLOGGER_CLI_BIN, "blogger.bat"), "w") as f:
                 f.write(
                     BAT.format(
-                        blogger_cli_bin=os.path.join(BLOGGER_CLI_BIN, "blogger").replace(
-                            os.environ["USERPROFILE"], "%USERPROFILE%"
-                        )
+                        blogger_cli_bin=os.path.join(
+                            BLOGGER_CLI_BIN, "blogger"
+                        ).replace(os.environ["USERPROFILE"], "%USERPROFILE%")
                     )
                 )
 
@@ -430,7 +411,9 @@ class Installer:
         if not WINDOWS:
             # Making the file executable
             st = os.stat(os.path.join(BLOGGER_CLI_BIN, "blogger"))
-            os.chmod(os.path.join(BLOGGER_CLI_BIN, "blogger"), st.st_mode | stat.S_IEXEC)
+            os.chmod(
+                os.path.join(BLOGGER_CLI_BIN, "blogger"), st.st_mode | stat.S_IEXEC
+            )
 
     def make_env(self):
         if WINDOWS:
@@ -465,7 +448,6 @@ class Installer:
                     f.write(self.linux_addition)
 
                 updated.append(os.path.relpath(profile, HOME))
-
 
     def add_to_windows_path(self):
         try:
@@ -595,7 +577,9 @@ class Installer:
 
     def display_pre_message(self):
         if WINDOWS:
-            home = BLOGGER_CLI_BIN.replace(os.getenv("USERPROFILE", ""), "%USERPROFILE%")
+            home = BLOGGER_CLI_BIN.replace(
+                os.getenv("USERPROFILE", ""), "%USERPROFILE%"
+            )
         else:
             home = BLOGGER_CLI_BIN.replace(os.getenv("HOME", ""), "$HOME")
 
@@ -652,12 +636,14 @@ class Installer:
             )
         else:
             message = POST_MESSAGE_UNIX
-            blogger_cli_home_bin = BLOGGER_CLI_BIN.replace(os.getenv("HOME", ""), "$HOME")
+            blogger_cli_home_bin = BLOGGER_CLI_BIN.replace(
+                os.getenv("HOME", ""), "$HOME"
+            )
             kwargs["blogger_cli_home_env"] = colorize(
                 "comment", BLOGGER_CLI_ENV.replace(os.getenv("HOME", ""), "$HOME")
             )
 
-            kwargs['linux_addition'] = self.linux_addition
+            kwargs["linux_addition"] = self.linux_addition
 
         kwargs["blogger_cli_home_bin"] = colorize("comment", blogger_cli_home_bin)
         print(message.format(**kwargs))

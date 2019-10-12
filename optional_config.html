@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139924028-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-139924028-1');
+  </script>
+  <meta content="" name="description"/>
+  <meta content="Hemanta Sharma" name="author"/>
+  <title>
+   Optional configs
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
+  </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$",'$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                // Center justify equations in code and markdown cells. Elsewhere
+                // we use CSS to left justify single line equations in code cells.
+                displayAlign: 'center',
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}},
+                    linebreaks: { automatic: true }
+                }
+            });
+  </script>
+ </head>
+ <body>
+  <nav class="navbar navbar-default">
+   <div class="container text-center">
+    <div class="navbar-collapse" id="navbar">
+     <ul class="nav navbar-nav">
+      <li>
+       <a href="../index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a href="index.html">
+        Blog
+       </a>
+      </li>
+      <li>
+       <a href="../projects.html/">
+        Projects
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <div id="content">
+   <h1>
+    Optional configs
+   </h1>
+   <p>
+    These optional configs help you to control blogger&rsquo;s certain behaviour. They are not meant to be
+changed frequently, try to keep them consistent. All of them are handled through the config command.
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; config_name value
+</code></pre>
+   <p>
+    All config names can be listed through &lsquo;info&rsquo; command passing option &lsquo;&ndash;all&rsquo;
+   </p>
+   <pre class="prettyprint"><code>$ blogger info --all
+</code></pre>
+   <h2>
+    Meta format
+   </h2>
+   <p>
+    The &lsquo;meta_format&rsquo; config determines the comment format for meta in md and ipynb files).
+The default is &lsquo;
+    <!-- -->
+    &lsquo; format. You can specify new meta_format by using the config command.
+A meta format has a beginning pattern then a space and ending pattern. The beginning and ending pattern can be same but not necessarily.
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; meta_format '*/ /*'
+</code></pre>
+   <h2>
+    Post extract list
+   </h2>
+   <p>
+    The &lsquo;post_extract_list&rsquo; controls what static resource is extracted.
+The static resource are images and videos. Blogger by default downloads images from URL and converts URI images to png. You can set post_extract_list config to control what gets extracted.
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; post_extract_list ['URI', 'URL']
+$ blogger config -b &lt;blogname&gt; post_extract_list ['URL']
+$ blogger config -b &lt;blogname&gt; post_extract_list ['URI']
+</code></pre>
+   <p>
+    1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
+   </p>
+   <h2>
+    Filter post without title
+   </h2>
+   <p>
+    &lsquo;filter_post_without_title&rsquo; config is either true or false. It will filter or prevent all those posts that doesnot have
+title from indexing in the index. However this doesnot prevent or stop the conversion of file in any way. It will not be present in index.html.
+   </p>
+   <h2>
+    Working dir timestamp
+   </h2>
+   <p>
+    It is the datetime in timestamp form. It represents the last datetime when working dir was checked by blogger. It&rsquo;s mainly for internal use.
+   </p>
+   <h2>
+    Index div name
+   </h2>
+   <p>
+    &lsquo;index_div_name&rsquo; is the name of class of the posts list in index.html file of blog. This helps to add entries there. This assumes that the list of posts are inside a div. The div&rsquo;s class is given so blogger can get that container and append entries to it.
+   </p>
+   <h2>
+    Create nbdata file
+   </h2>
+   <p>
+    &lsquo;create_nbdata_file&rsquo; is config accepting &lsquo;true&rsquo; or &lsquo;false&rsquo;. Enabling it will create nbdata file from meta found in original ipynb file. It will have every key value from metadata. Similary, the nbdata file will have the same name as ipynb file except of &lsquo;.nbdata&rsquo; file ext. By default it is &lsquo;true&rsquo;.
+   </p>
+   <h2>
+    Delete ipynb meta
+   </h2>
+   <p>
+    By default, blogger deletes the meta present in ipynb file after reading it and writes to a separate nbdata file. This can be controlled by setting &lsquo;delete_iynb_meta&rsquo; config. The default value is &lsquo;true&rsquo;.
+   </p>
+   <h2>
+    Feed file
+   </h2>
+   <p>
+    This is the location of feed file for your blog. The &lsquo;addfeed&rsquo; command will use it. The value of &lsquo;feed_file&rsquo; if given relative will be interpreted with respect to blog_dir otherwise if absolute path is given, that will be used.
+   </p>
+   <h2>
+    Site URL
+   </h2>
+   <p>
+    &lsquo;site_url&rsquo; is the url of your website. It is used for feed to resolve and contruct feed_entries url and feed&rsquo;s url itself.
+   </p>
+   <h2>
+    Md summary limit
+   </h2>
+   <p>
+    This is limit in no of charectars to include in extraction of summary for md. While converting md files blogger extracts the summary, title and keeps a cache for later use in addfeed command.
+You can control how much charectar to include in summary by setting this config. The default value is 1000
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; md_summary_limit 1000
+</code></pre>
+   <h2>
+    Ipynb summary limit
+   </h2>
+   <p>
+    This limit is similar to md. Here the text are extracted from each markdown cells except 1st one and joined. The first one is reserved for title so it isn&rsquo;t included in summary. Then the charectar limit is used in that to construct summary. The value is in integer.
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; ipynb_summary_limit 1000
+</code></pre>
+   <p>
+    However, you can also specify which cell number to be used using &lsquo;c&rsquo; before cell number.
+The default is c2. ie 2nd  markdown cell is used in summary
+   </p>
+   <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; ipynb_summary_limit c2
+</code></pre>
+   <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
+   </script>
+   <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
+   </script>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" rel="stylesheet" type="text/css"/>
+   <link href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" rel="stylesheet" type="text/css"/>
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <!--
+Script to remove the notebook prompt:
+In[12]
+Out[12]
+-->
+   <script>
+    var prompts = document.getElementsByClassName('prompt');
+
+    while(prompts[0]) {
+    prompts[0].parentNode.removeChild(prompts[0]);
+    }
+   </script>
+   <div class="container">
+    <div class="navbar-static-bottom" id="share">
+    </div>
+    <script>
+     $("#share").jsSocials({
+                    shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+                });
+    </script>
+    <div id="disqus_thread">
+    </div>
+    <script>
+     (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                    s.src = 'https://hemanta212.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+    </script>
+    <noscript>
+     Please enable JavaScript to view the
+     <a href="https://disqus.com/?ref_noscript">
+      comments powered by Disqus.
+     </a>
+    </noscript>
+    <script async="" id="dsq-count-scr" src="//hemanta212.disqus.com/count.js">
+    </script>
+   </div>
+   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
+   </script>
+   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+  </div>
+ </body>
+</html>
