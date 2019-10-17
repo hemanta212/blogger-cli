@@ -17,10 +17,10 @@
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   Spellchecking (Experimental)
+   Installation Guide
   </title>
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../../assets/css/custom.css" rel="stylesheet"/>
   <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
@@ -48,18 +48,28 @@
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
       <li>
-       <a href="../index.html">
+       <a href="../../index.html">
         Home
        </a>
       </li>
       <li>
-       <a href="index.html">
+       <a href="../../blog/index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html/">
+       <a href="../../projects.html/">
         Projects
+       </a>
+      </li>
+      <li>
+       <a href="../../teaching.html/">
+        Teaching
+       </a>
+      </li>
+      <li>
+       <a href="../../hemanta_sharma.pdf">
+        CV
        </a>
       </li>
      </ul>
@@ -68,64 +78,106 @@
   </nav>
   <div id="content">
    <h1>
-    Spellchecking (Experimental)
+    Installation Guide
    </h1>
    <p>
-    Spellchecking is available in blogger for &lsquo;html&rsquo;, &lsquo;ipynb&rsquo; and &lsquo;markdown&rsquo; files. It is best supported in markdown files. However, technically you can run the &lsquo;spellcheck&rsquo; command on any type of file.
+    This document includes:
    </p>
+   <ol>
+    <li>
+     <a href="#Installing-methods">
+      Installing methods
+     </a>
+    </li>
+    <li>
+     <a href="#Updating-blogger-cli">
+      Updating blogger-cli
+     </a>
+    </li>
+    <li>
+     <a href="#Uninstalling-blogger-cli">
+      Uninstalling blogger-cli
+     </a>
+    </li>
+    <li>
+     <a href="#Developing-guide">
+      Developing guide
+     </a>
+    </li>
+   </ol>
    <h2>
-    Usage
+    Installing methods
    </h2>
+   <h3>
+    Custom installer
+   </h3>
+   <pre class="prettyprint"><code>curl -sSL https://raw.githubusercontent.com/hemanta212/blogger-cli//master/get_blogger.py
+</code></pre>
+   <h4>
+    Why?
+   </h4>
    <p>
-    The command only takes a single parameter that is file path.
+    The custom installer provides an isolated installation for blogger-cli. It is sensible since blogger-cli relies on nbconvert / jupyter-core that have many dependencies and are likely to cause you some trouble.
+Even if you install it in a virutal environment yourself, you need to constantly activate it in order to use the command. This installer solves exactly that; it puts &lsquo;blogger&rsquo; command in the system&rsquo;s path.
    </p>
-   <pre class="prettyprint"><code>$ blogger spellcheck  ~/test.md
+   <h3>
+    With pip
+   </h3>
+   <pre class="prettyprint"><code>pip install blogger-cli
 </code></pre>
    <p>
-    It outputs incorrect words, its line no and suggestion(if available)
-Due to pyspellcheck being slow in large files it&rsquo;s suggestions is not displayed. You can use -f to force suggestions.
+    If you already have jupyter in your system python then a pip install will work just fine and you can access blogger without any hassle.
    </p>
    <h2>
-    Performance
+    Updating blogger-cli
    </h2>
    <p>
-    Spellchecking, apparently is not easy job. An offline blogger engine can only do so much.
-There are some issues with spellchecking.
-- Text extraction
-- Speed of suggestion
+    If you have installed through custom installation then,
    </p>
-   <h3>
-    Speed of suggestion
-   </h3>
+   <pre class="prettyprint"><code>blogger update
+</code></pre>
    <p>
-    The following library are used by blogger to provide this functionality:
-- misspellings
-- pyspellcheck
+    See blogger update &ndash;help for information regarding various options
    </p>
    <p>
-    Both are available offline. Misspellings has collection of misspelling-&gt;correct word map.
-It is much faster but it&rsquo;s scope is low and only catch common english errors.
-You can get incorrect words and suggestions if misspellings catches it.
+    <strong>
+     For pip installations
+    </strong>
+    :
    </p>
+   <pre class="prettyprint"><code>pip install --upgrade blogger-cli
+</code></pre>
+   <h2>
+    Uninstalling blogger-cli
+   </h2>
+   <pre class="prettyprint"><code>blogger uninstall
+</code></pre>
    <p>
-    Similarly, pyspellcheck almost catches all incorrect spellings. But running its suggestion engine in blog posts files is very expensive so suggestions are not available.
+    If you have installed from custom installer
    </p>
+   <pre class="prettyprint"><code>pip uninstall blogger-cli
+</code></pre>
    <p>
-    Pyspellcheck, obiously is not complete as it sometimes can label correct words as incorrect especially if thery are slang words, brand names and such.
+    If you have installed through pip
    </p>
-   <h3>
-    Text extraction
-   </h3>
+   <h2>
+    Developing guide
+   </h2>
    <p>
-    Extracting sentence structure is difficult without Natural language processing. Blogger instead splits each words and passes into spell check. This leads to some problems where the words at last of sentence get extracted along with grammatical symbols and are marked as incorrect words like &lsquo;good?&rsquo;, &lsquo;go.&rsquo;, etc.
-Ignoring words with these symbols was not an option as it may suppress real incorrect words.
+    Clone the repository using,
    </p>
+   <pre class="prettyprint"><code>$ git clone https://github.com/hemanta212/blogger-cli
+</code></pre>
    <p>
-    However, html tags and other redundancies are eliminated.
+    change working directory into the blogger-cli folder
    </p>
+   <pre class="prettyprint"><code>$ cd blogger-cli
+</code></pre>
    <p>
-    To sum up, &lsquo;spellcheck&rsquo; command leaves you to filter through incorrect and analyze mistakes for most part.
+    Then install it in development mode using pip
    </p>
+   <pre class="prettyprint"><code>pip install -e .
+</code></pre>
    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
    </script>
    <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
@@ -174,7 +226,7 @@ Out[12]
    </div>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
-   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+   <link href="../../assets/css/light_theme.css" rel="stylesheet"/>
   </div>
  </body>
 </html>

@@ -17,10 +17,10 @@
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   Installation Guide
+   Meta
   </title>
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../../assets/css/custom.css" rel="stylesheet"/>
   <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
@@ -48,18 +48,28 @@
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
       <li>
-       <a href="../index.html">
+       <a href="../../index.html">
         Home
        </a>
       </li>
       <li>
-       <a href="index.html">
+       <a href="../../blog/index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html/">
+       <a href="../../projects.html/">
         Projects
+       </a>
+      </li>
+      <li>
+       <a href="../../teaching.html/">
+        Teaching
+       </a>
+      </li>
+      <li>
+       <a href="../../hemanta_sharma.pdf">
+        CV
        </a>
       </li>
      </ul>
@@ -68,106 +78,94 @@
   </nav>
   <div id="content">
    <h1>
-    Installation Guide
+    Meta
    </h1>
-   <p>
-    This document includes:
-   </p>
+   <h2>
+    Content
+   </h2>
    <ol>
     <li>
-     <a href="#Installing-methods">
-      Installing methods
+     <a href="#Syntax-for-meta">
+      Syntax for meta
      </a>
     </li>
     <li>
-     <a href="#Updating-blogger-cli">
-      Updating blogger-cli
+     <a href="#Meta-for-md-files">
+      Meta for md files
      </a>
     </li>
     <li>
-     <a href="#Uninstalling-blogger-cli">
-      Uninstalling blogger-cli
+     <a href="#Meta-for-ipynb-files">
+      Meta for ipynb files
      </a>
     </li>
     <li>
-     <a href="#Developing-guide">
-      Developing guide
+     <a href="#Conversion-of-meta">
+      Conversion of meta
      </a>
     </li>
    </ol>
    <h2>
-    Installing methods
-   </h2>
-   <h3>
-    Custom installer
-   </h3>
-   <pre class="prettyprint"><code>curl -sSL https://raw.githubusercontent.com/hemanta212/blogger-cli//master/get_blogger.py
-</code></pre>
-   <h4>
-    Why?
-   </h4>
-   <p>
-    The custom installer provides an isolated installation for blogger-cli. It is sensible since blogger-cli relies on nbconvert / jupyter-core that have many dependencies and are likely to cause you some trouble.
-Even if you install it in a virutal environment yourself, you need to constantly activate it in order to use the command. This installer solves exactly that; it puts &lsquo;blogger&rsquo; command in the system&rsquo;s path.
-   </p>
-   <h3>
-    With pip
-   </h3>
-   <pre class="prettyprint"><code>pip install blogger-cli
-</code></pre>
-   <p>
-    If you already have jupyter in your system python then a pip install will work just fine and you can access blogger without any hassle.
-   </p>
-   <h2>
-    Updating blogger-cli
+    Syntax for meta
    </h2>
    <p>
-    If you have installed through custom installation then,
+    The default syntax for writing meta is like that of html comment ie.
    </p>
-   <pre class="prettyprint"><code>blogger update
+   <pre class="prettyprint"><code>&lt;!--
+key: value
+--&gt;
 </code></pre>
    <p>
-    See blogger update &ndash;help for information regarding various options
+    It is choosen because it is hidden while rendering by default.
+However, this is not forced. You can change the syntax easily by
    </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; meta_format "/* */"
+</code></pre>
    <p>
-    <strong>
-     For pip installations
-    </strong>
-    :
+    will make the syntax something like
    </p>
-   <pre class="prettyprint"><code>pip install --upgrade blogger-cli
+   <pre class="prettyprint"><code>/*
+key: value
+*/
 </code></pre>
    <h2>
-    Uninstalling blogger-cli
+    Meta for md files
    </h2>
-   <pre class="prettyprint"><code>blogger uninstall
-</code></pre>
    <p>
-    If you have installed from custom installer
-   </p>
-   <pre class="prettyprint"><code>pip uninstall blogger-cli
-</code></pre>
-   <p>
-    If you have installed through pip
+    For md files, it is recommended that you write the meta at top of the file.
+However, technically you can write it wherever you want as far as it is the first occurence of the meta format.
    </p>
    <h2>
-    Developing guide
+    Meta for ipynb files
    </h2>
    <p>
-    Clone the repository using,
+    For ipynb file meta is lot diverse. You can declare meta in first raw cell.
+Your meta will be read then deleted making your notebooks clean. The meta will be written to
+    <filename>
+     .nbdata file where
+     <filename>
+      is the same name as your notebook&rsquo;s name.
+     </filename>
+    </filename>
    </p>
-   <pre class="prettyprint"><code>$ git clone https://github.com/hemanta212/blogger-cli
-</code></pre>
    <p>
-    change working directory into the blogger-cli folder
+    Similarly you can make a separate .nbdata file with same name as notebook and blogger will read it during conversion.
    </p>
-   <pre class="prettyprint"><code>$ cd blogger-cli
-</code></pre>
    <p>
-    Then install it in development mode using pip
+    Although above is default behaviour you can stop creation of .nbdata files by setting create_nbdata_file to false and stop the deletion of meta cell in notebook by delete_ipynb_meta to false.
    </p>
-   <pre class="prettyprint"><code>pip install -e .
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; create_nbdata_file false
+blogger config -b &lt;blogname&gt; delete_ipynb_meta false
 </code></pre>
+   <blockquote>
+    <p>
+     Well, you might want to use
+     <code>
+      &lt;!--
+     </code>
+     meta formatter in the first raw/markdown cell. It will be completely hidden while rendering and you need not maintain a separate nbdata file.
+    </p>
+   </blockquote>
    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
    </script>
    <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
@@ -216,7 +214,7 @@ Out[12]
    </div>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
-   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+   <link href="../../assets/css/light_theme.css" rel="stylesheet"/>
   </div>
  </body>
 </html>

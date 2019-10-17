@@ -17,10 +17,10 @@
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   Meta
+   Recommended workflow for blogger-cli
   </title>
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../../assets/css/custom.css" rel="stylesheet"/>
   <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
@@ -48,18 +48,28 @@
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
       <li>
-       <a href="../index.html">
+       <a href="../../index.html">
         Home
        </a>
       </li>
       <li>
-       <a href="index.html">
+       <a href="../../blog/index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html/">
+       <a href="../../projects.html/">
         Projects
+       </a>
+      </li>
+      <li>
+       <a href="../../teaching.html/">
+        Teaching
+       </a>
+      </li>
+      <li>
+       <a href="../../hemanta_sharma.pdf">
+        CV
        </a>
       </li>
      </ul>
@@ -68,94 +78,72 @@
   </nav>
   <div id="content">
    <h1>
-    Meta
+    Recommended workflow for blogger-cli
    </h1>
-   <h2>
-    Content
-   </h2>
-   <ol>
-    <li>
-     <a href="#Syntax-for-meta">
-      Syntax for meta
-     </a>
-    </li>
-    <li>
-     <a href="#Meta-for-md-files">
-      Meta for md files
-     </a>
-    </li>
-    <li>
-     <a href="#Meta-for-ipynb-files">
-      Meta for ipynb files
-     </a>
-    </li>
-    <li>
-     <a href="#Conversion-of-meta">
-      Conversion of meta
-     </a>
-    </li>
-   </ol>
-   <h2>
-    Syntax for meta
-   </h2>
    <p>
-    The default syntax for writing meta is like that of html comment ie.
+    Naturally you won&rsquo;t have more than 2/3 blog&rsquo;s to manage (Although you can manage how much blog you like).
+Your blogs are accessible globally. You do not need to be in your blog&rsquo;s folder.
    </p>
-   <pre class="prettyprint"><code>&lt;!--
-key: value
---&gt;
+   <p>
+    You work on one blog at a time. Make that blog default.
+   </p>
+   <pre class="prettyprint"><code>blogger setdefault &lt;blogname&gt;
 </code></pre>
    <p>
-    It is choosen because it is hidden while rendering by default.
-However, this is not forced. You can change the syntax easily by
+    Now carry out commands without specifying -b option.
    </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; meta_format "/* */"
-</code></pre>
    <p>
-    will make the syntax something like
+    It is recommentd to fill your setup configs. Carefully curate all your needed configs and you can view all configs by using the command
+    <code>
+     blogger info
+    </code>
+    .  Also you can view your blog&rsquo;s config using
+    <code>
+     blogger info &lt;blogname&gt;
+    </code>
+    .
+Avoid passing options to commands  and instead fill your configs.
    </p>
-   <pre class="prettyprint"><code>/*
-key: value
-*/
-</code></pre>
-   <h2>
-    Meta for md files
-   </h2>
    <p>
-    For md files, it is recommended that you write the meta at top of the file.
-However, technically you can write it wherever you want as far as it is the first occurence of the meta format.
+    If you need to work on another blog  just switch the defaut blog to that.
    </p>
    <h2>
-    Meta for ipynb files
+    Conversion
    </h2>
    <p>
-    For ipynb file meta is lot diverse. You can declare meta in first raw cell.
-Your meta will be read then deleted making your notebooks clean. The meta will be written to
-    <filename>
-     .nbdata file where
-     <filename>
-      is the same name as your notebook&rsquo;s name.
-     </filename>
-    </filename>
+    Set up a working_dir in your config to the folder where you save your ipynb, md, html files for your blog.
+Now conversion is just running
    </p>
-   <p>
-    Similarly you can make a separate .nbdata file with same name as notebook and blogger will read it during conversion.
-   </p>
-   <p>
-    Although above is default behaviour you can stop creation of .nbdata files by setting create_nbdata_file to false and stop the deletion of meta cell in notebook by delete_ipynb_meta to false.
-   </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; create_nbdata_file false
-blogger config -b &lt;blogname&gt; delete_ipynb_meta false
+   <pre class="prettyprint"><code>blogger convert
 </code></pre>
-   <blockquote>
-    <p>
-     Well, you might want to use
-     <code>
-      &lt;!--
-     </code>
-     meta formatter in the first raw/markdown cell. It will be completely hidden while rendering and you need not maintain a separate nbdata file.
-    </p>
-   </blockquote>
+   <p>
+    Please read more about it
+    <a href="customizing.md#recommended-workflow">
+     here
+    </a>
+    For safety during folder conversion read
+    <a href="customizing.md#conversion-of-folder">
+     this
+    </a>
+   </p>
+   <h2>
+    Deploying
+   </h2>
+   <p>
+    Just to make sure things are okay and experimeting your changes run
+    <code>
+     blogger serve
+    </code>
+    and visit your blog from browser.
+   </p>
+   <h2>
+    Versioning
+   </h2>
+   <p>
+    Keep _blogger_templates folder inside your blog for version control and global access. You can also export blog_config to your blog for versioning and to import it just run.
+   </p>
+   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; -re /path/to/json/file
+</code></pre>
    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
    </script>
    <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
@@ -204,7 +192,7 @@ Out[12]
    </div>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
-   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+   <link href="../../assets/css/light_theme.css" rel="stylesheet"/>
   </div>
  </body>
 </html>

@@ -17,10 +17,10 @@
   <meta content="" name="description"/>
   <meta content="Hemanta Sharma" name="author"/>
   <title>
-   Recommended workflow for blogger-cli
+   Spellchecking (Experimental)
   </title>
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="../assets/css/custom.css" rel="stylesheet"/>
+  <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../../assets/css/custom.css" rel="stylesheet"/>
   <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript">
   </script>
   <!-- MathJax configuration -->
@@ -48,18 +48,28 @@
     <div class="navbar-collapse" id="navbar">
      <ul class="nav navbar-nav">
       <li>
-       <a href="../index.html">
+       <a href="../../index.html">
         Home
        </a>
       </li>
       <li>
-       <a href="index.html">
+       <a href="../../blog/index.html">
         Blog
        </a>
       </li>
       <li>
-       <a href="../projects.html/">
+       <a href="../../projects.html/">
         Projects
+       </a>
+      </li>
+      <li>
+       <a href="../../teaching.html/">
+        Teaching
+       </a>
+      </li>
+      <li>
+       <a href="../../hemanta_sharma.pdf">
+        CV
        </a>
       </li>
      </ul>
@@ -68,72 +78,64 @@
   </nav>
   <div id="content">
    <h1>
-    Recommended workflow for blogger-cli
+    Spellchecking (Experimental)
    </h1>
    <p>
-    Naturally you won&rsquo;t have more than 2/3 blog&rsquo;s to manage (Although you can manage how much blog you like).
-Your blogs are accessible globally. You do not need to be in your blog&rsquo;s folder.
-   </p>
-   <p>
-    You work on one blog at a time. Make that blog default.
-   </p>
-   <pre class="prettyprint"><code>blogger setdefault &lt;blogname&gt;
-</code></pre>
-   <p>
-    Now carry out commands without specifying -b option.
-   </p>
-   <p>
-    It is recommentd to fill your setup configs. Carefully curate all your needed configs and you can view all configs by using the command
-    <code>
-     blogger info
-    </code>
-    .  Also you can view your blog&rsquo;s config using
-    <code>
-     blogger info &lt;blogname&gt;
-    </code>
-    .
-Avoid passing options to commands  and instead fill your configs.
-   </p>
-   <p>
-    If you need to work on another blog  just switch the defaut blog to that.
+    Spellchecking is available in blogger for &lsquo;html&rsquo;, &lsquo;ipynb&rsquo; and &lsquo;markdown&rsquo; files. It is best supported in markdown files. However, technically you can run the &lsquo;spellcheck&rsquo; command on any type of file.
    </p>
    <h2>
-    Conversion
+    Usage
    </h2>
    <p>
-    Set up a working_dir in your config to the folder where you save your ipynb, md, html files for your blog.
-Now conversion is just running
+    The command only takes a single parameter that is file path.
    </p>
-   <pre class="prettyprint"><code>blogger convert
+   <pre class="prettyprint"><code>$ blogger spellcheck  ~/test.md
 </code></pre>
    <p>
-    Please read more about it
-    <a href="customizing.html#recommended-workflow">
-     here
-    </a>
-    For safety during folder conversion read
-    <a href="customizing.html#conversion-of-folder">
-     this
-    </a>
+    It outputs incorrect words, its line no and suggestion(if available)
+Due to pyspellcheck being slow in large files it&rsquo;s suggestions is not displayed. You can use -f to force suggestions.
    </p>
    <h2>
-    Deploying
+    Performance
    </h2>
    <p>
-    Just to make sure things are okay and experimeting your changes run
-    <code>
-     blogger serve
-    </code>
-    and visit your blog from browser.
+    Spellchecking, apparently is not easy job. An offline blogger engine can only do so much.
+There are some issues with spellchecking.
+- Text extraction
+- Speed of suggestion
    </p>
-   <h2>
-    Versioning
-   </h2>
+   <h3>
+    Speed of suggestion
+   </h3>
    <p>
-    Keep _blogger_templates folder inside your blog for version control and global access. You can also export blog_config to your blog for versioning and to import it just run.
+    The following library are used by blogger to provide this functionality:
+- misspellings
+- pyspellcheck
    </p>
-   <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; -re /path/to/json/file
-</code></pre>
+   <p>
+    Both are available offline. Misspellings has collection of misspelling-&gt;correct word map.
+It is much faster but it&rsquo;s scope is low and only catch common english errors.
+You can get incorrect words and suggestions if misspellings catches it.
+   </p>
+   <p>
+    Similarly, pyspellcheck almost catches all incorrect spellings. But running its suggestion engine in blog posts files is very expensive so suggestions are not available.
+   </p>
+   <p>
+    Pyspellcheck, obiously is not complete as it sometimes can label correct words as incorrect especially if thery are slang words, brand names and such.
+   </p>
+   <h3>
+    Text extraction
+   </h3>
+   <p>
+    Extracting sentence structure is difficult without Natural language processing. Blogger instead splits each words and passes into spell check. This leads to some problems where the words at last of sentence get extracted along with grammatical symbols and are marked as incorrect words like &lsquo;good?&rsquo;, &lsquo;go.&rsquo;, etc.
+Ignoring words with these symbols was not an option as it may suppress real incorrect words.
+   </p>
+   <p>
+    However, html tags and other redundancies are eliminated.
+   </p>
+   <p>
+    To sum up, &lsquo;spellcheck&rsquo; command leaves you to filter through incorrect and analyze mistakes for most part.
+   </p>
    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
    </script>
    <script src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js" type="text/javascript">
@@ -182,7 +184,7 @@ Out[12]
    </div>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;lag=html&amp;lang=py&amp;lang=sh&amp;lang=bsh&amp;lang=js&amp;">
    </script>
-   <link href="../assets/css/light_theme.css" rel="stylesheet"/>
+   <link href="../../assets/css/light_theme.css" rel="stylesheet"/>
   </div>
  </body>
 </html>

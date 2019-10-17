@@ -1,0 +1,11 @@
+{
+  "blog_dir": "/home/h",
+  "blog_posts_dir": "blogger-cli",
+  "blog_images_dir": "images/blog",
+  "templates_dir": "/home/h/blogger-cli/_blogger_templates",
+  "working_dir": null,
+  "google_analytics_id": "UA-139924028-1",
+  "disqus_username": "hemanta212",
+  "default": true,
+  "meta_format": "*/ /*"
+}
