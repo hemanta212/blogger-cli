@@ -1,6 +1,7 @@
 import os
 import shutil
 from pathlib import Path
+from bs4 import BeautifulSoup as BS
 
 HOME = os.path.expanduser("~")
 
@@ -37,6 +38,19 @@ def do_post_processing():
     readme_text = readme.read_text(encoding="utf-8")
     modified_text = readme_text.replace(".md", ".html")
     readme.write_text(modified_text, encoding="utf-8")
+    os.chdir("docs")
+    for i in os.listdir():
+        file = Path(i)
+        soup = BS(file.read_text(encoding="utf-8"), features="html.parser")
+        a_tags = soup.find_all("a")
+        for a_tag in a_tags:
+            a_tag_href = a_tag.attrs.get("href")
+            if a_tag_href and ".md" in a_tag_href:
+                new_href = a_tag_href.replace(".md", ".html")
+                a_tag["href"] = new_href
+
+        file.write_text(soup.prettify(formatter="html"), encoding="utf-8")
+
     print("DONE")
 
 

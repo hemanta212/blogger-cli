@@ -107,6 +107,11 @@
         Editing individually
        </a>
       </li>
+      <li>
+       <a href="#Config-command">
+        Config command
+       </a>
+      </li>
      </ul>
     </li>
     <li>
@@ -120,6 +125,10 @@
      </a>
     </li>
    </ol>
+   <p>
+    <a id="Registering-a-blog">
+    </a>
+   </p>
    <h1>
     Registering a blog
    </h1>
@@ -136,6 +145,10 @@ Similary if you want to avoid getting asked these questions and only want to reg
 </code></pre>
    <p>
     You can always setup configs later
+   </p>
+   <p>
+    <a id="Editing-blog-configs">
+    </a>
    </p>
    <h1>
     Editing blog config
@@ -183,10 +196,14 @@ It is a snippet provided by google to analyze your website&rsquo;s traffic. Sign
    <p>
     &lsquo;templates_dir&rsquo;:
 It is the directory where you can override default html templates to suit your needs. More info
-    <a href="customizing.md">
+    <a href="customizing.html">
      here
     </a>
     .
+   </p>
+   <p>
+    <a id="Editing-in-bulk">
+    </a>
    </p>
    <h2>
     Editing in bulk
@@ -199,6 +216,10 @@ It is the directory where you can override default html templates to suit your n
    <p>
     To skip without making any changes, type &lsquo;n&rsquo; and press enter. To delete a VALUE from config, type one or many space and press enter.
    </p>
+   <p>
+    <a id="Editing-individually">
+    </a>
+   </p>
    <h2>
     Editing individually
    </h2>
@@ -207,6 +228,10 @@ It is the directory where you can override default html templates to suit your n
    </p>
    <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; [config option]  [value]
 </code></pre>
+   <p>
+    <a id="Config-command">
+    </a>
+   </p>
    <h2>
     Config Command
    </h2>
@@ -237,7 +262,7 @@ It is the directory where you can override default html templates to suit your n
     </p>
    </blockquote>
    <h3>
-    Delete a config
+    Deleting a config
    </h3>
    <p>
     Similarly to delete a config,
@@ -254,7 +279,7 @@ It is the directory where you can override default html templates to suit your n
    </h3>
    <p>
     You can also restore blog configs of a blog that you exported using
-    <a href="export.md#Exporting-blog-configurations">
+    <a href="export.html#Exporting-blog-configurations">
      export command
     </a>
    </p>
@@ -269,6 +294,25 @@ It is the directory where you can override default html templates to suit your n
      command.
     </p>
    </blockquote>
+   <h3>
+    Advanced configs
+   </h3>
+   <p>
+    You can view these configurations from
+   </p>
+   <pre class="prettyprint"><code>blogger info --all
+</code></pre>
+   <p>
+    The usecases of these configs has been specified
+    <a href="optional_config.html">
+     here
+    </a>
+    .
+   </p>
+   <p>
+    <a id="Setting-default-blog">
+    </a>
+   </p>
    <h1>
     Setting default blog:
    </h1>
@@ -290,6 +334,10 @@ It is the directory where you can override default html templates to suit your n
     to delete the default property.
 Similarly if blog &lsquo;A&rsquo; is default you can specify -b option in command for operating on other blogs.
    </p>
+   <p>
+    <a id="Removing-a-blog">
+    </a>
+   </p>
    <h1>
     Removing a blog
    </h1>
@@ -300,21 +348,6 @@ Similarly if blog &lsquo;A&rsquo; is default you can specify -b option in comman
 </code></pre>
    <p>
     It only accepts one blog at a time.
-   </p>
-   <h1>
-    Advanced configs
-   </h1>
-   <p>
-    You can view these configurations from
-   </p>
-   <pre class="prettyprint"><code>blogger info --all
-</code></pre>
-   <p>
-    The usecases of these configs has been specified
-    <a href="optional_config.md">
-     here
-    </a>
-    .
    </p>
    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js">
    </script>

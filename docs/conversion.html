@@ -128,6 +128,10 @@ Various options are available to you in convert command. See all
      </a>
     </li>
    </ol>
+   <p>
+    <a id="Conversion-of-files">
+    </a>
+   </p>
    <h2>
     Conversion of files
    </h2>
@@ -138,7 +142,7 @@ Various options are available to you in convert command. See all
 </code></pre>
    <p>
     However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See
-    <a href="blog_management.md">
+    <a href="blog_management.html">
      here
     </a>
     for how to set up configs.
@@ -178,6 +182,10 @@ for example the above command assumes:
     and then blogger will scan the dir and remember when the file wes last scanned to detect and process modified files automatically.
 You have all the options like -r, -ex-html, &ndash;topic etc available as well.
    </p>
+   <p>
+    <a id="html-files">
+    </a>
+   </p>
    <h3>
     HTML files
    </h3>
@@ -187,6 +195,10 @@ So there is nothing extra for you to do
    </p>
    <pre class="prettyprint"><code>$ blogger convert htmlfile
 </code></pre>
+   <p>
+    <a id="code-support">
+    </a>
+   </p>
    <h3>
     Code support
    </h3>
@@ -197,8 +209,12 @@ So there is nothing extra for you to do
 </code></pre>
    <p>
     For ipynb files, the converted html won&rsquo;t have input/output prompts like In[1] Out[2] etc. You can enable this by editing js.html snippet. Look
-    <a href="customizing.md">
+    <a href="customizing.html">
      here
+    </a>
+   </p>
+   <p>
+    <a id="Conversion-of-folders">
     </a>
    </p>
    <h2>
@@ -216,6 +232,10 @@ $ blogger convert . -r --exclude-html
    </p>
    <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; filter_post_without_title true
 </code></pre>
+   <p>
+    <a id="Static-files-transfer">
+    </a>
+   </p>
    <h2>
     Static files transfer
    </h2>
@@ -235,6 +255,10 @@ blogger config -b &lt;blogname&gt; post_extract_list ['URI']
 </code></pre>
    <p>
     1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
+   </p>
+   <p>
+    <a id="Conversion-option">
+    </a>
    </p>
    <h2>
     Conversion options
@@ -278,7 +302,7 @@ Folder path of custom template. Default &lsquo;blog_templates_dir&rsquo; value i
    <p>
     &ndash;override-meta:
 Ignore meta topic in favour of &ndash;topic option. More info
-    <a href="meta.md">
+    <a href="meta.html">
      here
     </a>
     .
