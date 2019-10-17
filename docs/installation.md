@@ -6,6 +6,7 @@ This document includes:
 3. [Uninstalling blogger-cli](#Uninstalling-blogger-cli)
 4. [Developing guide](#Developing-guide)
 
+<a id="Installing-methods"></a>
 ## Installing methods
 
 ### Custom installer
@@ -24,6 +25,7 @@ pip install blogger-cli
 If you already have jupyter in your system python then a pip install will work just fine and you can access blogger without any hassle.
 
 
+<a id="Updating-blogger-cli"></a>
 ## Updating blogger-cli
 If you have installed through custom installation then,
 ```
@@ -37,6 +39,7 @@ pip install --upgrade blogger-cli
 ```
 
 
+<a id="Uninstalling-blogger-cli"></a>
 ## Uninstalling blogger-cli
 ```
 blogger uninstall
@@ -48,6 +51,7 @@ pip uninstall blogger-cli
 ```
 If you have installed through pip
 
+<a id="Developing-guide"></a>
 ## Developing guide
 Clone the repository using,
 ```

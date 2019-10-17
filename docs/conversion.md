@@ -13,6 +13,7 @@ Various options are available to you in convert command. See all [here](#Convers
 3. [Static files transfer](#Static-files-transfer)
 3. [Conversion options](#Conversion-option)
 
+<a id="Conversion-of-files"></a>
 ## Conversion of files
 Converting a file is simple as:
 ```
@@ -39,6 +40,7 @@ blogger config -b <blogname> working_dir /path/to/dir
 Now you can just call ```blogger convert``` and then blogger will scan the dir and remember when the file wes last scanned to detect and process modified files automatically.
 You have all the options like -r, -ex-html, --topic etc available as well.
 
+<a id="html-files"></a>
 ### HTML files
 When a html file is passed for conversion. It is converted to html with all (navbar, analytics, disqus etc...) inserted inside it.
 So there is nothing extra for you to do
@@ -46,6 +48,7 @@ So there is nothing extra for you to do
 $ blogger convert htmlfile
 ```
 
+<a id="code-support"></a>
 ### Code support
 Every file converted to html will have mathjax and code support injected to it. You can pass --not-code option to avoid injecting them incase you don't need those.
 ```
@@ -54,6 +57,7 @@ $ blogger convert filename --not-code
 
 For ipynb files, the converted html won't have input/output prompts like In[1] Out[2] etc. You can enable this by editing js.html snippet. Look [here](customizing.md)
 
+<a id="Conversion-of-folders"></a>
 ## Conversion of folders
 If folder are specified all supported extensions(html, md, ipynb) will be picked and converted. To avoid html files just pass -ex-html/--exclude-html option. Similarly you can recursively search within any folder to get files!
 ```
@@ -67,6 +71,7 @@ Similarly set up filter_post_without_title config to filter out 'experimental' f
 blogger config -b <blogname> filter_post_without_title true
 ```
 
+<a id="Static-files-transfer"></a>
 ## Static files transfer
 By default blogger searches for img and video tag in html then for:
 - URI: It decodes the base64 URI to mp4 and png video and img resp.
@@ -83,6 +88,7 @@ blogger config -b <blogname> post_extract_list ['URI']
 1st will enable extraction of both URI and URL images, 2nd only extracts URL and leaves URI as is and third leaves URL and extracts URI images.
 
 
+<a id="Conversion-option"></a>
 ## Conversion options
 -r, --recursive :
 This will search any given folder recursively to deepest file. Without this option only surface files of specified folder is converted.
