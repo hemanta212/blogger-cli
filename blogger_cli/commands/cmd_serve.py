@@ -21,15 +21,17 @@ def cli(ctx, blog, port, dir, verbose):
         ctx.vlog(":: No blog name given using default blog:", str(blog))
     if not blog:
         ctx.log("Use blogger serve <blogname> or set a default blog in configs")
-        raise SystemExit("ERROR: Missing required argument 'BLOG' ")
+        ctx.log("ERROR: Missing required argument 'BLOG' ")
+        raise SystemExit()
 
     blog_dir = ctx.config.read(key=blog + ":blog_dir")
     if dir:
         blog_dir = dir
 
     if not blog_dir:
-        ctx.log("CNo blog_dir set blog_dir in config or use --dir option")
-        raise SystemExit("ERROR: No folder specified")
+        ctx.log("No blog_dir set blog_dir in config or use --dir option")
+        ctx.log("ERROR: No folder specified")
+        raise SystemExit()
 
     blog_dir = os.path.abspath(os.path.expanduser(blog_dir))
     ctx.vlog(":: Got blog_dir:", blog_dir)

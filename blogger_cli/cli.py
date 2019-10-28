@@ -42,10 +42,25 @@ class Context(object):
 
     def log(self, msg, *args):
         """Logs a message to stderr."""
+        msg = str(msg)
         if args:
             for arg in args:
                 msg += " " + str(arg)
-        click.echo(msg, file=sys.stderr)
+
+        message = msg.lower() if msg else ""
+
+        # handle basic coloring
+        if "error" in message:
+            click.secho(msg, file=sys.stderr, bold=True, blink=True, fg="bright_red")
+        elif "warning" in message or "!" in message:
+            click.secho(msg, file=sys.stderr, bold=True, fg="bright_yellow")
+        elif "converting" in message or "adding" in message:
+            click.secho(msg, file=sys.stderr, fg="blue")
+        elif "finished" in message or "done" in message or "successfully" in message:
+            click.secho(msg, file=sys.stderr, fg="green")
+
+        else:
+            click.echo(msg, file=sys.stderr)
 
     def vlog(self, msg, *args):
         """Logs a message to stderr only if verbose is enabled."""

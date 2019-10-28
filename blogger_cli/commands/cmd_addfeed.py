@@ -39,14 +39,15 @@ def cli(ctx, file_path, gen_rss, interactive, title, content, setup, blog, verbo
         run_setup(ctx, blog, feed_file, feed_type)
 
     elif not file_path:
-        raise SystemExit(":: ERROR. <FILE> argument is not provided")
+        ctx.log(":: ERROR. <FILE> argument is not provided")
+        raise SystemExit()
 
     elif not __is_valid_feed_file(ctx, blog):
-        msg = (
+        ctx.log(
             ":: ERROR parsing feed file! Review it or create new one using\n"
             "$ blogger addfeed -b <blogname> --setup"
         )
-        raise SystemExit(msg)
+        raise SystemExit()
 
     ctx.log(":: PROCESSING ", file_path)
     feed_file = __get_feed_file(ctx, blog)
@@ -76,14 +77,15 @@ def run_setup(ctx, blog, feed_file, feed_type):
     feed_file = __get_feed_file(ctx, blog)
     # Create a new feed file
     setup_new_file(feed_file, feed_type)
-    raise SystemExit("Setup successfully completed!")
+    ctx.log("Setup successfully completed!")
 
 
 def __get_blog(ctx, blog):
     if blog is None:
         default = ctx.default_blog
         if default is None:
-            raise SystemExit("\nError: Missing option -b <blogname>")
+            ctx.log("\nError: Missing option -b <blogname>")
+            raise SystemExit()
 
         else:
             ctx.vlog("\nUsing default blog ->", default)
@@ -101,7 +103,8 @@ def __get_feed_file(ctx, blog):
             "or provide its path in config by:\n"
             "blogger config -b {blog} feed_file <path/of/feed/file>"
         )
-        raise SystemExit(msg.format(blog=blog))
+        raise ctx.log(msg.format(blog=blog))
+        raise SystemExit()
 
     feed_file_path = os.path.join(blog_dir, feed_file)
     return feed_file_path
@@ -120,7 +123,8 @@ def __is_valid_feed_file(ctx, blog):
     if feed_file:
         # Create a new feed file and return false
         if not blog_dir:
-            raise SystemExit(":: ERROR 'blog_dir' config is empty")
+            ctx.log(":: ERROR 'blog_dir' config is empty")
+            raise SystemExit()
         feed_file_path = os.path.join(blog_dir, feed_file)
         if not os.path.exists(feed_file_path):
             ensure_feed_file(feed_file_path)
@@ -147,7 +151,8 @@ def load_editor():
         if not message:
             raise ValueError
     except Exception:
-        raise SystemExit(":: Empty file. Aborting...")
+        click.secho(":: ERROR empty file. Aborting...", bold=True, fg="bright_red")
+        raise SystemExit()
 
     title_content = message.split("\n\n", maxsplit=1)
     title = title_content[0]
@@ -165,11 +170,12 @@ def ensure_feed_file(feed_file_path):
             return
 
     except FileNotFoundError:
-        raise SystemExit(
-            ":: ERROR Is the blog just created? \n"
-            + ":: Path: "
-            + feed_file_path
-            + " doesnot exist"
-            + " \n:: TIP: Convert some files or export blog_layout"
-            + " or create folder manually"
+        msg = (
+            ":: ERROR Is the blog just created? \n",
+            ":: Path: ",
+            +feed_file_path + " doesnot exist",
+            " \n:: TIP: Convert some files or export blog_layout",
+            " or create folder manually",
         )
+        click.secho(msg, bold=True, blink=True, fg="bright_red")
+        raise SystemExit()

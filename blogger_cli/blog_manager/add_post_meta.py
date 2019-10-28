@@ -20,7 +20,7 @@ def get_blog_posts_dir(ctx):
     blog = ctx.current_blog
     blog_posts_dir = ctx.config.read(blog + ":blog_posts_dir")
     if not blog_posts_dir:
-        ctx.log(":: Failed to build file link, no proper blog dir")
+        ctx.log(":: Failed to build file link! no proper blog dir")
         blog_posts_dir = ""
     return blog_posts_dir
 
@@ -55,16 +55,22 @@ def get_post_meta(ctx, file_path, post_meta):
             del post_meta[key]
 
     if not post_meta:
-        click.echo(
+        click.secho(
             (
                 ":: ERROR: Metadata extraction from cache failed for "
                 + topic_filename
                 + "\n:: TIP: Use --title and --content option instead"
-            )
+            ),
+            blink=True,
+            bold=True,
+            fg="bright_red",
         )
 
     if post_meta and not post_meta.get("content"):
-        click.echo(":: Warning, No available content for " + blog_topic_filename)
+        click.secho(
+            ":: Warning, No available content for " + blog_topic_filename,
+            fg="bright_yellow",
+        )
     return post_meta
 
 
