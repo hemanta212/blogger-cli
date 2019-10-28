@@ -16,7 +16,7 @@ curl -sSL https://raw.githubusercontent.com/hemanta212/blogger-cli//master/get_b
 
 #### Why?
 The custom installer provides an isolated installation for blogger-cli. It is sensible since blogger-cli relies on nbconvert / jupyter-core that have many dependencies and are likely to cause you some trouble.
-Even if you install it in a virutal environment yourself, you need to constantly activate it in order to use the command. This installer solves exactly that; it puts 'blogger' command in the system's path.
+Even if you install it in a virtual environment yourself, you need to constantly activate it to use the command. This installer solves exactly that; it puts 'blogger' command in the system's path.
 
 ### With pip
 ```
