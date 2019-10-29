@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name="blogger-cli",
-    version="1.2.0",
+    version="1.2.1",
     description="""
 Blogger cli is a CLI tool to convert ipynb, md, html file to responsive
 html files.""",
