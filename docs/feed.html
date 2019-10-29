@@ -124,28 +124,28 @@
     Introduction
    </h2>
    <p>
-    The feed is a feature you can use to generate rss/atom feed for your blog.
+    The feed is a feature you can use to generate RSS/Atom feed for your blog.
 With this you&rsquo;ll be able to:
    </p>
    <ul>
     <li>
-     Generate a new rss/atom feed from scratch.
+     Generate a new RSS/Atom feed from scratch.
     </li>
     <li>
-     Use an existing rss/atom feed to append entries to it.
+     Use an existing RSS/Atom feed to append entries to it.
     </li>
     <li>
      Specify a default feed file to be used by blogger, thus manage multiple feed files.
     </li>
    </ul>
    <p>
-    To use, let&rsquo;s start by setting config file in config.
+    To use, let&rsquo;s start by setting the feed file in config.
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; feed_file path/to/feed/file
 </code></pre>
    <p>
-    Of course, the file doesnot have to exist. If you want the feed file to be out of your blog folder,
-you need to provide absolute path. Other path will simply be interpreted relative to blog_dir.
+    Of course, the file does not have to exist. If you want the feed file to be out of your blog folder,
+you need to provide an absolute path. Other paths will simply be interpreted relative to blog_dir.
    </p>
    <pre class="prettyprint"><code>#1. This resolves to blog_dir/blog/feed.xml
 $ blogger config -b &lt;blogname&gt; feed_file blog/feed.xml
@@ -154,7 +154,7 @@ $ blogger config -b &lt;blogname&gt; feed_file blog/feed.xml
 $ blogger config -b &lt;blogname&gt; feed_file ~/.my_files/feed.xml
 </code></pre>
    <p>
-    Similary, you can also set &lsquo;site_url&rsquo; config now with your website name which helps to resolve absolute link of your post.
+    Similarly, you can also set &lsquo;site_url&rsquo; config now with your website name which helps to resolve the absolute link of your post.
    </p>
    <p>
     <a id="org9ef5f13">
@@ -173,7 +173,7 @@ $ blogger addfeed -b &lt;blogname&gt; --setup
 $ blogger addfeed -b &lt;blogname&gt; --setup -rss
 </code></pre>
    <p>
-    You&rsquo;ll be prompted to set feed file path if you haven&rsquo;t already. A set of questions will be asked to setup your feed.
+    You&rsquo;ll be prompted to set the feed file path if you haven&rsquo;t already. A set of questions will be asked to set up your feed.
    </p>
    <p>
     <a id="org04b5e16">
@@ -185,7 +185,7 @@ $ blogger addfeed -b &lt;blogname&gt; --setup -rss
    <p>
     Whether you created feed file with blogger or had existing feed file, you should be able to add entries to it.
 The type of feed file will be automatically determined. Entries will be appended to it as you add your posts to it.
-However, note that the indentation of whole file will change to two space indentation.
+However, note that the indentation of the whole file will change to two-space indentation.
    </p>
    <p>
     <a id="orgc51c26e">
@@ -209,8 +209,8 @@ However, note that the indentation of whole file will change to two space indent
     </li>
    </ul>
    <p>
-    You have to provide a file argument to addfeed command which SHOULD be inside your blog and MUST have &ldquo;.html&rdquo; extension. The &lsquo;link&rsquo; is then automatically interpreted.
-However you have to provide &ndash;title/-t and &ndash;content/-c option. You can omit &ndash;content option if you want.
+    You have to provide a file argument to &lsquo;addfeed&rsquo; command which SHOULD be inside your blog and MUST have &ldquo;.html&rdquo; extension. The &lsquo;link&rsquo; is then automatically interpreted.
+However, you have to provide &ndash;title/-t and &ndash;content/-c option. You can omit &ndash;content option if you want.
 Blogger has -i/&ndash;interactive command as well if you want to set title and content in your default editor.
    </p>
    <pre class="prettyprint"><code>$ blogger addfeed -b &lt;blogname&gt; file/path --title MYPOST --content HI
@@ -226,7 +226,7 @@ $ blogger addfeed -b &lt;blogname&gt; file/path --title "Only Title"
     </blogname>
    </p>
    <p>
-    Of course you can always override those cached title and content by passing the &ndash;title and --content option to addfeed command.
+    Of course, you can always override those cached titles and content bypassing the &ndash;title and --content option to &lsquo;addfeed&rsquo; command.
    </p>
    <pre class="prettyprint"><code>$ blogger addfeed -b &lt;blogname&gt; file/path
 </code></pre>
@@ -238,8 +238,8 @@ $ blogger addfeed -b &lt;blogname&gt; file/path --title "Only Title"
     Duplicate entries/ Updating entries:
    </h3>
    <p>
-    In a feed, &lsquo;blogger&rsquo; identifies entries by their links. When it encounters duplicate entry in &lsquo;addfeed&rsquo; command then it simply deletes the old and updates it with current one.
-&lsquo;blogger&rsquo; however, keeps the id&rsquo;s(&lsquo;id&rsquo; in atom and &lsquo;guid&rsquo; in rss feeds) of feed entries unchanged.
+    In a feed, &lsquo;blogger&rsquo; identifies entries by their links. When it encounters a duplicate entry in &lsquo;addfeed&rsquo; command then it simply deletes the old and updates it with the current one.
+&lsquo;blogger&rsquo; however, keeps the id&rsquo;s(&lsquo;id&rsquo; in atom and &lsquo;guid&rsquo; in RSS feeds) of feed entries unchanged.
    </p>
    <p>
     <a id="content_options">
@@ -249,19 +249,19 @@ $ blogger addfeed -b &lt;blogname&gt; file/path --title "Only Title"
     Content options
    </h3>
    <p>
-    You can control what summary is extracted and cached for markdown and ipynb file. As of now, summary extraction is not available for html file however manual entries are supported.
+    You can control what summary is extracted and cached for markdown and ipynb file. As of now, summary extraction is not available for Html file however manual entries are supported.
    </p>
    <p>
-    You can control the maximum number of charectars to inclue from md and ipynb post. Similary for ipynb you can specify nth markdown cell (where n is a integer).
+    You can control the maximum number of charectars to include from md and ipynb post. Similarly, for ipynb, you can specify nth markdown cell (where n is an integer).
    </p>
    <p>
-    To specify you need to set &lsquo;md_summary_limit&rsquo; and &lsquo;ipynb_summary_limit&rsquo; config keys. The value is number. 1000 charectars is default for md files.
+    To specify you need to set &lsquo;md_summary_limit&rsquo; and &lsquo;ipynb_summary_limit&rsquo; config keys. The value is number. 1000 characters are the default for md files.
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; md_summary_limit 100
 $ blogger config -b &lt;blogname&gt; ipynb_summary_limit 200
 </code></pre>
    <p>
-    In ipynb files the charectar limit applies from 2nd md cell. The first md cell is assumed to be title and left out from summary.
+    In ipynb files, the character limit applies from 2nd md cell. The first md cell is assumed to be the title and left out from the summary.
    </p>
    <p>
     Similarly to set cell no in ipynb you can use c[1,2,3] eg: c1, c2 to select 1st and 2nd markdown cell&rsquo;s text respectively. The default value is c2 for every ipynb file.

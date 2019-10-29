@@ -118,10 +118,10 @@
     </li>
    </ol>
    <h2>
-    Customizing css
+    Customizing CSS
    </h2>
    <p>
-    You can customize the default css by simply going to css folder in your blog folder and changing it. Yeah that&rsquo;s it. For adding new css, fonts, js files see below in adding snippets. Look
+    You can customize the default CSS by simply going to the &lsquo;css&rsquo; folder in your blog folder and changing it. Yeah, that&rsquo;s it. For adding new CSS, fonts, js files see below in adding snippets. Look
     <a href="#adding-static-files">
      here
     </a>
@@ -131,7 +131,7 @@
     Customizing templates
    </h2>
    <p>
-    Templates are code snippets that are inserted to the html while converting your files.. eg disqus.html and google_analytics.html are template files that store respective snippets.
+    Templates are code snippets that are inserted to the HTML while converting your files.. eg disqus.html and google_analytics.html are template files that store respective snippets.
    </p>
    <p>
     First export all templates to your blog&rsquo;s root dir
@@ -148,7 +148,7 @@
 </code></pre>
    <blockquote>
     <p>
-     Every templates except layout.html are small building blocks(snippets) and layout.html is the collector that arrange these snippets.
+     Every template except layout.html are small building blocks(snippets) and layout.html is the collector that arrange these snippets.
     </p>
    </blockquote>
    <h2>
@@ -164,7 +164,7 @@
     Overriding existing templates
    </h3>
    <p>
-    You are free to edit the default templates and changes will be reflected. However if you mess up you can always again export blog_template from above process.
+    You are free to edit the default templates and changes will be reflected. However, if you mess up you can always again export blog_template from the above process.
    </p>
    <p>
     You may want to edit navbar_data.html. Here is what the default looks like:
@@ -176,7 +176,7 @@
 }
 </code></pre>
    <p>
-    You can add more navlinks or remove existing BUT make sure everything is inside DOUBLE QUOTES (") and not single quotes and do not put comma in the end of last item.
+    You can add more nav links or remove existing BUT make sure everything is inside DOUBLE QUOTES (") and not single quotes and do not put a comma at the end of the last item.
    </p>
    <p>
     It is also a good idea to override layout.html as you have read this in
@@ -189,7 +189,7 @@
     Indexes
    </h3>
    <p>
-    To make your indexes compatible. You just need to wrap your blog&rsquo;s post lists in a div with class &lsquo;posts_list&rsquo;. Blogger reads this div by default. However you can control hat div class should blogger lookup by setting &lsquo;index_div_name&rsquo; to your div class name.
+    To make your indexes compatible. You just need to wrap your blog&rsquo;s post lists in a div with class &lsquo;posts_list&rsquo;. Blogger reads this div by default. However, you can control hat div class should blogger lookup by setting &lsquo;index_div_name&rsquo; to your div class name.
    </p>
    <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; index_div_name posts
 </code></pre>
@@ -210,8 +210,8 @@
     Dynamic templating
    </h2>
    <p>
-    You can have logics and variables in the blog_templates for dynamic template generation.
-Blogger-cli uses jinja2 templating engine. So, please lookup to jinja2
+    You can have logic and variables in the blog_templates for dynamic template generation.
+Blogger-cli uses jinja2 templating engine. So, please look up to jinja2
     <a href="http://jinja.pocoo.org/docs/latest/">
      documetation
     </a>
@@ -263,14 +263,14 @@ Logic code are written inside
     Usage
    </h4>
    <p>
-    You can execute any python codes and use logic anyway you like inside {% %} in any templates.
+    You can execute any python codes and use logic any way you like inside {% %} in any templates.
 You have 2 variable access.
-* snippet : This is only available in layout.html through this you can access any other snippet file&rsquo;s content along with title and file link.
+* snippet: This is only available in layout.html through this you can access any other snippet file&rsquo;s content along with the title and file link.
    </p>
    <ul>
     <li>
      <p>
-      meta: Meta is available in every template. You write the meta in your post and use it in the template. Its entirely your implementation. More info on meta is
+      meta: Meta is available in every template. You write the meta in your post and use it in the template. It&rsquo;s entirely your implementation. More info on meta is
       <a href="meta.html">
        here
       </a>
@@ -284,16 +284,16 @@ You have 2 variable access.
    </ul>
    <blockquote>
     <p>
-     You can access meta class from any custom templates and inbuilt templates. Just add something in your meta and reference it with {{ meta.var }}
+     You can access &lsquo;meta&rsquo; class from any custom templates and inbuilt templates. Just add something in your meta and reference it with {{ meta.var }}
     </p>
    </blockquote>
    <p>
-    eg I write a md file
+    eg I write an md file
 test.md
    </p>
    <pre class="prettyprint"><code>&lt;!--
 topic: python
-date: 3 may
+date: 3 May
 --&gt;
 </code></pre>
    <p>
@@ -305,7 +305,7 @@ date: 3 may
     Adding static files
    </h4>
    <p>
-    Registering new css or js files. Just open css.html file or js.html file in the editor and edit the source.
+    Registering new CSS or js files. Just open css.html file or js.html file in the editor and edit the source.
    </p>
    <p>
     Default css.html

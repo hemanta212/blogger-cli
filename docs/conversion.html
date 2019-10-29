@@ -81,10 +81,10 @@
     Conversion
    </h1>
    <p>
-    Blogger uses python-markdown and nbconvert library to convert your posts to html and injects snippets to it. Thus markdown(.md), jupyter(.ipynb) and html(.html) are supported files.
+    Blogger uses python-markdown and nbconvert library to convert your posts to Html and injects snippets to it. Thus markdown(.md), jupyter(.ipynb) and Html(.html) are supported files.
    </p>
    <p>
-    You can convert any number of files, folder you like at once. However they are treated as a batch i.e if you provide a topic option in command then every blog converted from that command will be under same topic.
+    You can convert any number of files, folder you like at once. However, they are treated as a batch i.e if you provide a topic option in command then every blog converted from that command will be under the same topic.
 Various options are available to you in convert command. See all
     <a href="#Conversion-options">
      here
@@ -136,24 +136,24 @@ Various options are available to you in convert command. See all
     Conversion of files
    </h2>
    <p>
-    Converting a file is simple as:
+    Converting a file is as simple as:
    </p>
    <pre class="prettyprint"><code>$ blogger convert filename
 </code></pre>
    <p>
-    However blogger fills various gaps like where converted files are placed and which blogs to use from your config. See
+    However, blogger fills various gaps like where converted files are placed and which blogs to use from your config. See
     <a href="blog_management.html">
      here
     </a>
     for how to set up configs.
-for example the above command assumes:
+for example, the above command assumes:
    </p>
    <ol>
     <li>
-     You have set a default blog and blog_dir and blog_posts_dir&rsquo;s value in config,
+     You have set a default blog and blog_dir and blog_posts_dir&rsquo;s value in the config,
     </li>
     <li>
-     File to be converted should be in current directory.
+     File to be converted should be in the current directory.
     </li>
    </ol>
    <p>
@@ -163,14 +163,14 @@ for example the above command assumes:
 </code></pre>
    <blockquote>
     <p>
-     The options will override the configs everytime.
+     The options will override the configs every time.
     </p>
    </blockquote>
    <h4>
     Recommended workflow
    </h4>
    <p>
-    You can set a working dir in your config providing a folder you use to store your md, ipynb, html files. Blogger will automatically convert the modified changes for you.
+    You can set a working dir in your config providing a folder you use to store your md, ipynb, Html files. Blogger will automatically convert the modified changes for you.
    </p>
    <pre class="prettyprint"><code>blogger config -b &lt;blogname&gt; working_dir /path/to/dir
 </code></pre>
@@ -179,7 +179,7 @@ for example the above command assumes:
     <code>
      blogger convert
     </code>
-    and then blogger will scan the dir and remember when the file wes last scanned to detect and process modified files automatically.
+    and then blogger will scan the dir and remember when the file was last scanned to detect and process modified files automatically.
 You have all the options like -r, -ex-html, &ndash;topic etc available as well.
    </p>
    <p>
@@ -203,12 +203,12 @@ So there is nothing extra for you to do
     Code support
    </h3>
    <p>
-    Every file converted to html will have mathjax and code support injected to it. You can pass &ndash;not-code option to avoid injecting them incase you don&rsquo;t need those.
+    Every file converted to Html will have mathjax and code support injected to it. You can pass &ndash;not-code option to avoid injecting them in case you don&rsquo;t need those.
    </p>
    <pre class="prettyprint"><code>$ blogger convert filename --not-code
 </code></pre>
    <p>
-    For ipynb files, the converted html won&rsquo;t have input/output prompts like In[1] Out[2] etc. You can enable this by editing js.html snippet. Look
+    For ipynb files, the converted Html won&rsquo;t have input/output prompts like In[1] Out[2] etc. You can enable this by editing js.html snippet. Look
     <a href="customizing.html">
      here
     </a>
@@ -240,10 +240,10 @@ $ blogger convert . -r --exclude-html
     Static files transfer
    </h2>
    <p>
-    By default blogger searches for img and video tag in html then for:
-- URI: It decodes the base64 URI to mp4 and png video and img resp.
+    By default, blogger searches for img and video tags in Html then for:
+- URI: It decodes the base64 URI to mp4 and png video and images resp.
 - URL: URL in img tag are downloaded and kept in images folder but videos are left as is.
-- local files: The local file references in img and video tags are resolved and copied to blog. This applies to files of all formats both videos and audio.
+- local files: The local file references in img and video tags are resolved and copied to the blog. This applies to files of all formats both videos and audio.
    </p>
    <p>
     You can switch all of them off by passing -no-ex or &ndash;no-extract option during conversion.
@@ -273,7 +273,7 @@ Do not add mathjax and code support.
    </p>
    <p>
     -o, &ndash;to:
-Destination for converted files, DEFAULT from blog_config.
+The destination for converted files, DEFAULT from blog_config.
    </p>
    <p>
     -b, &ndash;blog:
@@ -289,15 +289,15 @@ Folder to store post images. Default: blog&rsquo;s config
    </p>
    <p>
     -no-ex, &ndash;no-img-extract:
-Disable image, video extraction from URI, urls and local files.
+Disable image, video extraction from URI, URLs and local files.
    </p>
    <p>
     &ndash;topic:
-Topic in which this post should be placed in index. Applied to all files currently converting.
+Topic in which this post should be placed in the index file. Applied to all files currently converting.
    </p>
    <p>
     -temp, &ndash;template:
-Folder path of custom template. Default &lsquo;blog_templates_dir&rsquo; value in config.
+Folder path of a custom templates folder. Default &lsquo;blog_templates_dir&rsquo; value in config.
    </p>
    <p>
     &ndash;override-meta:

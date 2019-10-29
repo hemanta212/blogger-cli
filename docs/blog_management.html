@@ -135,16 +135,16 @@
    <p>
     &lsquo;blogs&rsquo; need to be registered first. You can do so by:
    </p>
-   <pre class="prettyprint"><code>blogger adddblog &lt;blogname&gt;
+   <pre class="prettyprint"><code>blogger addblog &lt;blogname&gt;
 </code></pre>
    <p>
-    You will be asked series of questions you can answer them or skip over them using &lsquo;n&rsquo;
-Similary if you want to avoid getting asked these questions and only want to register a blog use
+    You will be asked a series of questions you can answer them or skip over them using &lsquo;n&rsquo;
+Similarly, if you want to avoid getting asked these questions and only want to register a blog use
    </p>
    <pre class="prettyprint"><code>blogger addblog &lt;blogname&gt; -s
 </code></pre>
    <p>
-    You can always setup configs later
+    You can always set up configs later
    </p>
    <p>
     <a id="Editing-blog-configs">
@@ -158,44 +158,44 @@ Similary if you want to avoid getting asked these questions and only want to reg
    </p>
    <p>
     &lsquo;blog_dir&rsquo;:
-This is the main folder of your website. This folder is not used to store converted html blogs since it is treated as root website folder.
+This is the main folder of your website. This folder is not used to store converted Html blogs since it is treated as a root website folder.
 eg values: &lsquo;~/my_website_folder/&rsquo;, &lsquo;C:\Useres\Desktop'
    </p>
    <p>
     &lsquo;blog_posts_dir&rsquo;:
-This is the folder you want to keep your converted blog posts in. It is specified in respect to blog_dir folder (root dir).
+This is the folder you want to keep your converted blog posts in. It is specified with respect to blog_dir folder (root dir).
    </p>
    <p>
     Example values: &lsquo;blog/&rsquo;, &lsquo;posts/&rsquo;.
    </p>
    <blockquote>
     <p>
-     Do not use &lsquo;/&rsquo; infront of folder name like &lsquo;/blog/&rsquo;. It conveys different meaning.
+     Do not use &lsquo;/&rsquo; in front of folder name like &lsquo;/blog/&rsquo;. It conveys a different meaning.
     </p>
    </blockquote>
    <p>
     &lsquo;blog_images_dir&rsquo;:
-Where you want to store your images that we extract for you from http/s urls and data URI in your post. The path value is relative from root dir (blog_dir) same like blog_posts_dir. Images will be stored in folders with same name as your blog title and If you have topic then it will be used too. like topic/blog_title/.
+Where you want to store the images that we extract for you from Http/s URLs and data URI in your post. The path value is relative from root dir (blog_dir) same like blog_posts_dir. Images will be stored in folders with the same name as your blog title and If you have a topic then it will be used too. like topic/blog_title/.
    </p>
    <p>
     Example values: &lsquo;images/blog/&rsquo;, &lsquo;images/&rsquo;, &lsquo;blog/images/&rsquo;.
    </p>
    <blockquote>
     <p>
-     For sites like github pages, you need to keep &lsquo;images&rsquo; folder in root folder of your website.
+     For sites like Github pages, you need to keep the &lsquo;images&rsquo; folder in the root folder of your website.
     </p>
    </blockquote>
    <p>
     &lsquo;disqus_username&rsquo;:
-If you have a disqus account you can enter username here and commenting system will work on every posts. You can get it from disqus account url. eg https://badboy11.disqus.com &lsquo;s username will be &lsquo;badboy11&rsquo;.
+If you have a Disqus account you can enter the username here and the commenting system will work on every post. You can get it from Disqus account URL. eg https://badboy11.disqus.com &lsquo;s username will be &lsquo;badboy11&rsquo;.
    </p>
    <p>
     &lsquo;google_analytics_id&rsquo;:
-It is a snippet provided by google to analyze your website&rsquo;s traffic. Sign in and get a snippet and you can get id from that snippet. eg: &lsquo;UA-159824128-0&rsquo;
+It is a snippet provided by Google to analyze your website&rsquo;s traffic. Sign in and get a snippet and you can get id from that snippet. eg: &lsquo;UA-159824128-0&rsquo;
    </p>
    <p>
     &lsquo;templates_dir&rsquo;:
-It is the directory where you can override default html templates to suit your needs. More info
+It is the directory where you can override default Html templates to suit your needs. More info
     <a href="customizing.html">
      here
     </a>
@@ -303,7 +303,7 @@ It is the directory where you can override default html templates to suit your n
    <pre class="prettyprint"><code>blogger info --all
 </code></pre>
    <p>
-    The usecases of these configs has been specified
+    The use cases of these configs have been specified
     <a href="optional_config.html">
      here
     </a>
@@ -327,12 +327,12 @@ It is the directory where you can override default html templates to suit your n
    <pre class="prettyprint"><code>blogger setdefault &lt;anotherblogname&gt;
 </code></pre>
    <p>
-    Everything will safely handled. If for some reason you don&rsquo;t want to set any blog as default use
+    Everything will safely be handled. If for some reason you don&rsquo;t want to set any blog as default use
     <a href="#Editing-individually">
      config command
     </a>
     to delete the default property.
-Similarly if blog &lsquo;A&rsquo; is default you can specify -b option in command for operating on other blogs.
+Similarly, if blog &lsquo;A&rsquo; is default you can specify -b option in command for operating on other blogs.
    </p>
    <p>
     <a id="Removing-a-blog">

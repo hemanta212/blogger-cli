@@ -81,7 +81,7 @@
     Optional configs
    </h1>
    <p>
-    These optional configs help you to control blogger&rsquo;s certain behaviour. They are not meant to be
+    These optional configs help you to control blogger-cli&rsquo;s certain behaviour. They are not meant to be
 changed frequently, try to keep them consistent. All of them are handled through the config command.
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; config_name value
@@ -99,7 +99,7 @@ changed frequently, try to keep them consistent. All of them are handled through
 The default is &lsquo;
     <!-- -->
     &lsquo; format. You can specify new meta_format by using the config command.
-A meta format has a beginning pattern then a space and ending pattern. The beginning and ending pattern can be same but not necessarily.
+A meta format has a beginning pattern then space and ending pattern. The beginning and ending pattern can be the same but not necessarily.
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; meta_format '*/ /*'
 </code></pre>
@@ -108,7 +108,7 @@ A meta format has a beginning pattern then a space and ending pattern. The begin
    </h2>
    <p>
     The &lsquo;post_extract_list&rsquo; controls what static resource is extracted.
-The static resource are images and videos. Blogger by default downloads images from URL and converts URI images to png. You can set post_extract_list config to control what gets extracted.
+The static resources are images and videos. Blogger by default downloads images from URL and converts URI images to png. You can set post_extract_list config to control what gets extracted.
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; post_extract_list ['URI', 'URL']
 $ blogger config -b &lt;blogname&gt; post_extract_list ['URL']
@@ -121,8 +121,8 @@ $ blogger config -b &lt;blogname&gt; post_extract_list ['URI']
     Filter post without title
    </h2>
    <p>
-    &lsquo;filter_post_without_title&rsquo; config is either true or false. It will filter or prevent all those posts that doesnot have
-title from indexing in the index. However this doesnot prevent or stop the conversion of file in any way. It will not be present in index.html.
+    &lsquo;filter_post_without_title&rsquo; config is either true or false. It will filter or prevent all those posts that don&rsquo;t have
+a title from indexing in the index. However, this doesn&rsquo;t prevent or stop the conversion of the file in any way. It will not be present in index.html.
    </p>
    <h2>
     Working dir timestamp
@@ -134,13 +134,13 @@ title from indexing in the index. However this doesnot prevent or stop the conve
     Index div name
    </h2>
    <p>
-    &lsquo;index_div_name&rsquo; is the name of class of the posts list in index.html file of blog. This helps to add entries there. This assumes that the list of posts are inside a div. The div&rsquo;s class is given so blogger can get that container and append entries to it.
+    &lsquo;index_div_name&rsquo; is the name of the class of the posts list in index.html file of a blog. This helps to add entries there. This assumes that the list of posts is inside a div. The div&rsquo;s class is given so blogger can get that container and append entries to it.
    </p>
    <h2>
     Create nbdata file
    </h2>
    <p>
-    &lsquo;create_nbdata_file&rsquo; is config accepting &lsquo;true&rsquo; or &lsquo;false&rsquo;. Enabling it will create nbdata file from meta found in original ipynb file. It will have every key value from metadata. Similary, the nbdata file will have the same name as ipynb file except of &lsquo;.nbdata&rsquo; file ext. By default it is &lsquo;true&rsquo;.
+    &lsquo;create_nbdata_file&rsquo; is config accepting &lsquo;true&rsquo; or &lsquo;false&rsquo;. Enabling it will create nbdata file from meta found in original ipynb file. It will have every key value from metadata. Similarly, the nbdata file will have the same name as ipynb file but &lsquo;.nbdata&rsquo; file extension. By default, it is &lsquo;true&rsquo;.
    </p>
    <h2>
     Delete ipynb meta
@@ -152,20 +152,20 @@ title from indexing in the index. However this doesnot prevent or stop the conve
     Feed file
    </h2>
    <p>
-    This is the location of feed file for your blog. The &lsquo;addfeed&rsquo; command will use it. The value of &lsquo;feed_file&rsquo; if given relative will be interpreted with respect to blog_dir otherwise if absolute path is given, that will be used.
+    This is the location of the feed file for your blog. The &lsquo;addfeed&rsquo; command will use it. The value of &lsquo;feed_file&rsquo; if given relative will be interpreted with respect to blog_dir otherwise if the absolute path is given, that will be used.
    </p>
    <h2>
     Site URL
    </h2>
    <p>
-    &lsquo;site_url&rsquo; is the url of your website. It is used for feed to resolve and contruct feed_entries url and feed&rsquo;s url itself.
+    &lsquo;site_url&rsquo; is the URL of your website. It is used for feed to resolve and construct feed_entries URL and feed&rsquo;s URL itself.
    </p>
    <h2>
     Md summary limit
    </h2>
    <p>
-    This is limit in no of charectars to include in extraction of summary for md. While converting md files blogger extracts the summary, title and keeps a cache for later use in addfeed command.
-You can control how much charectar to include in summary by setting this config. The default value is 1000
+    This is limit in no of characters to include in the extraction of summary for md. While converting md files blogger extracts the summary, title and keeps a cache for later use in &lsquo;addfeed&rsquo; command.
+You can control how much character to include in summary by setting this config. The default value is 1000
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; md_summary_limit 1000
 </code></pre>
@@ -173,12 +173,12 @@ You can control how much charectar to include in summary by setting this config.
     Ipynb summary limit
    </h2>
    <p>
-    This limit is similar to md. Here the text are extracted from each markdown cells except 1st one and joined. The first one is reserved for title so it isn&rsquo;t included in summary. Then the charectar limit is used in that to construct summary. The value is in integer.
+    This limit is similar to md. Here the text is extracted from each markdown cells except 1st one and joined. The first one is reserved for the title so it isn&rsquo;t included in the summary. Then the character limit is used in that to construct a summary. The value is in integer.
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; ipynb_summary_limit 1000
 </code></pre>
    <p>
-    However, you can also specify which cell number to be used using &lsquo;c&rsquo; before cell number.
+    However, you can also specify which cell number to be used using &lsquo;c&rsquo; before the cell number.
 The default is c2. ie 2nd  markdown cell is used in summary
    </p>
    <pre class="prettyprint"><code>$ blogger config -b &lt;blogname&gt; ipynb_summary_limit c2
