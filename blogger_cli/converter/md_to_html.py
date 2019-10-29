@@ -67,9 +67,9 @@ def write_html_and_md(ctx, html_body, md_file_path, meta):
         try:
             copyfile(md_file_path, new_md_file_path)
             ctx.log(":: Copied md file to", new_md_file_path)
-        except SameFileError:
+        except Exception as E:
             os.remove(new_md_file_path)
             copyfile(md_file_path, new_md_file_path)
-            ctx.log(":: Overwriting md file", new_md_file_path)
+            ctx.log(":: ERROR", E, "Overwriting md file", new_md_file_path)
 
     return (html_filename, meta)
