@@ -36,9 +36,8 @@ def cli(ctx, remove, blog, configs, restore, verbose):
         raise SystemExit(0)
 
     if not configs:
-        raise SystemExit(
-            "ERROR: MISSING ARGUMENT 'CONFIG KEY'" + " See blogger config --help"
-        )
+        ctx.log("ERROR: MISSING ARGUMENT 'CONFIG KEY'", " \nSee blogger config --help")
+        raise SystemExit()
 
     __validate(ctx, blog, configs)
     key = configs[0]
@@ -65,7 +64,9 @@ def ensure_and_expand_dir(dir):
     try:
         full_path = str(folder.expanduser().resolve())
     except FileNotFoundError as E:
-        raise SystemExit("ERROR:", E, dir)
+        msg = "ERROR:" + str(E) + str(dir)
+        click.secho(msg, blink=True, bold=True, fg="bright_red")
+        raise SystemExit()
 
     return full_path
 

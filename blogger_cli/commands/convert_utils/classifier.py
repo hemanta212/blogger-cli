@@ -16,7 +16,7 @@ def convert_and_copyfiles(ctx):
     }
 
     for file, filetype in file_ext_map.items():
-        ctx.vlog(":: Processing the file", file, "filetype:", filetype)
+        ctx.log("\n:: Processing the file", file, "filetype:", filetype)
         converter = convert_file[filetype]
         html_filename_meta = converter(ctx, file)
         filenames_meta.append(html_filename_meta)
@@ -36,9 +36,14 @@ def process_htmlfile(ctx, html_file):
     html_filename = os.path.join(topic, html_filename)
     html_file_path = os.path.join(destination_dir, html_filename)
     meta = {"_summary_": ""}
-    ctx.vlog(":: Copying basic html file to", html_file_path)
-    try:
-        copyfile(html_file, html_file_path)
-    except Exception as E:
-        ctx.vlog(E)
+    ctx.log(":: Copying basic html file to", html_file_path)
+
+    if html_file != html_file_path:
+        try:
+            copyfile(html_file, html_file_path)
+        except Exception as E:
+            os.remove(html_file_path)
+            copyfile(html_file, html_file_path)
+            ctx.log(":: ERROR", E, "Overwriting html file", html_file_path)
+
     return (html_filename, meta)

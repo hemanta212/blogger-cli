@@ -56,7 +56,13 @@ def init_feed_file(feed, feed_file_path, feed_type):
         try:
             filetype[feed_type](feed_file_path)
         except ValueError:
-            raise SystemExit(":: ERROR required fields were not filled. Aborting..")
+            click.secho(
+                ":: ERROR required fields were not filled. Aborting..",
+                bold=True,
+                blink=True,
+                fg="bright_red",
+            )
+            raise SystemExit()
 
 
 def validate_entry(ctx, post_meta):

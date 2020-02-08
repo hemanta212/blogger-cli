@@ -2,9 +2,6 @@ import os
 import shutil
 import unittest
 
-from tempfile import mkdtemp
-from pkg_resources import resource_filename
-
 from click.testing import CliRunner
 from blogger_cli import ROOT_DIR
 from blogger_cli.cli import Context
@@ -20,7 +17,9 @@ class TestBasic(unittest.TestCase):
         self.runner = CliRunner()
         self.ctx = Context()
         self.root_dir = ROOT_DIR.capitalize()
-        self.export_dir = mkdtemp()
+        HOME_DIR = os.path.expanduser("~")
+        self.export_dir = os.path.join(HOME_DIR, ".blogger_tmp")
+        os.mkdir(self.export_dir)
         self.blog_dir = os.path.join(self.export_dir, "blog")
         self.index_path = os.path.join(self.blog_dir, "index.html")
         self.runner.invoke(

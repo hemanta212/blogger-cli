@@ -144,8 +144,10 @@ def get_navbar_dict(ctx, snippet_content_map, topic):
             snippet_content_map["navbar_data"], object_pairs_hook=OrderedDict
         )
     except Exception as E:
-        ctx.log("Couldnot parse your custom navbar", E)
-        raise SystemExit("ERROR: INVALID NAVBAR TEMPLATE")
+        ctx.log(
+            ":: Could not parse your custom navbar", E, "ERROR: INVALID NAVBAR TEMPLATE"
+        )
+        raise SystemExit()
 
     if topic:
         for nav_topic, nav_link in navbar_dict.items():
@@ -187,7 +189,7 @@ def update_posts_index(ctx, snippet_content_map, meta):
     topic = meta["topic"]
 
     if not os.path.exists(index_path):
-        ctx.vlog("Cannot find index file in", index_path)
+        ctx.vlog(":: Cannot find index file in", index_path)
         ctx.log("WARNING: NO INDEX FILE. SEE blogger export --help")
         return None
 
@@ -195,7 +197,7 @@ def update_posts_index(ctx, snippet_content_map, meta):
     posts_list_div = soup.find("div", class_=index_div_class)
 
     if not posts_list_div:
-        ctx.log("Cannot update blog index. No div with", index_div_class, "class")
+        ctx.log(":: Cannot update blog index! No div with", index_div_class, "class")
         ctx.log("WARNING: INVALID INDEX.", index_path)
         return None
 
@@ -293,7 +295,8 @@ def filter_invalid_index_links(ctx, soup, blog_posts_dir):
                 or href_data.startswith("data:")
             ):
                 raise ValueError
-        except:
+        except Exception as E:
+            ctx.vlog(E)
             href_data = None
 
         if href_data:

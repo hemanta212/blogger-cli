@@ -18,8 +18,13 @@ def cli(version, force, accept_all):
 
     custom = [False for i in [".blogger_cli", "venv"] if i not in ROOT_DIR]
     if False in custom:
-        print("blogger-cli was not installed by recommended method")
-        raise SystemExit("Use pip install --upgrade blogger-cli instead to upgrade")
+        click.secho(
+            "blogger-cli was not installed by recommended method",
+            "Use pip install --upgrade blogger-cli instead to upgrade",
+            bold=True,
+            fg="bright_red",
+        )
+        raise SystemExit()
 
     if not WINDOWS or not force:
         installer = Installer(version=version, force=force, accept_all=accept_all)
@@ -37,9 +42,10 @@ def cli(version, force, accept_all):
     if accept_all:
         last_string += " -y "
 
-    print(
+    msg = (
         "Please run this command manually to force update!:\n",
         "python",
         new_file_path,
         last_string,
     )
+    click.secho(msg, fg="green")

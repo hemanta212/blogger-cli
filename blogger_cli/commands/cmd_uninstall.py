@@ -15,8 +15,13 @@ def cli():
 
     custom = [False for i in [".blogger_cli", "venv"] if i not in ROOT_DIR]
     if False in custom:
-        print("blogger-cli was not installed by recommended method")
-        raise SystemExit("Use pip uninstall blogger-cli instead to uninstall")
+        click.secho(
+            "blogger-cli was not installed by recommended method",
+            ":: ERROR use pip uninstall blogger-cli instead to uninstall",
+            bold=True,
+            fg="bright_red",
+        )
+        raise SystemExit()
 
     if not WINDOWS:
         installer = Installer()
@@ -30,9 +35,10 @@ def cli():
     installer_path = resource_filename("blogger_cli", installer_location)
     shutil.copyfile(installer_path, new_file_path)
 
-    print(
+    msg = (
         "Please run this command manually to Uninstall:\n",
         "python",
         new_file_path,
         "--uninstall",
     )
+    click.secho(msg, fg="green")

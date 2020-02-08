@@ -257,7 +257,8 @@ def extract_meta_format(ctx):
         try:
             meta_start, meta_end = meta_signs
         except Exception as E:
-            raise SystemExit("Invalid custom meta format", meta_signs, E)
+            ctx.log(":: ERROR Invalid custom meta format", meta_signs, E)
+            raise SystemExit()
 
     else:
         meta_start, meta_end = "<!--", "-->"

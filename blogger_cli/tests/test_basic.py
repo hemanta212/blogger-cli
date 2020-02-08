@@ -13,6 +13,7 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
 
     def test_main(self):
+        self.maxDiff = None
         result = self.runner.invoke(cli)
         self.assertEqual(result.exit_code, 0)
 
@@ -20,6 +21,18 @@ class TestBasic(unittest.TestCase):
         self.maxDiff = None
         result = self.runner.invoke(cli, ["addblog", "test1"])
         self.assertEqual(result.output, BM.addblog_existing)
+        self.assertEqual(result.exit_code, 0)
+
+    def test_spellcheck(self):
+        self.maxDiff = None
+        result = self.runner.invoke(cli, ["spellcheck", "--help"])
+        self.assertEqual(result.output, BM.spellcheck_help)
+        self.assertEqual(result.exit_code, 0)
+
+    def test_addfeed(self):
+        self.maxDiff = None
+        result = self.runner.invoke(cli, ["addfeed", "--help"])
+        self.assertEqual(result.output, BM.addfeed_help)
         self.assertEqual(result.exit_code, 0)
 
     def test_info_success(self):

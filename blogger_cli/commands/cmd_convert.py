@@ -140,7 +140,8 @@ def cli(
         "topic": topic,
     }
     filenames_meta = convert_and_copyfiles(ctx)
-    ctx.log("Converted files successfully.\n\nADDING FILES TO BLOG")
+    ctx.log("Converted files successfully. \n")
+    ctx.log("ADDING FILES TO BLOG")
     for filename_meta in filenames_meta:
         add_post.add(ctx, filename_meta)
 
@@ -153,7 +154,8 @@ def get_files_from_working_dir(ctx, recursive):
     working_dir = Path(str(working_dir))
     if not working_dir or not working_dir.exists():
         ctx.log(":: Working folder doesnot exist")
-        raise SystemExit(":: ERROR: No input files")
+        ctx.log(":: ERROR: No input files")
+        raise SystemExit()
 
     current_timestamp = datetime.today().timestamp()
     ctx.config.write(blog + ":working_dir_timestamp", current_timestamp)
@@ -167,8 +169,9 @@ def get_files_from_working_dir(ctx, recursive):
         ctx.log(
             "Parse error for last sync. Please convert",
             "files manually or convert all files in your working_dir",
+            "ERROR: Last sync date invalid",
         )
-        raise SystemExit("ERROR: Last sync date invalid")
+        raise SystemExit()
 
     def is_modified_file(path):
         if not path.is_file():
@@ -235,8 +238,9 @@ def check_and_ensure_destination_dir(ctx, output_dir):
             "setup in your",
             blog,
             "blog's config",
+            "ERROR: NO OUTPUT FOLDER",
         )
-        raise SystemExit("ERROR: NO OUTPUT FOLDER")
+        raise SystemExit()
 
     if posts_dir:
         destination_dir = os.path.join(blog_dir, posts_dir)
@@ -269,7 +273,8 @@ def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
             img_dir = os.path.join(destination_dir, "images")
             return img_dir
         else:
-            raise SystemExit("ERROR: NO OUTPUT FOLDER")
+            ctx.log("ERROR: NO OUTPUT FOLDER")
+            raise SystemExit()
 
     if blog_img_dir:
         img_dir = os.path.join(blog_dir, blog_img_dir)
@@ -286,7 +291,6 @@ def check_and_ensure_img_dir(ctx, destination_dir, output_img_dir):
 
 def resolve_templates_dir(ctx, templates_dir_from_cmd):
     blog = ctx.current_blog
-    blog_dir = ctx.config.read(key=blog + ": blog_dir")
     blog_templates_dir = ctx.config.read(key=blog + ": templates_dir")
     templates_dir = blog_templates_dir
 
@@ -305,7 +309,8 @@ def set_current_blog(ctx, blog):
 
     if not ctx.blog_exists(current_blog):
         ctx.log("Blog name not given. Use --blog option or set default blog")
-        raise SystemExit("ERROR: Blogname unavailable. SEE blogger convert --help")
+        ctx.log("ERROR: Blogname unavailable. SEE blogger convert --help")
+        raise SystemExit()
 
     ctx.current_blog = current_blog
 

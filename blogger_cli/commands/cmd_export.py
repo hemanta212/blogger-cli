@@ -48,7 +48,8 @@ def cli(ctx, resource, blog, relative_path, verbose):
     transfer = resource_map.get(resource)
     if not transfer:
         ctx.log("No such resource. See blogger export --help")
-        raise SystemExit("ERROR: INVALID RESOURCE NAME")
+        ctx.log("ERROR: INVALID RESOURCE NAME")
+        raise SystemExit()
 
     ctx.vlog("Using function", transfer)
     transfer(ctx, export_path)
@@ -64,11 +65,13 @@ def validate_blog_and_settings(ctx, input_blog, input_path):
         settings = ctx.config.read(key=blog + ": blog_dir")
         if not settings and not input_path:
             ctx.log("Set config value for blog_dir in", blog, "blog")
-            raise SystemExit("ERROR: MISSING CONFIG: blog_dir")
+            ctx.log("ERROR: MISSING CONFIG: blog_dir")
+            raise SystemExit()
 
     elif not blog or not blog_exists:
         ctx.log("Pass a correct blog  with -b option", "or set a default blog")
-        raise SystemExit("ERROR: INVALID_BLOG_NAME: " + str(blog))
+        ctx.log("ERROR: INVALID_BLOG_NAME: " + str(blog))
+        raise SystemExit()
 
     ctx.current_blog = blog
 
@@ -83,7 +86,8 @@ def resolve_export_path(ctx, relative_path):
                 relative_path,
                 "without setting blog_dir value in config!",
             )
-            raise SystemExit("Use full path to export in this folder")
+            ctx.log(":: ERROR use full path to export in this folder")
+            raise SystemExit()
         else:
             blog_dir = ""
 
