@@ -395,7 +395,7 @@ description = "Pure python spell checker based on work by Peter Norvig"
 name = "pyspellchecker"
 optional = false
 python-versions = "*"
-version = "0.5.3"
+version = "0.5.4"
 
 [[package]]
 category = "main"
@@ -526,6 +526,7 @@ beautifulsoup4 = [
 ]
 bleach = [
     {file = "bleach-3.1.0-py2.py3-none-any.whl", hash = "sha256:213336e49e102af26d9cde77dd2d0397afabc5a6bf2fed985dc35b5d1e285a16"},
+    {file = "bleach-3.1.0-py3.8.egg", hash = "sha256:4ca3ec10244c9f11ec129b054912e8bc9ecefc2e0b6bf0dab273f0e72cf381e4"},
     {file = "bleach-3.1.0.tar.gz", hash = "sha256:3fdf7f77adcf649c9911387df51254b813185e32b2c6619f690b593a617e19fa"},
 ]
 bs4 = [
@@ -715,8 +716,8 @@ pyrsistent = [
     {file = "pyrsistent-0.15.7.tar.gz", hash = "sha256:cdc7b5e3ed77bed61270a47d35434a30617b9becdf2478af76ad2c6ade307280"},
 ]
 pyspellchecker = [
-    {file = "pyspellchecker-0.5.3-py2.py3-none-any.whl", hash = "sha256:36f3ca27154593dd9c78bc38782d27d6f7461c47802cf550e50438a7587c7eaf"},
-    {file = "pyspellchecker-0.5.3.tar.gz", hash = "sha256:d02b5566ca7d76a8c571de8997b06d84565ce500c15377adac3daac060564af8"},
+    {file = "pyspellchecker-0.5.4-py2.py3-none-any.whl", hash = "sha256:1d09767fb8825e9f920339f202c89cf9e38b7555504ae52451d944f4ef3c336c"},
+    {file = "pyspellchecker-0.5.4.tar.gz", hash = "sha256:87075048d61ca971fa9f4fbcc23ca6755cef9844a15a81bd2bf9637ca3914da7"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},
