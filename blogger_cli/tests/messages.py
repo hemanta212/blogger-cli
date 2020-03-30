@@ -39,7 +39,7 @@ Blog removed succesfully
 
     info_success = """\
 
-Blogger-cli version: 1.2.1
+Blogger-cli version: 1.2.2
 
 Registered Blogs:
    test1
