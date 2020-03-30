@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blogger-cli"
-version = "1.2.1"
+version = "1.2.2"
 description = "Blogger cli is a CLI tool to convert ipynb, md, html file to responsive html files."
 authors = ["hemanta212 <sharmahemanta.212@gmail.com>"]
 readme = "README.md"
