@@ -51,7 +51,7 @@ class Context(object):
 
         # handle basic coloring
         if "error" in message:
-            click.secho(msg, file=sys.stderr, bold=True, blink=True, fg="bright_red")
+            click.secho(msg, file=sys.stderr, bold=True, blink=False, fg="bright_red")
         elif "warning" in message or "!" in message:
             click.secho(msg, file=sys.stderr, bold=True, fg="bright_yellow")
         elif "converting" in message or "adding" in message:
