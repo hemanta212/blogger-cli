@@ -25,7 +25,7 @@ colorama = "^0.4.1"
 blogger = 'blogger_cli.cli:cli'
 
 [tool.poetry.dev-dependencies]
-pylint = "^2.4"
+pylint = "^2.5"
 flake8 = "^3.7.9"
 
 [build-system]
