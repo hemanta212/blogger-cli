@@ -35,6 +35,7 @@ html files.""",
         "feedgen",
         "pyspellchecker",
         "selectolax",
+        "colorama",
     ],
     entry_points="""
         [console_scripts]
