@@ -26,7 +26,7 @@ blogger = 'blogger_cli.cli:cli'
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.5"
-flake8 = "^3.7.9"
+flake8 = "^3.8.3"
 
 [build-system]
 requires = ["poetry>=0.12"]
