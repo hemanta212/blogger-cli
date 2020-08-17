@@ -422,7 +422,7 @@ description = "Pure python spell checker based on work by Peter Norvig"
 name = "pyspellchecker"
 optional = false
 python-versions = "*"
-version = "0.5.4"
+version = "0.5.5"
 
 [[package]]
 category = "main"
@@ -758,8 +758,8 @@ pyrsistent = [
     {file = "pyrsistent-0.16.0.tar.gz", hash = "sha256:28669905fe725965daa16184933676547c5bb40a5153055a8dee2a4bd7933ad3"},
 ]
 pyspellchecker = [
-    {file = "pyspellchecker-0.5.4-py2.py3-none-any.whl", hash = "sha256:1d09767fb8825e9f920339f202c89cf9e38b7555504ae52451d944f4ef3c336c"},
-    {file = "pyspellchecker-0.5.4.tar.gz", hash = "sha256:87075048d61ca971fa9f4fbcc23ca6755cef9844a15a81bd2bf9637ca3914da7"},
+    {file = "pyspellchecker-0.5.5-py2.py3-none-any.whl", hash = "sha256:ab01e0bae31075bb8d817db686738115c1d6b42fefcef0986ee5dd717a761e0a"},
+    {file = "pyspellchecker-0.5.5.tar.gz", hash = "sha256:01a71267a2725866487c57b5eb3240eb9a03c0cb5575519089874100008ffc4e"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},
