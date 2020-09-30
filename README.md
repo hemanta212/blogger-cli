@@ -1,5 +1,5 @@
-# Blogger-cli
-# Make your own blog very easily  
+#       Blogger-cli
+ # Make your own blog very easily
 ![build](https://github.com/hemanta212/blogger-cli/workflows/Build/badge.svg)
 [![version](https://img.shields.io/pypi/v/blogger-cli.svg)](https://pypi.org/project/blogger-cli)
 [![licence](https://img.shields.io/pypi/l/blogger-cli.svg)](https://pypi.org/project/blogger-cli)
@@ -7,7 +7,7 @@
 
 A custom CLI tool to process jupyter notebooks, markdown files and HTML files. Write your blog in markdown or jupyter notebooks and then transform into a blog post with mathjax, code support, google analytics, navigation, Disqus support.
 
-See a sample blog made by blogger-cli: [Here](https://pykancha.github.io/test/)
+See a sample blog made by blogger-cli: [click Here](https://pykancha.github.io/test/)
 
 ## Why?
 It is easy to get your hands on, works flawlessly and won't get bulky and slow over time.
