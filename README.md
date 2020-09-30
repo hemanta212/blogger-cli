@@ -1,4 +1,5 @@
 # Blogger-cli
+# Make your own blog very easily  
 ![build](https://github.com/hemanta212/blogger-cli/workflows/Build/badge.svg)
 [![version](https://img.shields.io/pypi/v/blogger-cli.svg)](https://pypi.org/project/blogger-cli)
 [![licence](https://img.shields.io/pypi/l/blogger-cli.svg)](https://pypi.org/project/blogger-cli)
