@@ -1,27 +1,24 @@
 [[package]]
-category = "dev"
-description = "An abstract syntax tree for Python with inference support."
 name = "astroid"
+version = "2.4.1"
+description = "An abstract syntax tree for Python with inference support."
+category = "dev"
 optional = false
 python-versions = ">=3.5"
-version = "2.4.1"
 
 [package.dependencies]
 lazy-object-proxy = ">=1.4.0,<1.5.0"
 six = ">=1.12,<2.0"
+typed-ast = {version = ">=1.4.0,<1.5", markers = "implementation_name == \"cpython\" and python_version < \"3.8\""}
 wrapt = ">=1.11,<2.0"
 
-[package.dependencies.typed-ast]
-python = "<3.8"
-version = ">=1.4.0,<1.5"
-
 [[package]]
-category = "main"
-description = "Classes Without Boilerplate"
 name = "attrs"
+version = "19.3.0"
+description = "Classes Without Boilerplate"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "19.3.0"
 
 [package.extras]
 azure-pipelines = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "pytest-azurepipelines"]
@@ -30,27 +27,30 @@ docs = ["sphinx", "zope.interface"]
 tests = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
 
 [[package]]
-category = "main"
-description = "Screen-scraping library"
 name = "beautifulsoup4"
+version = "4.9.0"
+description = "Screen-scraping library"
+category = "main"
 optional = false
 python-versions = "*"
-version = "4.9.0"
 
 [package.dependencies]
-soupsieve = [">1.2", "<2.0"]
+soupsieve = [
+    ">1.2",
+    "<2.0",
+]
 
 [package.extras]
 html5lib = ["html5lib"]
 lxml = ["lxml"]
 
 [[package]]
-category = "main"
-description = "An easy safelist-based HTML-sanitizing tool."
 name = "bleach"
+version = "3.1.5"
+description = "An easy safelist-based HTML-sanitizing tool."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "3.1.5"
 
 [package.dependencies]
 packaging = "*"
@@ -58,93 +58,89 @@ six = ">=1.9.0"
 webencodings = "*"
 
 [[package]]
-category = "main"
-description = "Dummy package for Beautiful Soup"
 name = "bs4"
+version = "0.0.1"
+description = "Dummy package for Beautiful Soup"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.0.1"
 
 [package.dependencies]
 beautifulsoup4 = "*"
 
 [[package]]
-category = "main"
-description = "Composable command line interface toolkit"
 name = "click"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "7.1.2"
-
-[[package]]
+description = "Composable command line interface toolkit"
 category = "main"
-description = "Cross-platform colored terminal text."
-name = "colorama"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "0.4.3"
 
 [[package]]
+name = "colorama"
+version = "0.4.3"
+description = "Cross-platform colored terminal text."
 category = "main"
-description = "Decorators for Humans"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
 name = "decorator"
+version = "4.4.2"
+description = "Decorators for Humans"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*"
-version = "4.4.2"
 
 [[package]]
-category = "main"
-description = "XML bomb protection for Python stdlib modules"
 name = "defusedxml"
+version = "0.6.0"
+description = "XML bomb protection for Python stdlib modules"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "0.6.0"
 
 [[package]]
-category = "main"
-description = "Discover and load entry points from installed packages."
 name = "entrypoints"
+version = "0.3"
+description = "Discover and load entry points from installed packages."
+category = "main"
 optional = false
 python-versions = ">=2.7"
-version = "0.3"
 
 [[package]]
-category = "main"
-description = "Feed Generator (ATOM, RSS, Podcasts)"
 name = "feedgen"
+version = "0.9.0"
+description = "Feed Generator (ATOM, RSS, Podcasts)"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.9.0"
 
 [package.dependencies]
 lxml = "*"
 python-dateutil = "*"
 
 [[package]]
-category = "dev"
-description = "the modular source code checker: pep8 pyflakes and co"
 name = "flake8"
+version = "3.8.3"
+description = "the modular source code checker: pep8 pyflakes and co"
+category = "dev"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
-version = "3.8.3"
 
 [package.dependencies]
+importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 mccabe = ">=0.6.0,<0.7.0"
 pycodestyle = ">=2.6.0a1,<2.7.0"
 pyflakes = ">=2.2.0,<2.3.0"
 
-[package.dependencies.importlib-metadata]
-python = "<3.8"
-version = "*"
-
 [[package]]
-category = "main"
-description = "Read metadata from Python packages"
-marker = "python_version < \"3.8\""
 name = "importlib-metadata"
+version = "1.6.0"
+description = "Read metadata from Python packages"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
-version = "1.6.0"
 
 [package.dependencies]
 zipp = ">=0.5"
@@ -154,20 +150,20 @@ docs = ["sphinx", "rst.linker"]
 testing = ["packaging", "importlib-resources"]
 
 [[package]]
-category = "main"
-description = "Vestigial utilities from IPython"
 name = "ipython-genutils"
+version = "0.2.0"
+description = "Vestigial utilities from IPython"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.2.0"
 
 [[package]]
-category = "dev"
-description = "A Python utility / library to sort Python imports."
 name = "isort"
+version = "4.3.21"
+description = "A Python utility / library to sort Python imports."
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "4.3.21"
 
 [package.extras]
 pipfile = ["pipreqs", "requirementslib"]
@@ -176,12 +172,12 @@ requirements = ["pipreqs", "pip-api"]
 xdg_home = ["appdirs (>=1.4.0)"]
 
 [[package]]
-category = "main"
-description = "A very fast and expressive template engine."
 name = "jinja2"
+version = "2.11.2"
+description = "A very fast and expressive template engine."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "2.11.2"
 
 [package.dependencies]
 MarkupSafe = ">=0.23"
@@ -190,54 +186,50 @@ MarkupSafe = ">=0.23"
 i18n = ["Babel (>=0.8)"]
 
 [[package]]
-category = "main"
-description = "An implementation of JSON Schema validation for Python"
 name = "jsonschema"
+version = "3.2.0"
+description = "An implementation of JSON Schema validation for Python"
+category = "main"
 optional = false
 python-versions = "*"
-version = "3.2.0"
 
 [package.dependencies]
 attrs = ">=17.4.0"
+importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 pyrsistent = ">=0.14.0"
-setuptools = "*"
 six = ">=1.11.0"
-
-[package.dependencies.importlib-metadata]
-python = "<3.8"
-version = "*"
 
 [package.extras]
 format = ["idna", "jsonpointer (>1.13)", "rfc3987", "strict-rfc3339", "webcolors"]
 format_nongpl = ["idna", "jsonpointer (>1.13)", "webcolors", "rfc3986-validator (>0.1.0)", "rfc3339-validator"]
 
 [[package]]
-category = "main"
-description = "Jupyter core package. A base package on which Jupyter projects rely."
 name = "jupyter-core"
+version = "4.6.3"
+description = "Jupyter core package. A base package on which Jupyter projects rely."
+category = "main"
 optional = false
 python-versions = "!=3.0,!=3.1,!=3.2,!=3.3,!=3.4,>=2.7"
-version = "4.6.3"
 
 [package.dependencies]
-pywin32 = ">=1.0"
+pywin32 = {version = ">=1.0", markers = "sys_platform == \"win32\""}
 traitlets = "*"
 
 [[package]]
-category = "dev"
-description = "A fast and thorough lazy object proxy."
 name = "lazy-object-proxy"
+version = "1.4.3"
+description = "A fast and thorough lazy object proxy."
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.4.3"
 
 [[package]]
-category = "main"
-description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
 name = "lxml"
+version = "4.5.0"
+description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, != 3.4.*"
-version = "4.5.0"
 
 [package.extras]
 cssselect = ["cssselect (>=0.7)"]
@@ -246,60 +238,58 @@ htmlsoup = ["beautifulsoup4"]
 source = ["Cython (>=0.29.7)"]
 
 [[package]]
-category = "main"
-description = "Python implementation of Markdown."
 name = "markdown"
+version = "3.2.2"
+description = "Python implementation of Markdown."
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "3.2.2"
 
 [package.dependencies]
-[package.dependencies.importlib-metadata]
-python = "<3.8"
-version = "*"
+importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 
 [package.extras]
 testing = ["coverage", "pyyaml"]
 
 [[package]]
-category = "main"
-description = "Safely add untrusted strings to HTML/XML markup."
 name = "markupsafe"
+version = "1.1.1"
+description = "Safely add untrusted strings to HTML/XML markup."
+category = "main"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
-version = "1.1.1"
 
 [[package]]
-category = "dev"
-description = "McCabe checker, plugin for flake8"
 name = "mccabe"
-optional = false
-python-versions = "*"
 version = "0.6.1"
+description = "McCabe checker, plugin for flake8"
+category = "dev"
+optional = false
+python-versions = "*"
 
 [[package]]
-category = "main"
-description = "A tool to detect misspellings"
 name = "misspellings"
-optional = false
-python-versions = "*"
 version = "1.5"
-
-[[package]]
+description = "A tool to detect misspellings"
 category = "main"
-description = "The fastest markdown parser in pure Python"
-name = "mistune"
 optional = false
 python-versions = "*"
-version = "0.8.4"
 
 [[package]]
+name = "mistune"
+version = "0.8.4"
+description = "The fastest markdown parser in pure Python"
 category = "main"
-description = "Converting Jupyter Notebooks"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "nbconvert"
+version = "5.6.1"
+description = "Converting Jupyter Notebooks"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "5.6.1"
 
 [package.dependencies]
 bleach = "*"
@@ -322,12 +312,12 @@ serve = ["tornado (>=4.0)"]
 test = ["pytest", "pytest-cov", "ipykernel", "jupyter-client (>=5.3.1)", "ipywidgets (>=7)", "pebble", "mock"]
 
 [[package]]
-category = "main"
-description = "The Jupyter Notebook format"
 name = "nbformat"
+version = "5.0.6"
+description = "The Jupyter Notebook format"
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "5.0.6"
 
 [package.dependencies]
 ipython-genutils = "*"
@@ -339,161 +329,160 @@ traitlets = ">=4.1"
 test = ["testpath", "pytest", "pytest-cov"]
 
 [[package]]
-category = "main"
-description = "Core utilities for Python packages"
 name = "packaging"
+version = "20.3"
+description = "Core utilities for Python packages"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "20.3"
 
 [package.dependencies]
 pyparsing = ">=2.0.2"
 six = "*"
 
 [[package]]
-category = "main"
-description = "Utilities for writing pandoc filters in python"
 name = "pandocfilters"
+version = "1.4.2"
+description = "Utilities for writing pandoc filters in python"
+category = "main"
 optional = false
 python-versions = "*"
-version = "1.4.2"
 
 [[package]]
-category = "dev"
-description = "Python style guide checker"
 name = "pycodestyle"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.6.0"
-
-[[package]]
+description = "Python style guide checker"
 category = "dev"
-description = "passive checker of Python programs"
-name = "pyflakes"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "2.2.0"
 
 [[package]]
-category = "main"
-description = "Pygments is a syntax highlighting package written in Python."
+name = "pyflakes"
+version = "2.2.0"
+description = "passive checker of Python programs"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
 name = "pygments"
+version = "2.6.1"
+description = "Pygments is a syntax highlighting package written in Python."
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "2.6.1"
 
 [[package]]
-category = "dev"
-description = "python code static checker"
 name = "pylint"
+version = "2.6.0"
+description = "python code static checker"
+category = "dev"
 optional = false
 python-versions = ">=3.5.*"
-version = "2.6.0"
 
 [package.dependencies]
 astroid = ">=2.4.0,<=2.5"
-colorama = "*"
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
 isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.7"
 toml = ">=0.7.1"
 
 [[package]]
-category = "main"
-description = "Python parsing module"
 name = "pyparsing"
+version = "2.4.7"
+description = "Python parsing module"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
-version = "2.4.7"
 
 [[package]]
-category = "main"
-description = "Persistent/Functional/Immutable data structures"
 name = "pyrsistent"
+version = "0.16.0"
+description = "Persistent/Functional/Immutable data structures"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.16.0"
 
 [package.dependencies]
 six = "*"
 
 [[package]]
-category = "main"
-description = "Pure python spell checker based on work by Peter Norvig"
 name = "pyspellchecker"
+version = "0.5.5"
+description = "Pure python spell checker based on work by Peter Norvig"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.5.5"
 
 [[package]]
-category = "main"
-description = "Extensions to the standard Python datetime module"
 name = "python-dateutil"
+version = "2.8.1"
+description = "Extensions to the standard Python datetime module"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-version = "2.8.1"
 
 [package.dependencies]
 six = ">=1.5"
 
 [[package]]
-category = "main"
-description = "Python for Window Extensions"
-marker = "sys_platform == \"win32\""
 name = "pywin32"
-optional = false
-python-versions = "*"
 version = "227"
-
-[[package]]
+description = "Python for Window Extensions"
 category = "main"
-description = "Fast HTML5 parser with CSS selectors."
-name = "selectolax"
 optional = false
 python-versions = "*"
-version = "0.2.7"
 
 [[package]]
+name = "selectolax"
+version = "0.2.9"
+description = "Fast HTML5 parser with CSS selectors."
 category = "main"
-description = "Python 2 and 3 compatibility utilities"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "six"
+version = "1.14.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-version = "1.14.0"
 
 [[package]]
-category = "main"
-description = "A modern CSS selector implementation for Beautiful Soup."
 name = "soupsieve"
+version = "1.9.5"
+description = "A modern CSS selector implementation for Beautiful Soup."
+category = "main"
 optional = false
 python-versions = "*"
-version = "1.9.5"
 
 [[package]]
-category = "main"
-description = "Test utilities for code working with files and commands"
 name = "testpath"
+version = "0.4.4"
+description = "Test utilities for code working with files and commands"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.4.4"
 
 [package.extras]
 test = ["pathlib2"]
 
 [[package]]
-category = "dev"
-description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
+version = "0.10.0"
+description = "Python Library for Tom's Obvious, Minimal Language"
+category = "dev"
 optional = false
 python-versions = "*"
-version = "0.10.0"
 
 [[package]]
-category = "main"
-description = "Traitlets Python config system"
 name = "traitlets"
+version = "4.3.3"
+description = "Traitlets Python config system"
+category = "main"
 optional = false
 python-versions = "*"
-version = "4.3.3"
 
 [package.dependencies]
 decorator = "*"
@@ -504,46 +493,45 @@ six = "*"
 test = ["pytest", "mock"]
 
 [[package]]
-category = "dev"
-description = "a fork of Python 2 and 3 ast modules with type comment support"
-marker = "implementation_name == \"cpython\" and python_version < \"3.8\""
 name = "typed-ast"
-optional = false
-python-versions = "*"
 version = "1.4.1"
-
-[[package]]
-category = "main"
-description = "Character encoding aliases for legacy web content"
-name = "webencodings"
-optional = false
-python-versions = "*"
-version = "0.5.1"
-
-[[package]]
+description = "a fork of Python 2 and 3 ast modules with type comment support"
 category = "dev"
-description = "Module for decorators, wrappers and monkey patching."
-name = "wrapt"
 optional = false
 python-versions = "*"
-version = "1.12.1"
 
 [[package]]
+name = "webencodings"
+version = "0.5.1"
+description = "Character encoding aliases for legacy web content"
 category = "main"
-description = "Backport of pathlib-compatible object wrapper for zip files"
-marker = "python_version < \"3.8\""
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "wrapt"
+version = "1.12.1"
+description = "Module for decorators, wrappers and monkey patching."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "zipp"
+version = "1.2.0"
+description = "Backport of pathlib-compatible object wrapper for zip files"
+category = "main"
 optional = false
 python-versions = ">=2.7"
-version = "1.2.0"
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pathlib2", "unittest2", "jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "ba92f2f96a047d248bd7caa98a8c4726551386e2ce108eccf31b7531fe27a5b7"
+lock-version = "1.1"
 python-versions = "^3.5"
+content-hash = "ba92f2f96a047d248bd7caa98a8c4726551386e2ce108eccf31b7531fe27a5b7"
 
 [metadata.files]
 astroid = [
@@ -780,43 +768,50 @@ pywin32 = [
     {file = "pywin32-227-cp39-cp39-win_amd64.whl", hash = "sha256:f27cec5e7f588c3d1051651830ecc00294f90728d19c3bf6916e6dba93ea357c"},
 ]
 selectolax = [
-    {file = "selectolax-0.2.7-cp35-cp35m-macosx_10_9_x86_64.whl", hash = "sha256:0c1d4cc2228a82d5568004b039fd37cb072a22dace9f271d6429adff3a777ac1"},
-    {file = "selectolax-0.2.7-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:3f19620d7bea532ae3e1b2bc0dfd63704f7f549bcfe2cce104553d5322558dc8"},
-    {file = "selectolax-0.2.7-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:937474aecfdbb644bfdda061b2a63305cc089473dd66792e07289db834916478"},
-    {file = "selectolax-0.2.7-cp35-cp35m-manylinux2010_i686.whl", hash = "sha256:37e4d6ad3f8d802583bb1959c786bdd5c17aa1b06cc3fab345e081da76bf62f2"},
-    {file = "selectolax-0.2.7-cp35-cp35m-manylinux2010_x86_64.whl", hash = "sha256:aa6dda69c3d51446a56a4b5e9fe54f8e60dbbc7eb0a1555517f692d79dbe6e5a"},
-    {file = "selectolax-0.2.7-cp35-cp35m-win32.whl", hash = "sha256:538552963d758818c08e1be7bebcbd1170b5f4e00dc13efb775c17474c14245c"},
-    {file = "selectolax-0.2.7-cp35-cp35m-win_amd64.whl", hash = "sha256:76906d0408ba2b957075ae4d80df806f34aa80c7c7628324c27006a9e4cb84fd"},
-    {file = "selectolax-0.2.7-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:2c412b6dfc31357ee2ed81e83ae657ac257296a320de41204b2bc1ba9ee21130"},
-    {file = "selectolax-0.2.7-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:dcf74b8372965caca303558e16ac4a267783f309a0c3692b5f9477b3039425ed"},
-    {file = "selectolax-0.2.7-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:1c13cad2b46eafcc56af8fca9db907d6b637e1a8e26dee9627fa5b8d61bff156"},
-    {file = "selectolax-0.2.7-cp36-cp36m-manylinux2010_i686.whl", hash = "sha256:3ba4c592690ed8eb244e61331b2be4ab7d3f581c0da4a357c2f423083e10da75"},
-    {file = "selectolax-0.2.7-cp36-cp36m-manylinux2010_x86_64.whl", hash = "sha256:e6d67ca7c0d9f64d20db61b11ee47d983c179d62f10700dd9b3d252835d967b7"},
-    {file = "selectolax-0.2.7-cp36-cp36m-win32.whl", hash = "sha256:7423cb0612ef85228c76d02d4fed8a014514b1d5878fe5d8e1c781fdcb736eb3"},
-    {file = "selectolax-0.2.7-cp36-cp36m-win_amd64.whl", hash = "sha256:a92a464dd72c93d361dcb6902a210f52b11e356e5330982632765a5f6287f0fb"},
-    {file = "selectolax-0.2.7-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:59a34bca964a7ebc475b2e751db972065164dc1ea250a0c913ecb2d17c2950f3"},
-    {file = "selectolax-0.2.7-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:b404e5214b4a31031438e6d223e07d73e2602cfda26c641d62810383b5a68a06"},
-    {file = "selectolax-0.2.7-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:69fa4e3c667f0edaa63afe0b9ad3fe002c079c2d7a0aef251147734f5fa20cdb"},
-    {file = "selectolax-0.2.7-cp37-cp37m-manylinux2010_i686.whl", hash = "sha256:186f61e06da891dab30a8104fe5686ed28d208ab23b565064fdf1b942fa9db47"},
-    {file = "selectolax-0.2.7-cp37-cp37m-manylinux2010_x86_64.whl", hash = "sha256:0ce6bfce6389a69c82c1403c8e039027245acdd1cb25b3feca47176e417830a5"},
-    {file = "selectolax-0.2.7-cp37-cp37m-win32.whl", hash = "sha256:0fa2cbd5ceae38fc6b573ca7f6c78bbdc05f70b44ab32405317215e25d3ab8d9"},
-    {file = "selectolax-0.2.7-cp37-cp37m-win_amd64.whl", hash = "sha256:057d9927aa1569e527a32cd6918060c6be67c79312bb43cd7350106d43232cec"},
-    {file = "selectolax-0.2.7-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:acb2631ef66d0db44a8f728198d740041b889810175b478a38ea2973aed4f484"},
-    {file = "selectolax-0.2.7-cp38-cp38-manylinux1_i686.whl", hash = "sha256:eefd18d116222aa086a12c0053ff8bc6dbf68e3938e11ce5e16de14b823ee261"},
-    {file = "selectolax-0.2.7-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:18e3735cb2f4800225e445f92704f0da1ab78f5483b483935e6f7667c342ae84"},
-    {file = "selectolax-0.2.7-cp38-cp38-manylinux2010_i686.whl", hash = "sha256:f4be80f07819480fe8734d5ef428688813785dce0c956c9e1692d30f90261409"},
-    {file = "selectolax-0.2.7-cp38-cp38-manylinux2010_x86_64.whl", hash = "sha256:48fd4d0178dc400fbad8cfd1484060f33bbd3dbfae49c83b035d5092097041f1"},
-    {file = "selectolax-0.2.7-cp38-cp38-win32.whl", hash = "sha256:819e3bcab211d6325433c1be59405508b09a1acb3ff66607639941e6b1cb177f"},
-    {file = "selectolax-0.2.7-cp38-cp38-win_amd64.whl", hash = "sha256:35cfca1271728f9c2e1635c6b926b810810076f2e556ceb4f777bcc28bf9e438"},
-    {file = "selectolax-0.2.7-pp27-pypy_73-macosx_10_9_x86_64.whl", hash = "sha256:35e37d3d74873885d6f9a1af6cc75d39fa7b60a9d1e327d167acf5d4a7775954"},
-    {file = "selectolax-0.2.7-pp27-pypy_73-manylinux1_x86_64.whl", hash = "sha256:50339be4bd6ba9f195f3b881adb3f9d679af73311f229765dca07d9458b18e6f"},
-    {file = "selectolax-0.2.7-pp27-pypy_73-manylinux2010_x86_64.whl", hash = "sha256:0daa00ad10f42e4afc58666e8b2793ab9c758bf903035e387f969e047cdb0857"},
-    {file = "selectolax-0.2.7-pp27-pypy_73-win32.whl", hash = "sha256:8f05fb6e4de9eddddf1420f7fb06a177dd5a86bb9771464d3cff22f2a3683946"},
-    {file = "selectolax-0.2.7-pp36-pypy36_pp73-macosx_10_9_x86_64.whl", hash = "sha256:91580fb2d4460365288dab07e5bb17c0d8ecbe867e8096015d4d4a0e226be906"},
-    {file = "selectolax-0.2.7-pp36-pypy36_pp73-manylinux1_x86_64.whl", hash = "sha256:6f9d29a46414accff4690f715b2ce5eb97e58e64b2d549014b3200e99f5e6a7b"},
-    {file = "selectolax-0.2.7-pp36-pypy36_pp73-manylinux2010_x86_64.whl", hash = "sha256:b0d21647d3da63a1b435c3652969db2aaabcf21c3d5546b88aae92759e670717"},
-    {file = "selectolax-0.2.7-pp36-pypy36_pp73-win32.whl", hash = "sha256:f5622163c4237c85e894633f922d62f4e0435d09b19e5ace6ddaaa0561a47314"},
-    {file = "selectolax-0.2.7.tar.gz", hash = "sha256:53a07842db1daedd57ed200bc8bde42eb7a3c52ac48105b604d88db3c1486d39"},
+    {file = "selectolax-0.2.9-cp35-cp35m-macosx_10_9_x86_64.whl", hash = "sha256:c2d2ee9ed63953f72ce837a8b299b2fe209662bf538290b556b5824ba9b50882"},
+    {file = "selectolax-0.2.9-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:327b538e22e1af44a09a4a5844644cb149650067d867528f164407a7e60f70af"},
+    {file = "selectolax-0.2.9-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:2270e509e5f6f2af42b939e87196451fdeed661a6bf2183fef8125a1637b6432"},
+    {file = "selectolax-0.2.9-cp35-cp35m-manylinux2010_i686.whl", hash = "sha256:005b5bd8fbf01f16a43a10f0cd5da41c9868c88e17bc8fa3dc1ce756913599ec"},
+    {file = "selectolax-0.2.9-cp35-cp35m-manylinux2010_x86_64.whl", hash = "sha256:6c4418e6b6ad42c3e0de356a398756a616b78e14c2151b0df9e09c6ab779b456"},
+    {file = "selectolax-0.2.9-cp35-cp35m-win32.whl", hash = "sha256:c1381988ea2c9874dd75947f23d001127c2c362c6e89f97e93e9a076d948fed5"},
+    {file = "selectolax-0.2.9-cp35-cp35m-win_amd64.whl", hash = "sha256:dd2a3e81f2c63076a1257d87ab4bd5c43a1ae68f1d5d5a8aea20959c1f5aa7e7"},
+    {file = "selectolax-0.2.9-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:d8d14dcce878395a4f28d9735504506f04b61599b123bd25a767f42d7f3c7c10"},
+    {file = "selectolax-0.2.9-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:536a2fa2f59ba708c5e3f32f71eee9a36fdc9355ee76ef94d2f74f196a81b3d1"},
+    {file = "selectolax-0.2.9-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:265fedbda6ce2793c6aaae0f251e59fd657478b64168df223319c46d6e13dd98"},
+    {file = "selectolax-0.2.9-cp36-cp36m-manylinux2010_i686.whl", hash = "sha256:75881a3ce1363c6a502a0c5288318dcf751c81beac7d0428f9f90f8152b2cdfa"},
+    {file = "selectolax-0.2.9-cp36-cp36m-manylinux2010_x86_64.whl", hash = "sha256:761c975d2baf78f34fc972b8659b02e927719f01bf77cdcfc71e2cd42fcf566e"},
+    {file = "selectolax-0.2.9-cp36-cp36m-win32.whl", hash = "sha256:91d514ee2c483a5952d427ebf56f606d3fe542c4b0e2a0ed09ad2362d63fe8ee"},
+    {file = "selectolax-0.2.9-cp36-cp36m-win_amd64.whl", hash = "sha256:c313b18e95453dfb8ebad64230794ad3ffe8a0e2e0e7a4bb518355f1b4b9610b"},
+    {file = "selectolax-0.2.9-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:09145e3fa548264f1f3a3fdc4183d1d89995506b11d87ce193409c5e2f69c354"},
+    {file = "selectolax-0.2.9-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:98ad70bc574c9d820e5cdb1561f4c382a291603159b916bb64f5590a0d6817f6"},
+    {file = "selectolax-0.2.9-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:b9b5ae1ec3fdf7488b0bff2c2023e68a3ecb2e964f91b54ff1feb8b29858123f"},
+    {file = "selectolax-0.2.9-cp37-cp37m-manylinux2010_i686.whl", hash = "sha256:9dcb4c8eb9abf21d61c2d157ce63f083bd8c8eac2e7dbe8f4f719092efccce7b"},
+    {file = "selectolax-0.2.9-cp37-cp37m-manylinux2010_x86_64.whl", hash = "sha256:5c8e752136b98d01e255def86e35b280938dbc6872794e87e241245a82874549"},
+    {file = "selectolax-0.2.9-cp37-cp37m-win32.whl", hash = "sha256:131e23982b3d0ab7fe8da6ead3d0d9958d8a8fe8526159fcf15150aba9d68782"},
+    {file = "selectolax-0.2.9-cp37-cp37m-win_amd64.whl", hash = "sha256:3a26be6c3bb52dd11beb21ddcdf5f459ca7811d38d115df0425716777bd42148"},
+    {file = "selectolax-0.2.9-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:30dbe35e1a21890eb3bc5bf78a92623c61315bf16eac7539932a7a559397c2e8"},
+    {file = "selectolax-0.2.9-cp38-cp38-manylinux1_i686.whl", hash = "sha256:70d25eceb4c46cf5e56a328b7d82fa5a4657ab5425f8005a147214f97a2be28a"},
+    {file = "selectolax-0.2.9-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:4e99ab32d443f0fd3f4880cda397829065ec875d6f82e4877d19bbf4de5ea44d"},
+    {file = "selectolax-0.2.9-cp38-cp38-manylinux2010_i686.whl", hash = "sha256:1b399833418ec12b0cbd38b09e25659dec35295c7481f5c53736af0efe57abb4"},
+    {file = "selectolax-0.2.9-cp38-cp38-manylinux2010_x86_64.whl", hash = "sha256:676b676fbabb623e7f1f478c0291b5892c585cc7a2cd310963dbaf2aa602f113"},
+    {file = "selectolax-0.2.9-cp38-cp38-win32.whl", hash = "sha256:e27a6088d0eea0bb9fb626d3cb61bbf747379eff7adb498189115d1270902a97"},
+    {file = "selectolax-0.2.9-cp38-cp38-win_amd64.whl", hash = "sha256:b7faa28d9a40559bcfa7a3d23505dd6c53de32c5c18a83086a695f47b37f0d4c"},
+    {file = "selectolax-0.2.9-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d0aed68bb6e400d9ccb9b39c6b93ede5418bafdbfa4d755e69612efe58a82e65"},
+    {file = "selectolax-0.2.9-cp39-cp39-manylinux1_i686.whl", hash = "sha256:b516b4f2cfea6a7d8b1ce1f6018f39ed84088c83c842afbeed4840b9ff0240a1"},
+    {file = "selectolax-0.2.9-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:557976a2136ade40eb44795d9e59c26db5dd2e756b4e11d7e290ad16e08c59d7"},
+    {file = "selectolax-0.2.9-cp39-cp39-manylinux2010_i686.whl", hash = "sha256:f4413d61d83bd6eaf914680a08c5506ef1bd0736dd08ca9b5a6fb39638d3fe01"},
+    {file = "selectolax-0.2.9-cp39-cp39-manylinux2010_x86_64.whl", hash = "sha256:bce0c91cb2c67c1028e26855f1399b093eed178dcb15d42732c976d62b0a57f3"},
+    {file = "selectolax-0.2.9-cp39-cp39-win32.whl", hash = "sha256:97fe610e863bb7c723d79a5a303e28fbb614b8208269378a66f51d657ccb2924"},
+    {file = "selectolax-0.2.9-cp39-cp39-win_amd64.whl", hash = "sha256:e0edc945fbb7013bbe7211297e1dcdbc1fe84fb20e6271e7dde2b388873cb205"},
+    {file = "selectolax-0.2.9-pp36-pypy36_pp73-macosx_10_9_x86_64.whl", hash = "sha256:9ac44a41af4b7b8aa1a987d23384c573fbd66b3e3c2b4c5d13958df167bd241d"},
+    {file = "selectolax-0.2.9-pp36-pypy36_pp73-manylinux1_x86_64.whl", hash = "sha256:f34ae8ff9dd0f99cf704d70319530476afb5425fd0d744630af9bf974f056dca"},
+    {file = "selectolax-0.2.9-pp36-pypy36_pp73-manylinux2010_x86_64.whl", hash = "sha256:b6db30c9e1d09091d5c2ba7840533131f3c82dd6ddbdfad6858f2148659b5ce1"},
+    {file = "selectolax-0.2.9-pp36-pypy36_pp73-win32.whl", hash = "sha256:47f89319f77a49162a63a72a998b37222a0fe9ef4239e9ec93f49f3bd1812f99"},
+    {file = "selectolax-0.2.9-pp37-pypy37_pp73-macosx_10_9_x86_64.whl", hash = "sha256:9c3655eba589d8b0e48ada55103b0999e2a138546c7d87c4a145943cb76cd484"},
+    {file = "selectolax-0.2.9-pp37-pypy37_pp73-manylinux1_x86_64.whl", hash = "sha256:e38b68695e26c4122368d7d8300f03c501ddf342b55fa77a33680c3d1a136e3a"},
+    {file = "selectolax-0.2.9-pp37-pypy37_pp73-manylinux2010_x86_64.whl", hash = "sha256:b3df1aacac8abfdb8a48903af270cc8dadb267bbcba4a1619509550c5621d2e8"},
+    {file = "selectolax-0.2.9-pp37-pypy37_pp73-win32.whl", hash = "sha256:08d26cc587b65bbaf8ee02c59ed701442b4cc885b8efd748d0cebfd71a6adf17"},
+    {file = "selectolax-0.2.9.tar.gz", hash = "sha256:a85c08238a3ecf31aa683aa408f4ec0cfe27e2c3066b62f94d03a79f118d796b"},
 ]
 six = [
     {file = "six-1.14.0-py2.py3-none-any.whl", hash = "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"},
@@ -847,19 +842,28 @@ typed-ast = [
     {file = "typed_ast-1.4.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:269151951236b0f9a6f04015a9004084a5ab0d5f19b57de779f908621e7d8b75"},
     {file = "typed_ast-1.4.1-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:24995c843eb0ad11a4527b026b4dde3da70e1f2d8806c99b7b4a7cf491612652"},
     {file = "typed_ast-1.4.1-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:fe460b922ec15dd205595c9b5b99e2f056fd98ae8f9f56b888e7a17dc2b757e7"},
+    {file = "typed_ast-1.4.1-cp36-cp36m-manylinux2014_aarch64.whl", hash = "sha256:fcf135e17cc74dbfbc05894ebca928ffeb23d9790b3167a674921db19082401f"},
     {file = "typed_ast-1.4.1-cp36-cp36m-win32.whl", hash = "sha256:4e3e5da80ccbebfff202a67bf900d081906c358ccc3d5e3c8aea42fdfdfd51c1"},
     {file = "typed_ast-1.4.1-cp36-cp36m-win_amd64.whl", hash = "sha256:249862707802d40f7f29f6e1aad8d84b5aa9e44552d2cc17384b209f091276aa"},
     {file = "typed_ast-1.4.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:8ce678dbaf790dbdb3eba24056d5364fb45944f33553dd5869b7580cdbb83614"},
     {file = "typed_ast-1.4.1-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:c9e348e02e4d2b4a8b2eedb48210430658df6951fa484e59de33ff773fbd4b41"},
     {file = "typed_ast-1.4.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:bcd3b13b56ea479b3650b82cabd6b5343a625b0ced5429e4ccad28a8973f301b"},
+    {file = "typed_ast-1.4.1-cp37-cp37m-manylinux2014_aarch64.whl", hash = "sha256:f208eb7aff048f6bea9586e61af041ddf7f9ade7caed625742af423f6bae3298"},
     {file = "typed_ast-1.4.1-cp37-cp37m-win32.whl", hash = "sha256:d5d33e9e7af3b34a40dc05f498939f0ebf187f07c385fd58d591c533ad8562fe"},
     {file = "typed_ast-1.4.1-cp37-cp37m-win_amd64.whl", hash = "sha256:0666aa36131496aed8f7be0410ff974562ab7eeac11ef351def9ea6fa28f6355"},
     {file = "typed_ast-1.4.1-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:d205b1b46085271b4e15f670058ce182bd1199e56b317bf2ec004b6a44f911f6"},
     {file = "typed_ast-1.4.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:6daac9731f172c2a22ade6ed0c00197ee7cc1221aa84cfdf9c31defeb059a907"},
     {file = "typed_ast-1.4.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:498b0f36cc7054c1fead3d7fc59d2150f4d5c6c56ba7fb150c013fbc683a8d2d"},
+    {file = "typed_ast-1.4.1-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:7e4c9d7658aaa1fc80018593abdf8598bf91325af6af5cce4ce7c73bc45ea53d"},
     {file = "typed_ast-1.4.1-cp38-cp38-win32.whl", hash = "sha256:715ff2f2df46121071622063fc7543d9b1fd19ebfc4f5c8895af64a77a8c852c"},
     {file = "typed_ast-1.4.1-cp38-cp38-win_amd64.whl", hash = "sha256:fc0fea399acb12edbf8a628ba8d2312f583bdbdb3335635db062fa98cf71fca4"},
     {file = "typed_ast-1.4.1-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:d43943ef777f9a1c42bf4e552ba23ac77a6351de620aa9acf64ad54933ad4d34"},
+    {file = "typed_ast-1.4.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:92c325624e304ebf0e025d1224b77dd4e6393f18aab8d829b5b7e04afe9b7a2c"},
+    {file = "typed_ast-1.4.1-cp39-cp39-manylinux1_i686.whl", hash = "sha256:d648b8e3bf2fe648745c8ffcee3db3ff903d0817a01a12dd6a6ea7a8f4889072"},
+    {file = "typed_ast-1.4.1-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:fac11badff8313e23717f3dada86a15389d0708275bddf766cca67a84ead3e91"},
+    {file = "typed_ast-1.4.1-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:0d8110d78a5736e16e26213114a38ca35cb15b6515d535413b090bd50951556d"},
+    {file = "typed_ast-1.4.1-cp39-cp39-win32.whl", hash = "sha256:b52ccf7cfe4ce2a1064b18594381bccf4179c2ecf7f513134ec2f993dd4ab395"},
+    {file = "typed_ast-1.4.1-cp39-cp39-win_amd64.whl", hash = "sha256:3742b32cf1c6ef124d57f95be609c473d7ec4c14d0090e5a5e05a15269fb4d0c"},
     {file = "typed_ast-1.4.1.tar.gz", hash = "sha256:8c8aaad94455178e3187ab22c8b01a3837f8ee50e09cf31f1ba129eb293ec30b"},
 ]
 webencodings = [
