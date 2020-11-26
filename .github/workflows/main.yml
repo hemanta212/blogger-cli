@@ -44,9 +44,11 @@ jobs:
       - uses: snok/install-poetry@v1.1.1
       - name: Poetry installation
         run: |
+          $env:Path += ";$env:Userprofile\.poetry\bin"
           poetry install
       - name: Test
         run: |
+          $env:Path += ";$env:Userprofile\.poetry\bin"
           cd blogger_cli/tests/
           poetry run python -m unittest test_basic.py test_export.py
 
