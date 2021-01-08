@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Set up Python 3.7
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: 3.7
       - name: Linting
@@ -26,11 +26,11 @@ jobs:
    Windows:
     strategy:
         matrix:
-            python-version: [3.5, 3.6, 3.7, 3.8]
+            python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
     runs-on: windows-latest
     steps:
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - name: Custom installation
@@ -40,7 +40,7 @@ jobs:
           source ~/.blogger_cli/venv/Scripts/activate
           cd ~/.blogger_cli/venv/lib/site-packages/blogger_cli/tests/
           python -m unittest test_basic.py test_export.py
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: snok/install-poetry@v1.1.1
       - name: Poetry installation
         run: |
@@ -56,12 +56,12 @@ jobs:
     strategy:
         matrix:
             runs-on: [ubuntu-latest, macos-latest]
-            python-version: [3.5, 3.6, 3.7, 3.8]
+            python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
     runs-on: ${{ matrix.runs-on }}
 
     steps:
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - name: Custom installation & tests
@@ -70,7 +70,7 @@ jobs:
           source $HOME/local/.blogger_cli/venv/bin/activate
           cd $HOME/local/.blogger_cli/venv/lib/python${{ matrix.python-version }}/site-packages/blogger_cli/tests/
           python -m unittest discover .
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: snok/install-poetry@v1.1.1
       - name: Poetry installation
         run: |
