@@ -11,7 +11,7 @@ def cli():
     """
     This command will update blogger-cli if you have installed it with custom
     installation.
-   """
+    """
 
     custom = [False for i in [".blogger_cli", "venv"] if i not in ROOT_DIR]
     if False in custom:

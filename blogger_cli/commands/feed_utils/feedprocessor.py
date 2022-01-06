@@ -58,12 +58,12 @@ class FeedProcessor:
         return entry_id
 
     def remove_entry(self, entry):
-        """ Remove a bs4 element from the soup and write soup to file """
+        """Remove a bs4 element from the soup and write soup to file"""
         entry.decompose()
         self.write_to_file()
 
     def __gen_xml_entry(self, entry):
-        """ Genereates a beautifulsoup elemtent from a string"""
+        """Genereates a beautifulsoup elemtent from a string"""
         entry_soup = BS(entry, features="xml")
         if self.feed_type == "rss":
             entry_tag = entry_soup.find("item")

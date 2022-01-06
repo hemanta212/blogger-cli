@@ -18,20 +18,20 @@ from blogger_cli.commands.export_utils.copier import (
 @pass_context
 def cli(ctx, resource, blog, relative_path, verbose):
     """
-    Export necessary resources to bootstrap your blog\n
-    Syntax: \n
-        blogger export [OPTION} [RESOURCE} [RELATIVE BLOG PATH}\n
-    Examples:\n
-        blogger export -b <blogname> <resource> blogs/\n
-    Tip: You can set a defalut blog to avoid using -b option everytime!\n
-        blogger export <resource> assets/css/\n
+     Export necessary resources to bootstrap your blog\n
+     Syntax: \n
+         blogger export [OPTION} [RESOURCE} [RELATIVE BLOG PATH}\n
+     Examples:\n
+         blogger export -b <blogname> <resource> blogs/\n
+     Tip: You can set a defalut blog to avoid using -b option everytime!\n
+         blogger export <resource> assets/css/\n
 
-   RESOURCES:\n
-        design_assets,
-        blog_template,
-        blog_index,
-        blog_config
-        blog_layout
+    RESOURCES:\n
+         design_assets,
+         blog_template,
+         blog_index,
+         blog_config
+         blog_layout
     """
     ctx.verbose = verbose
     validate_blog_and_settings(ctx, blog, relative_path)
