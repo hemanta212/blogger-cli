@@ -7,7 +7,7 @@ from blogger_cli.cli import pass_context
 @click.option("-v", "--verbose", is_flag=True)
 @pass_context
 def cli(ctx, blog, verbose):
-    """Remove a blog"""
+    """ Remove a blog"""
     ctx.verbose = verbose
     if not ctx.blog_exists(blog):
         ctx.log("Blog doesnot exist! so not removed")

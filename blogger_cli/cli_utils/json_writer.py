@@ -85,7 +85,7 @@ class Config:
         Usage:
             Config.write('user.email','a@a.com')
             Config.write('
-        """
+         """
 
         def make_depth(key_list):
             """
@@ -126,13 +126,13 @@ class Config:
 
     def read(self, key=None, value=None, all_keys=False, all_values=False):
         """
-        Reads and return key or value from config file
-            (returns config dict if no parameter)
-        Params:
-           [o] key: key of dict. Use (:) eg: key:nkey for depth
-           [o] value : value of dictionary to get key of
-           [o] all_keys [bool] : True returns all keys dict object
-           [o] all_values [bool]: True returns all values dict obj.
+            Reads and return key or value from config file
+                (returns config dict if no parameter)
+            Params:
+               [o] key: key of dict. Use (:) eg: key:nkey for depth
+               [o] value : value of dictionary to get key of
+               [o] all_keys [bool] : True returns all keys dict object
+               [o] all_values [bool]: True returns all values dict obj.
         """
         # Check if more than 1 kwargs given
         arguments = (key, value, all_keys, all_values)
@@ -165,7 +165,7 @@ class Config:
 
     def delete_key(self, key):
         """
-        Deletes a given key from the config
+         Deletes a given key from the config
         """
         key_list = key.split(":")
         config_dict = self.get_dict()

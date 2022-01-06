@@ -7,7 +7,7 @@ from blogger_cli.cli import pass_context
 @click.option("-v", "--verbose", is_flag=True)
 @pass_context
 def cli(ctx, blog, verbose):
-    """Set a blog as default\n
+    """ Set a blog as default\n
     Usage:\n
     blogger defaultblog blogname
     """
