@@ -94,17 +94,17 @@ def cli(
     verbose,
 ):
     """
-    Convert from diffrent file format to html
+     Convert from diffrent file format to html
 
-   Usage:\n
-    blogger convert filename.ipynb\n
-    blogger convert file1 file2 file3 -b blog1 -no-imgex\n
-    blogger convert file1 file2 file3 -b blog1 --topic Tech\n
-    blogger convert filename --not-code -o ~/username.github.io
+    Usage:\n
+     blogger convert filename.ipynb\n
+     blogger convert file1 file2 file3 -b blog1 -no-imgex\n
+     blogger convert file1 file2 file3 -b blog1 --topic Tech\n
+     blogger convert filename --not-code -o ~/username.github.io
 
-    blogger convert ../folder1 file1 ../folder2  -v \n
-    blogger convert -r ../folder1 file1 ../folder2  -v \n
-    blogger convert  ../folder1 file1 ../folder2  --exclude-html -v
+     blogger convert ../folder1 file1 ../folder2  -v \n
+     blogger convert -r ../folder1 file1 ../folder2  -v \n
+     blogger convert  ../folder1 file1 ../folder2  --exclude-html -v
     """
     ctx.verbose = verbose
     set_current_blog(ctx, blog)

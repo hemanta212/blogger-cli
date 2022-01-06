@@ -11,7 +11,9 @@ from blogger_cli.commands.serve_utils import (
 @click.command("serve", short_help="Serve your blog locally")
 @click.argument("blog", required=False)
 @click.option("--port", "-p", "port", type=int, default=get_free_port)
-@click.option("-d", "--dir", "given_dir", help="Folder path to serve. Default: blog_dir")
+@click.option(
+    "-d", "--dir", "given_dir", help="Folder path to serve. Default: blog_dir"
+)
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbosity")
 @pass_context
 def cli(ctx, blog, port, given_dir, verbose):

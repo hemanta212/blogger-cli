@@ -8,7 +8,7 @@ from blogger_cli.cli import pass_context
 @click.option("-v", "--verbose", is_flag=True)
 @pass_context
 def cli(ctx, blog, verbose):
-    """ Load a setup procedure to a blog.\n
+    """Load a setup procedure to a blog.\n
     Usage:\n
         blogger setupblog blogname
     """

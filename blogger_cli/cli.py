@@ -106,7 +106,7 @@ class ComplexCLI(click.MultiCommand):
 @pass_context
 def cli(ctx, verbose):
     """
-     A CLI tool to maintain your jupyter notebook blog.
+    A CLI tool to maintain your jupyter notebook blog.
     """
     ctx.verbose = verbose
 

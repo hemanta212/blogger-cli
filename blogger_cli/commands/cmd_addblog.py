@@ -9,7 +9,7 @@ from blogger_cli.commands.cmd_setupblog import setup
 @click.option("-s", "--silent", is_flag=True, help="Do not load the setup.")
 @pass_context
 def cli(ctx, blog, silent, verbose):
-    """ Add a new blog.\n
+    """Add a new blog.\n
     Usage:\n
     blogger addblog blogname\n
     blogger addblog -s blogname
