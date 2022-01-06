@@ -10,7 +10,7 @@ keywords = ["jupyter notebook", "github pages", "blogger"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = "^3.6"
 nbconvert = "^5.5"
 click = "^7.0"
 bs4 = "^0.0.1"
