@@ -40,7 +40,7 @@ Blog already exists!
 Blog removed succesfully
 """
 
-    info_success = f"""\
+    info_success = """\
 
 Blogger-cli version: {__version__}
 
@@ -59,8 +59,10 @@ Blog:configs [standard]
 
 Tip: Use blogger info blogname for blog details
 
-"""
-    all_info_success = f"""\
+""".format(
+        __version__=__version__
+    )
+    all_info_success = """\
 
 Blogger-cli version: {__version__}
 
@@ -92,7 +94,9 @@ Optional:configs [Advanced]
 
 Tip: Use blogger info blogname for blog details
 
-"""
+""".format(
+        __version__=__version__
+    )
 
     spellcheck_help = """\
 Usage: cli spellcheck [OPTIONS] FILENAME
