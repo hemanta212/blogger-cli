@@ -1,3 +1,6 @@
+from blogger_cli import __version__
+
+
 class BloggerMessage(object):
 
     main = """\
@@ -37,9 +40,9 @@ Blog already exists!
 Blog removed succesfully
 """
 
-    info_success = """\
+    info_success = f"""\
 
-Blogger-cli version: 1.2.3
+Blogger-cli version: {__version__}
 
 Registered Blogs:
    test1
@@ -57,9 +60,9 @@ Blog:configs [standard]
 Tip: Use blogger info blogname for blog details
 
 """
-    all_info_success = """\
+    all_info_success = f"""\
 
-Blogger-cli version: 1.2.3
+Blogger-cli version: {__version__}
 
 Registered Blogs:
    test1

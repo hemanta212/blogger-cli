@@ -1,7 +1,7 @@
 import os
 import click
 
-__version__ = "1.2.3"
+__version__ = "1.2.4"
 ROOT_DIR = os.path.join(os.path.split(__file__)[0])
 RESOURCE_DIR = os.path.join(os.path.split(__file__)[0], "resources")
 

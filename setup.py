@@ -57,7 +57,7 @@ entry_points={
 
 setup(
     name="blogger-cli",
-    version="1.2.3",
+    version="1.2.4",
     description='Blogger cli is a CLI tool to convert ipynb, md, html file to responsive html files.',
     long_description=readme,
     long_description_content_type='text/markdown',
