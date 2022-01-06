@@ -76,7 +76,7 @@ setup(
     include_package_data=True,
     install_requires=install_requires,
     entry_points=entry_points,
-    python_requires=">=3.5,<4.0",
+    python_requires=">=3.6,<4.0",
     project_urls={
         "Bug Reports": "https://github.com/hemanta212/blogger-cli/issues",
         "Source": "https://github.com/hemanta212/blogger-cli/",
